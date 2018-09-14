@@ -11,12 +11,10 @@
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeContentsController@index');
 
 //DASHBOARD ROUTE
-Route::get('admin','AdminController@index');
+Route::get('admin/','AdminController@dashboard');
 
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','AdminController@trainings');
