@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-@include('layouts.header')
-<body class="skin-megna fixed-layout">
+@extends ('layouts.adminNav')
 
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="loader">
-            <div class="loader__figure"></div>
-            <p class="loader__label">Elite Hospital</p>
-        </div>
+@section('content')
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">Trainings and Seminar</h4>
     </div>
+<<<<<<< HEAD
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -74,14 +68,29 @@
                         <br><br>
                           <i class='fas fa-calendar-alt fa-5x'></i><br><br>
                           <p>No Event Selected</p>
+=======
+  </div>
+  <!-- //////////////////////////////Content -->
+  <div class="card">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card-body">
+          <h4 class="card-title m-t-10">Current Events</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- events table -->
+              <div id="events">
+>>>>>>> 1cd5744fc11a4f36eadcaafc4d8b264868f0ed12
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              </div>
+              <!-- Add Events -->
+              <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                <i class="ti-plus"></i> Add New Event
+              </a>
             </div>
+          </div>
         </div>
+<<<<<<< HEAD
         <footer class="footer">
             @include('layouts.footer')
         </footer>
@@ -316,5 +325,20 @@ function editEvent(id) {
 
 
 </body>
+=======
+      </div>
+      <!-- EVENT DESCRIPTION -->
+      <div class="col-lg-6">
+        <div class="card-body b-l calender-sidebar">
+          <div class='text-center text-muted' id='eventDescCont'>
+          <br><br>
+            <i class='fas fa-calendar-alt fa-5x'></i><br><br>
+            <p>No Event Selected</p>
+>>>>>>> 1cd5744fc11a4f36eadcaafc4d8b264868f0ed12
 
-</html>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

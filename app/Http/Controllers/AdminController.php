@@ -23,4 +23,8 @@ class AdminController extends Controller
     public function homepageView() {
       return view("admin.homepageView");
     }
+
+    public function dashboard() {
+      return view("admin.dashboard");
+    }
 }

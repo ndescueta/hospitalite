@@ -11,11 +11,18 @@
 |
 */
 
+<<<<<<< HEAD
 Route::get('/', function () {
     //INDEX DAPAT
 });
 
 
+=======
+Route::get('/', 'HomeContentsController@index');
+
+//DASHBOARD ROUTE
+Route::get('admin/','AdminController@dashboard');
+>>>>>>> 1cd5744fc11a4f36eadcaafc4d8b264868f0ed12
 
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','TrainingsController@index');

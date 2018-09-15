@@ -66,11 +66,16 @@
 						<div class="row fullscreen align-items-center justify-content-center">
 							<div class="banner-content col-lg-6 col-md-12">
 								<h1 class="text-uppercase">
-									We are the team <br>
-									of excellence
+									@if (count($bannerText) >0)
+						        @foreach ($bannerText as $bannerText)
+				                {{$bannerText->txtDescription}}
+						        @endforeach
+							    @else
+							        Oof.
+							    @endif
 								</h1>
 								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua.
+									Tae
 								</p>
 								<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
 							</div>
@@ -183,8 +188,8 @@
 									<a href="#foot">Click for more Information!</a>
 								</div>
 							</div>
-							
-							
+
+
 							<form class="booking-form" id="myForm" action="#">
 								 	<div class="row">
 								 		<div class="col-lg-12 d-flex flex-column">
@@ -233,16 +238,16 @@
 						<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> Is Health Important?</a>
 						<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>02</span> Medical Training</a>
 						<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>03</span> Patient Guidance</a>
-						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" 
+						<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
 						aria-selected="false"><span>04</span> Doctors</a>
 						</div>
 					</div>
 					<div class="col-md-1"></div>
 					<div class="col-md-7 element-animate text-dark">
-						
+
 						<div class="tab-content" id="v-pills-tabContent">
 						<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-							<span class="icon flaticon-hospital mb-5"></span> 
+							<span class="icon flaticon-hospital mb-5"></span>
 							<h2 class="text-dark">Is Health Important?</h2>
 							<p class="muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
 							<p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
@@ -544,16 +549,16 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						
+
 						<div class="container">
-							
-		
+
+
 							<div class="col-md-12">
 								<label for="ClassName">Class Name</label>
 								<input type="text" class="form-control" id="ClassName" placeholder="....">
 							</div>
 						</div>
-		
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
@@ -669,7 +674,7 @@
 											<input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
 											<label data-error="wrong" data-success="right" for="modalLRInput13">Your password</label>
 										</div>
-										
+
 										<div class="md-form form-sm mb-5">
 											<i class="prefix"></i>
 											<input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
@@ -678,8 +683,8 @@
 
 										<div class="md-form form-sm mb-4">
 											<i class="prefix"></i>
-											
-											
+
+
 										</div>
 
 										<div class="text-center form-sm mt-2">
