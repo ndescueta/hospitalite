@@ -11,22 +11,20 @@
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
+Route::get('/', function () {
+    //INDEX DAPAT
 });
 
-//DASHBOARD ROUTE
-Route::get('admin','AdminController@index');
+
 
 //TRAININGS AND SEMINARS ROUTE
-Route::get('admin/trainings','AdminController@trainings');
+Route::get('admin/trainings','TrainingsController@index');
+Route::get('admin/getModalEditEvent/{intEventId}','TrainingsController@getModalEditEvent');
+Route::post('admin/addEvent','TrainingsController@addEvent');
+Route::get('admin/test','TrainingsController@test');
+
 
 //ADMIN HOMEPAGE ROUTE
 Route::get('admin/homepage','AdminController@homepage');
 
-//ADMIN HOMEPAGE VIEW ROUTE
-Route::get('admin/homepageView','AdminController@homepageView');
 
-// Route::get('admin', function () {
-//     return view('admin');
-// });
