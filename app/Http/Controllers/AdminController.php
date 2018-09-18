@@ -23,7 +23,7 @@ class AdminController extends Controller
     }
 
     //HOMEPAGE VIEW CONTROLLER
-    public function homepageView() {
+    /*public function homepageView() {
       return view("admin.homepageView");
-    }
+    }*/
 }

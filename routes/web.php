@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -25,8 +25,12 @@ Route::get('admin/trainings','AdminController@trainings');
 Route::get('admin/homepage','AdminController@homepage');
 
 //ADMIN HOMEPAGE VIEW ROUTE
-Route::get('admin/homepageView','AdminController@homepageView');
-
+Route::get('admin/homepageView','HomeContentsController@index');
+//Route::get('admin/homepageView','HomeContentsController@index');
+//Route::resource('admin','HomeContentsController');
+//Route::get('/', 'HomeContentsController@index');
+Route::post('/update', 'HomeContentsController@update');
+//Route::post('HomeContentsController@update', ['contentid' => $id, 'description' => $inventory_id ]);
 // Route::get('admin', function () {
 //     return view('admin');
 // });
