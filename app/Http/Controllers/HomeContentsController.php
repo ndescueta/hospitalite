@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\HomeContent;
+<<<<<<< HEAD
 use App\Service;
 use App\Event;
+=======
+>>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
 
 class HomeContentsController extends Controller
 {
@@ -17,6 +20,7 @@ class HomeContentsController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         //
         $bannerTexts = HomeContent::where('txtTitle','Banner Text')->get();
         $bannerTextDescriptions = HomeContent::where('txtTitle','Banner Text Description')->get();
@@ -31,6 +35,13 @@ class HomeContentsController extends Controller
         $ContactDescriptions = HomeContent::where('txtTitle','Contact Us Description')->get();
 
       return view('admin.homepageView')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts','ContactDescriptions'));
+=======
+      $bannerText = HomeContent::where('txttitle', 'bannerText')->get();
+      return view('welcome')->with('bannerText', $bannerText);
+
+      //$bannerDescription = HomeContent::where('txttitle', 'bannerDescription')->get();
+      //return view('welcome')->with('bannerDescription', $bannerDescription);
+>>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
     }
 
     /**
@@ -63,8 +74,11 @@ class HomeContentsController extends Controller
     public function show($id)
     {
         //
+<<<<<<< HEAD
       /*  $description = HomeContent::find($id);
         return view('admin.homepageView')->with('description',$description);*/
+=======
+>>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
     }
 
     /**
@@ -73,11 +87,17 @@ class HomeContentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function edit(Request $id)
     {
         //
 
 
+=======
+    public function edit($id)
+    {
+        //
+>>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
     }
 
     /**
@@ -87,6 +107,7 @@ class HomeContentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     public function update(Request $request)
     {
         //
@@ -97,6 +118,11 @@ class HomeContentsController extends Controller
         $data->save();
 
         return redirect('/admin/homepageView');
+=======
+    public function update(Request $request, $id)
+    {
+        //
+>>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
     }
 
     /**

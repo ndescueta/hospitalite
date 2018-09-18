@@ -24,3 +24,4 @@
     <script src="{{ asset('assets/node_modules/peity/jquery.peity.min.js') }}"></script>
     <script src="{{ asset('assets/node_modules/peity/jquery.peity.init.js') }}"></script>
     <script src="{{ asset('dist/js/dashboard1.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
