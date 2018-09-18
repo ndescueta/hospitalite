@@ -11,23 +11,18 @@
 |
 */
 
-<<<<<<< HEAD
-Route::get('/', function () {
-    return view('welcome');
-=======
-<<<<<<< HEAD
+
 Route::get('/', function () {
     //INDEX DAPAT
->>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
+
 });
 
 
-=======
 Route::get('/', 'HomeContentsController@index');
 
 //DASHBOARD ROUTE
 Route::get('admin/','AdminController@dashboard');
->>>>>>> 1cd5744fc11a4f36eadcaafc4d8b264868f0ed12
+
 
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','TrainingsController@index');
@@ -39,7 +34,7 @@ Route::get('admin/test','TrainingsController@test');
 //ADMIN HOMEPAGE ROUTE
 Route::get('admin/homepage','AdminController@homepage');
 
-<<<<<<< HEAD
+
 //ADMIN HOMEPAGE VIEW ROUTE
 Route::get('admin/homepageView','HomeContentsController@index');
 //Route::get('admin/homepageView','HomeContentsController@index');
@@ -50,6 +45,3 @@ Route::post('/update', 'HomeContentsController@update');
 // Route::get('admin', function () {
 //     return view('admin');
 // });
-=======
-
->>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
