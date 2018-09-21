@@ -26,8 +26,10 @@ Route::get('admin/','AdminController@dashboard');
 
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','TrainingsController@index');
-Route::get('admin/getModalEditEvent/{intEventId}','TrainingsController@getModalEditEvent');
+Route::get('admin/viewEvent/{intEventId}','TrainingsController@viewEvent');
 Route::post('admin/addEvent','TrainingsController@addEvent');
+Route::post('admin/editEvent','TrainingsController@editEvent');
+Route::post('admin/deleteEvent','TrainingsController@deleteEvent');
 Route::get('admin/test','TrainingsController@test');
 
 
