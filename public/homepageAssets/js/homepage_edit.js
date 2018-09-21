@@ -1,5 +1,6 @@
 $(document).ready(function(){
   fetchDescription();
+  fetchImage();
   //Edit();
   function fetchDescription(){
       $('#editmodal').on('show.bs.modal', function(e) {
@@ -13,6 +14,17 @@ $(document).ready(function(){
         console.log(name);
       });
     }
+
+    function fetchImage(){
+        $('#editimageModal').on('show.bs.modal', function(e) {
+          var id = $(e.relatedTarget).data('id');
+          //console.log(rowid);
+          alert(id);
+          //var name = $('#editmodal').data('name');
+          $('#contentid_img').val(id);
+
+        });
+      }
 
   /*  function Edit(){
         $("form[name ='editdescription']").on('submit', function(e) {
