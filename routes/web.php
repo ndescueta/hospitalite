@@ -46,6 +46,7 @@ Route::get('admin/homepageView','HomeContentsController@index');
 //Route::resource('admin','HomeContentsController');
 //Route::get('/', 'HomeContentsController@index');
 Route::post('/update', 'HomeContentsController@update');
+Route::post('/updateImage', 'HomeContentsController@updateImage');
 //Route::post('HomeContentsController@update', ['contentid' => $id, 'description' => $inventory_id ]);
 // Route::get('admin', function () {
 //     return view('admin');

@@ -9,21 +9,16 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Event' => $baseDir . '/app/Event.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-<<<<<<< HEAD
     'App\\HomeContent' => $baseDir . '/app/HomeContent.php',
-=======
->>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
+    'App\\HomeContentImage' => $baseDir . '/app/HomeContentImage.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/AdminController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-<<<<<<< HEAD
     'App\\Http\\Controllers\\HomeContentsController' => $baseDir . '/app/Http/Controllers/HomeContentsController.php',
-=======
     'App\\Http\\Controllers\\TrainingsController' => $baseDir . '/app/Http/Controllers/TrainingsController.php',
->>>>>>> a8bfc4ccac48bacc183d1ade2521ca7a9754cf75
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -40,6 +35,7 @@ return array(
     'App\\User' => $baseDir . '/app/User.php',
     'App\\tbldate' => $baseDir . '/app/tbldate.php',
     'App\\tblevent' => $baseDir . '/app/tblevent.php',
+    'App\\test' => $baseDir . '/app/test.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
