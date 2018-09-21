@@ -1,27 +1,12 @@
 @extends ('layouts.adminNav')
 
 @section('content')
-  <div class="row page-titles">
-    <div class="col-md-5 align-self-center">
-      <h4 class="text-themecolor">Trainings and Seminar</h4>
-    </div>
-<<<<<<< HEAD
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper">
-        <!-- topbar -->
-        @include('layouts.topbar')
-        <!-- Sidebar -->
-        @include('layouts.sidebar')
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                <div class="row page-titles">
+<div class="row page-titles">
                   <div class="col-md-5 align-self-center">
                     <h4 class="text-themecolor">Trainings and Seminar</h4>
                   </div>
                 </div>
-                <!-- //////////////////////////////Content -->
+                <!-- Content -->
                 <div class="card">
                   <div class="row">
                     <div class="col-lg-6">
@@ -31,7 +16,7 @@
                           <div class="col-md-12">
                             <!-- events table -->
                             <div id="events">
-                              @if(count($selectEvents) > 0) 
+                              @if(count($selectEvents) > 0)
                                   <table class='table'>
                                   <tr>
                                     <th>Name</th>
@@ -50,7 +35,7 @@
                                   @endforeach
                                   </table>
                               @else
-                                  no records    
+                                  no records
                               @endif
                             </div>
                             <!-- Add Events -->
@@ -68,34 +53,14 @@
                         <br><br>
                           <i class='fas fa-calendar-alt fa-5x'></i><br><br>
                           <p>No Event Selected</p>
-=======
-  </div>
-  <!-- //////////////////////////////Content -->
-  <div class="card">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card-body">
-          <h4 class="card-title m-t-10">Current Events</h4>
-          <div class="row">
-            <div class="col-md-12">
-              <!-- events table -->
-              <div id="events">
->>>>>>> 1cd5744fc11a4f36eadcaafc4d8b264868f0ed12
-
+                        </div>
+                     </div>
+                   </div>
+                </div>
               </div>
-              <!-- Add Events -->
-              <a href="#" data-toggle="modal" data-target="#add-new-event" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
-                <i class="ti-plus"></i> Add New Event
-              </a>
-            </div>
-          </div>
-        </div>
-<<<<<<< HEAD
-        <footer class="footer">
-            @include('layouts.footer')
-        </footer>
-    </div>
-@include('layouts.reqScript')
+
+@endsection
+
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- SCRIPTS -->
 <script>
@@ -121,7 +86,7 @@
 
 //Display Event Info
 function displayEvent() {
-  
+
 }
 
 //Add Event
@@ -134,7 +99,7 @@ function addEvent() {
     backgroundDismiss: true,
     title: "<h4 class='modal-title'>Add Event</h4>",
     boxWidth: '90%',
-    useBootstrap: false,  
+    useBootstrap: false,
     content:"<form class='form-group form-material p-2'>"+
             "<div class='row'>"+
             "<div class='form-group col-md-12'>"+
@@ -197,11 +162,16 @@ function addEvent() {
             "<label for='eventDescription'>Description</label>"+
             "<textarea class='form-control' name='eventDescription' id='eventDescription' rows='5' ></textarea>"+
             "</div>"+
-            "</div></form>", 
+            "</div></form>",
     buttons: {
       save: {
         btnClass: "btn btn-primary",
         action: function () {
+          /////////////////VALIDATION
+
+          //CHECK EVENT NAME
+
+          /////////////////AJAXX
           $.ajax({
             url: "<?php echo url('admin/addEvent')?>",
             method: 'post',
@@ -310,7 +280,7 @@ function editEvent(id) {
         }).fail(function(){
             self.setContent('Something went wrong.');
         });
-    },  
+    },
     buttons: {
       save: {
         btnClass: "btn btn-primary",
@@ -322,23 +292,3 @@ function editEvent(id) {
   });
 }
 </script>
-
-
-</body>
-=======
-      </div>
-      <!-- EVENT DESCRIPTION -->
-      <div class="col-lg-6">
-        <div class="card-body b-l calender-sidebar">
-          <div class='text-center text-muted' id='eventDescCont'>
-          <br><br>
-            <i class='fas fa-calendar-alt fa-5x'></i><br><br>
-            <p>No Event Selected</p>
->>>>>>> 1cd5744fc11a4f36eadcaafc4d8b264868f0ed12
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-@endsection
