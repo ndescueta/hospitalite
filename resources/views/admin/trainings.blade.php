@@ -35,7 +35,7 @@
                                   @endforeach
                                   </table>
                               @else
-                                  no records
+                                  There are currently no events.
                               @endif
                             </div>
                             <!-- Add Events -->

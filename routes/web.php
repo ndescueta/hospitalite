@@ -30,9 +30,14 @@ Route::get('admin/getModalEditEvent/{intEventId}','TrainingsController@getModalE
 Route::post('admin/addEvent','TrainingsController@addEvent');
 Route::get('admin/test','TrainingsController@test');
 
+//DIRECTORS ROUTE
+Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
+Route::get('admin/getModalEditDirector/{intDirectorId}','HospitalDirectorsController@getModalEditDirector');
+Route::post('admin/addDirector','HospitalDirectorsController@addDirector');
 
 //ADMIN HOMEPAGE ROUTE
 Route::get('admin/homepage','AdminController@homepage');
+
 
 
 //ADMIN HOMEPAGE VIEW ROUTE
