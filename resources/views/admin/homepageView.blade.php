@@ -13,7 +13,7 @@
   <meta name="keywords" content="">
   <!-- meta character set -->
   <meta charset="UTF-8">
-  
+
   <!-- Site Title -->
   <title>Medical</title>
 
@@ -102,7 +102,21 @@
   					<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
   				</div>
   				<div class="col-lg-6 d-flex align-self-end img-right">
-  					<img class="img-fluid" src="img/header-img.png" alt="">
+
+            @if(count($bannerImage) >= 0)
+            @foreach ($bannerImage as $homecontent)
+            <!--Banner Text Description-->
+
+              <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
+            <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editimageModal' data-id='{{$homecontent->intImageId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
+          @endforeach
+        @else
+          <p>No Descriptions Found</p>
+
+            @endif
+
+
+
   				</div>
   			</div>
   		</div>
@@ -542,9 +556,7 @@
                 {{ csrf_field() }}
   							<label for="description">Description</label>
 
-
               	<input type="text" class="form-control" id='description' name="description" required >
-
 
   						</div>
   					</div>
@@ -557,6 +569,37 @@
   			</div>
   		</div>
   	</div>
+  </div>
+
+  <div class="modal fade" id="editimageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editdonorinfo">Edit Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-close="Close"> <span aria-hidden="true">&times;</span> </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form action="/updateImage" method="post" name="editimage" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type = "hidden" id ='contentid_img' name ='contentid_img'>
+                {{ csrf_field() }}
+                <label for="image">Image</label>
+
+                <input type="file" class="form-control" id='image' name="image" required >
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-seconday" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" id="submit_image">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
 

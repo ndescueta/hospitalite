@@ -32,9 +32,14 @@ Route::post('admin/editEvent','TrainingsController@editEvent');
 Route::post('admin/deleteEvent','TrainingsController@deleteEvent');
 Route::get('admin/test','TrainingsController@test');
 
+//DIRECTORS ROUTE
+Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
+Route::get('admin/getModalEditDirector/{intDirectorId}','HospitalDirectorsController@getModalEditDirector');
+Route::post('admin/addDirector','HospitalDirectorsController@addDirector');
 
 //ADMIN HOMEPAGE ROUTE
 Route::get('admin/homepage','AdminController@homepage');
+
 
 
 //ADMIN HOMEPAGE VIEW ROUTE
@@ -43,6 +48,7 @@ Route::get('admin/homepageView','HomeContentsController@index');
 //Route::resource('admin','HomeContentsController');
 //Route::get('/', 'HomeContentsController@index');
 Route::post('/update', 'HomeContentsController@update');
+Route::post('/updateImage', 'HomeContentsController@updateImage');
 //Route::post('HomeContentsController@update', ['contentid' => $id, 'description' => $inventory_id ]);
 // Route::get('admin', function () {
 //     return view('admin');
