@@ -17,10 +17,49 @@
     <link href="{{ asset('/dist/css/style.min.css') }}" rel="stylesheet">
     <!-- Dashboard 1 Page CSS -->
     <link href="{{ asset('/dist/css/pages/dashboard1.css') }}" rel="stylesheet">
+    <!-- JQUERY Confirm -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!-- Animate CSS -->
+    <link href="{{ asset('/css/animate.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->  
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+    <style>
+        /* XL MODAL HACK */
+        @media (min-width: 768px) {
+            .modal-xl {
+            width: 90%;
+            max-width:1200px;
+            }
+        }
+        /*SPIN ELEMENT (USE IN LOADING ICONS)*/
+        .spinner {
+            -webkit-animation: spin 1000ms infinite linear;
+            animation: spin 1000ms infinite linear;
+            color: 'red';
+        }
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(-359deg);
+                transform: rotate(-359deg);
+            }
+        }
+        @keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(-359deg);
+                transform: rotate(-359deg);
+            }
+        }
+    </style>
 </head>
