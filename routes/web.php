@@ -53,3 +53,7 @@ Route::post('/updateImage', 'HomeContentsController@updateImage');
 // Route::get('admin', function () {
 //     return view('admin');
 // });
+
+
+//NEWS ROUTES
+Route::resource('news', 'NewsController');

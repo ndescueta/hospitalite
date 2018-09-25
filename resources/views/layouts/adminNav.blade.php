@@ -25,8 +25,9 @@
 
         <div class="page-wrapper">
             <div class="container-fluid">
-                
+
                 <!-- //////////////////////////////Content -->
+                  @include('inc.messages')
                   @yield('content')
                 <main>
 
@@ -38,6 +39,12 @@
             @include('layouts.footer')
         </footer>
     </div>
+
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace( 'article-ckeditor' );
+    </script>
+
 </body>
 
 </html>
