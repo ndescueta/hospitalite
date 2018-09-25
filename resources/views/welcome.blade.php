@@ -75,7 +75,13 @@
 							    @endif
 								</h1>
 								<p>
-									Tae
+									@if (count($bannerDescription) >0)
+						        @foreach ($bannerDescription as $bannerDescription)
+				                {{$bannerDescription->txtDescription}}
+						        @endforeach
+							    @else
+							        Oof.
+							    @endif
 								</p>
 								<button class="primary-btn2 mt-20 text-uppercase ">Get Started<span class="lnr lnr-arrow-right"></span></button>
 							</div>

@@ -15,11 +15,20 @@ class HomeContentsController extends Controller
      */
     public function index()
     {
+      // $bannerText = HomeContent::where('txttitle', 'bannerText')->get();
+      // $bannerDescription = HomeContent::where('txttitle', 'bannerDescription')->get();
+      // $homeContents = array[
+      //
+      // ];
+      //
+      // return view('welcome')->with($homeContents);
+	  //return view('welcome')->with('bannerText' => $bannerText);
+	  
+	  
       $bannerText = HomeContent::where('txttitle', 'bannerText')->get();
-      return view('welcome')->with('bannerText', $bannerText);
-
-      //$bannerDescription = HomeContent::where('txttitle', 'bannerDescription')->get();
-      //return view('welcome')->with('bannerDescription', $bannerDescription);
+      $bannerDescription = HomeContent::where('txttitle', 'bannerDescription')->get();
+	  
+      return view('welcome')->with(compact('bannerText', 'bannerDescription'));
     }
 
     /**
