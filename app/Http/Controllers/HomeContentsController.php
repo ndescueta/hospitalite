@@ -36,8 +36,11 @@ class HomeContentsController extends Controller
         $Contacts = HomeContent::where('txtTitle','Contact Number')->get();
         $ContactDescriptions = HomeContent::where('txtTitle','Contact Us Description')->get();
 
-      return view('admin.homepageView')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts'
-      ,'ContactDescriptions','bannerImage'));
+        $WhoWeAreDesc = HomeContent::where('txtTitle','Who We Are')->get();
+
+        $HomePageTitle = HomeContent::where('txtTitle', 'Home Page Title')->get();
+
+        return view('admin.homepageView')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts','ContactDescriptions','bannerImage','WhoWeAreDesc', 'HomePageTitle'));
 
     }
 
@@ -60,8 +63,11 @@ class HomeContentsController extends Controller
         $Contacts = HomeContent::where('txtTitle','Contact Number')->get();
         $ContactDescriptions = HomeContent::where('txtTitle','Contact Us Description')->get();
 
-      return view('welcome')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts'
-      ,'ContactDescriptions','bannerImage'));
+        $WhoWeAreDesc = HomeContent::where('txtTitle','Who We Are')->get();
+
+        $HomePageTitle = HomeContent::where('txtTitle', 'Home Page Title')->get();
+
+      return view('welcome')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts','ContactDescriptions','bannerImage','WhoWeAreDesc', 'HomePageTitle'));
 
     }
 
