@@ -66,18 +66,18 @@
 						<div class="row fullscreen align-items-center justify-content-center">
 							<div class="banner-content col-lg-6 col-md-12">
 								<h1 class="text-uppercase">
-									@if (count($bannerText) >0)
-						        @foreach ($bannerText as $bannerText)
-				                {{$bannerText->txtDescription}}
+									@if (count($bannerTexts) >0)
+						        @foreach ($bannerTexts as $homecontent)
+				                {{$homecontent->txtDescription}}
 						        @endforeach
 							    @else
 							        Oof.
 							    @endif
 								</h1>
 								<p>
-									@if (count($bannerDescription) >0)
-						        @foreach ($bannerDescription as $bannerDescription)
-				                {{$bannerDescription->txtDescription}}
+									@if (count($bannerTextDescriptions) >0)
+						        @foreach ($bannerTextDescriptions as $homecontent)
+				                {{$homecontent->txtDescription}}
 						        @endforeach
 							    @else
 							        Oof.
@@ -99,7 +99,13 @@
 					<div class="col-md-12 pb-80 header-text text-center">
 						<h1>Services</h1>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> labore  et dolore magna aliqua.
+							@if (count($ServiceDescriptions) >0)
+								@foreach ($ServiceDescriptions as $homecontent)
+										{{$homecontent->txtDescription}}
+								@endforeach
+							@else
+									Oof.
+							@endif
 						</p>
 					</div>
 
@@ -401,7 +407,13 @@
 						<div class="col-md-8 pb-30 header-text">
 							<h1>News and Events</h1>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> labore  et dolore magna aliqua.
+								@if (count($EventsDescriptions) >0)
+									@foreach ($EventsDescriptions as $homecontent)
+											{{$homecontent->txtDescription}}
+									@endforeach
+								@else
+										Oof.
+								@endif
 							</p>
 						</div>
 					</div>
@@ -494,10 +506,23 @@
 							<div class="single-footer-widget mail-chimp">
 								<h6 class="mb-20">Contact Us</h6>
 								<p>
-									56/8, bir uttam qazi nuruzzaman road, west panthapath, kalabagan, Dhanmondi, Dhaka - 1205
+									@if (count($ContactDescriptions) >0)
+										@foreach ($ContactDescriptions as $homecontent)
+												{{$homecontent->txtDescription}}
+										@endforeach
+									@else
+											Oof.
+									@endif
 								</p>
-								<h3>012-6532-568-9746</h3>
-								<h3>012-6532-568-97468</h3>
+								<h3>
+									@if (count($Contacts) >0)
+										@foreach ($Contacts as $homecontent)
+												{{$homecontent->txtDescription}}
+										@endforeach
+									@else
+											Oof.
+									@endif
+								</h3>
 							</div>
 						</div>
 						<div class="col-lg-6  col-md-12">

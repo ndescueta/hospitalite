@@ -2,16 +2,19 @@
 
 @section('content')
   <div class="row page-titles">
-    <div class="col-md-5 align-self-center">
+    <div class="col-md-10 align-self-center">
       <h4 class="text-themecolor">News</h4>
     </div>
+	<div class="col-md-2">
+	<h1><button onclick="location.href='/news/create'" class = "btn btn-primary float-right"> Add News </button></h1>
+	</div>
   </div>
 
 
 
   @if (count($news) > 0)
       @foreach ($news as $new)
-          <div class = "well">
+          <div class = "card card-body">
               <h3><a href = "/news/{{$new->intNewsId}}">{{$new->strNewsTitle}}</a></h3>
               <small>From {{$new->txtNewsReference}}</small> <br>
               <small>Written on {{$new->created_at}}</small>
@@ -21,7 +24,5 @@
   @else
       <p> No Posts found. </p>
   @endif
-
-  <h1><a href = "/news/create" class = "btn btn-default"> Add News </a></h1>
 
 @endsection

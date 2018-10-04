@@ -41,6 +41,31 @@ class HomeContentsController extends Controller
 
     }
 
+    public function index2()
+    {
+
+        //
+        $bannerTexts = HomeContent::where('txtTitle','Banner Text')->get();
+        $bannerTextDescriptions = HomeContent::where('txtTitle','Banner Text Description')->get();
+
+        $bannerImage = HomeContentImage::where('intHomeContentId','2')->get();
+
+
+        $ServiceDescriptions = HomeContent::where('txtTitle','Services Description')->get();
+        $Services = Service::all();
+
+        $EventsDescriptions = HomeContent::where('txtTitle','News and Events Description')->get();
+        $Events = Event::all();
+
+        $Contacts = HomeContent::where('txtTitle','Contact Number')->get();
+        $ContactDescriptions = HomeContent::where('txtTitle','Contact Us Description')->get();
+
+      return view('welcome')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts'
+      ,'ContactDescriptions','bannerImage'));
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

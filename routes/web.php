@@ -12,13 +12,12 @@
 */
 
 
-Route::get('/', function () {
-    //INDEX DAPAT
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-});
 
-
-Route::get('/', 'HomeContentsController@index');
+Route::get('/', 'HomeContentsController@index2');
 
 //DASHBOARD ROUTE
 Route::get('admin/','AdminController@dashboard');

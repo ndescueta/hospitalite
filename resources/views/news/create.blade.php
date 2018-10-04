@@ -22,7 +22,7 @@
           {{Form::label('NewsReference', 'Reference')}}
           {{Form::text('NewsReference', '', ['class' => 'form-control', 'placeholder' => 'Reference link or Author Here'])}}
       </div>
-      {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+      {{Form::submit('Submit', ['class' => 'btn btn-primary mb-3 float-right'])}}
   {!! Form::close() !!}
-
+  <div style='clear:both'></div>
 @endsection

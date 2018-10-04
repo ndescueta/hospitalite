@@ -27,8 +27,10 @@
             <div class="container-fluid">
 
                 <!-- //////////////////////////////Content -->
-                  @include('inc.messages')
+
                   @yield('content')
+
+                  @include('inc.messages')
                 <main>
 
                 </main>
