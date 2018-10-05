@@ -30,7 +30,7 @@
                                         <td>{{$selectDirector->intDirectorId}}</td>
                                         <td>{{$selectDirector->strDirectorFirstName}}</td>
                                         <td>{{$selectDirector->strDirectorLastName}}</td>
-                                        <td>{{$selectDirector->strDirectorContact}}</td>
+                                        <td>{{$selectDirector->stfDirectorContact}}</td>
                                         <td><div class='btn-group'><button class='btn btn-success'>View</button><button class='btn btn-warning' onclick='editDirector({{$selectDirector->intDirectorId}})'>Edit</button><button class='btn btn-danger'>Delete</button></div></td>
                                       </tr>
                                   @endforeach
@@ -109,13 +109,13 @@ function addDirector() {
           $.ajax({
             url: "<?php echo url('admin/addDirector')?>",
             method: 'post',
-            data: "&strDirectorFirstName="+ this.$content.find("#directorFirstName").val() +"&strDirectorMiddleName="+this.$content.find("#directorMiddleName").val()+"&strDirectorLastName="+this.$content.find("#directorLastName").val()+"&strDirectorSex="+this.$content.find("#directorSex").val()+"&datDirectorBirthday="+this.$content.find("#directorBirthday").val()+"&strDirectorEmailAddress="+this.$content.find("#directorEmailAddress").val()+"&strDirectorContact="+this.$content.find("#directorContact").val()+ "&_token=" + "{{csrf_token()}}",
+            data: "&strDirectorFirstName="+ this.$content.find("#directorFirstName").val() +"&strDirectorMiddleName="+this.$content.find("#directorMiddleName").val()+"&strDirectorLastName="+this.$content.find("#directorLastName").val()+"&strDirectorSex="+this.$content.find("#directorSex").val()+"&datDirectorBirthday="+this.$content.find("#directorBirthday").val()+"&strDirectorEmailAddress="+this.$content.find("#directorEmailAddress").val()+"&stfDirectorContact="+this.$content.find("#directorContact").val()+ "&_token=" + "{{csrf_token()}}",
             async: false,
             success: function (data) {
               //LOG RESPONSE
               console.log(data);
               //REFRESH PAGE IF SUCCESS
-              window.location.href = "/admin/hospitaldirector";
+              //window.location.href = "/admin/hospitaldirector";
             },
             error: function (error) {
               console.log(error);
@@ -176,7 +176,7 @@ function editDirector(id) {
             "</div>"+
             "<div class='form-group col-md-6'>"+
             "<label for='directorContact'>Contact Number</label>"+
-            "<input type='text' class='form-control' name='directorContact' id='directorContact' value='"+result[0].strDirectorContact+"'>"+
+            "<input type='text' class='form-control' name='directorContact' id='directorContact' value='"+result[0].stfDirectorContact+"'>"+
             "</div>"+
             "</div></form>");
         }).fail(function(){

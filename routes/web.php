@@ -36,6 +36,11 @@ Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
 Route::get('admin/getModalEditDirector/{intDirectorId}','HospitalDirectorsController@getModalEditDirector');
 Route::post('admin/addDirector','HospitalDirectorsController@addDirector');
 
+//HOSPITALS ROUTE
+Route::get('admin/hospital','HospitalsController@index');
+Route::get('admin/getModalEditHospital/{intHospitalId}','HospitalsController@getModalEditHospital');
+Route::post('admin/addHospital','HospitalsController@addHospital');
+
 //ADMIN HOMEPAGE ROUTE
 Route::get('admin/homepage','AdminController@homepage');
 

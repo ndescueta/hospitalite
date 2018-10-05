@@ -10,6 +10,7 @@
                           <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-thought"></i><span class="hide-menu">Inquiries</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('admin/trainings') ? 'active' : '' }}" href="{{ url('admin/trainings') }}" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Trainings and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seminars</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('admin/homepage') ? 'active' : '' }}" href="{{ url('admin/hospitaldirector') }}" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Hospital Directors</span></a>
+                          <li> <a class="waves-effect waves-dark {{ Request::is('admin/hospital') ? 'active' : '' }}" href="{{ url('admin/hospital') }}" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Hospitals</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('news') ? 'active' : '' }}" href="{{ url('news') }}" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">News</span></a>
                           <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-help"></i><span class="hide-menu">Faqs</span></a>
                     </ul>

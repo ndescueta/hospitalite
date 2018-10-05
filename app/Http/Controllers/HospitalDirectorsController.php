@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class HospitalDirectorsController extends Controller
 {
     public function index() {
-        $selectDirectors= DB::select("SELECT intDirectorId, strDirectorFirstName, strDirectorLastName, strDirectorContact FROM tbldirector", [1]);
+        $selectDirectors= DB::select("SELECT intDirectorId, strDirectorFirstName, strDirectorLastName, stfDirectorContact FROM tbldirector", [1]);
         return view("admin.hospitaldirectors")->with('selectDirectors',$selectDirectors);
     }
 
@@ -27,14 +27,14 @@ class HospitalDirectorsController extends Controller
         $strDirectorSex = $request->strDirectorSex;
         $datDirectorBirthday = $request->datDirectorBirthday;
         $strDirectorEmailAddress = $request->strDirectorEmailAddress;
-        $strDirectorContact = $request->strDirectorContact;
+        $stfDirectorContact = $request->stfDirectorContact;
         
 
         //TRANSACT
         DB::beginTransaction();
 
         try {
-            DB::insert("INSERT INTO tbldirector (strDirectorFirstName,strDirectorMiddleName,strDirectorLastName,strDirectorSex,datDirectorBirthday,strDirectorEmailAddress,strDirectorContact) values ('$strDirectorFirstName', '$strDirectorMiddleName','$strDirectorLastName','$strDirectorSex','$datDirectorBirthday','$strDirectorEmailAddress','$strDirectorContact'); ",[1]);
+            DB::insert("INSERT INTO tbldirector (strDirectorFirstName,strDirectorMiddleName,strDirectorLastName,stfDirectorSex,datDirectorBirthday,strDirectorEmailAddress,stfDirectorContact) values ('$strDirectorFirstName', '$strDirectorMiddleName','$strDirectorLastName','$strDirectorSex','$datDirectorBirthday','$strDirectorEmailAddress','$stfDirectorContact'); ",[1]);
 
             DB::commit();
             // all good
@@ -47,6 +47,7 @@ class HospitalDirectorsController extends Controller
         return "Success";
     }
 
+    
 
     
 }
