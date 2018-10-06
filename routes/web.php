@@ -22,6 +22,12 @@ Route::get('/', 'HomeContentsController@index2');
 //DASHBOARD ROUTE
 Route::get('admin/','AdminController@dashboard');
 
+// SERVICES ROUTE
+Route::get('admin/services', 'ServicesController@index');
+Route::get('admin/getModalEditService/{intServiceId}','ServicesController@getModalEditService');
+Route::post('admin/addService','ServicesController@addService');
+Route::post('admin/editService','ServicesController@editService');
+Route::post('admin/deleteService','ServicesController@deleteService');
 
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','TrainingsController@index');
