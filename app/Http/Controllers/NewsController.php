@@ -15,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('created_at', 'desc')->paginate(4);
+        $news = News::orderBy('updated_at', 'desc')->paginate(4);
         return view('news.index')->with('news', $news);
     }
 
@@ -39,19 +39,50 @@ class NewsController extends Controller
     {
       $this->validate($request, [
           'NewsTitle' => 'required',
-          'NewsDescription' => 'required'
-          //'NewsReference' => 'required'
+          'NewsDescription' => 'required',
+          'NewsReference' => 'required'
       ]);
 
-      $news = new News;
-      $news->strNewsTitle = $request->input("NewsTitle");
-      $news->txtNewsDescription = $request->input("NewsDescription");
-      $news->txtNewsReference = $request->input("NewsReference");
-      //$post->user_id = auth()->user()->id;
+
+      $this -> validate($request,[
+        'image' => 'image|nullable|max:9999'
+      ]);
+      if($request->hasFile('image')){
+        $filenameWithExt = $request-> file('image')->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $request-> file('image')->getClientOriginalExtension();
+        $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+      }else{
+        $fileNameToStore = '../img/header-img.png';
+      }
+        //
+        //$id =$request->input('newsid_img');
+        //$data = News::find($id);
+        //$data = HomeContent::where('intHomeContentId',$request->input('contentid'))->get();
+
+
+        $news = new News;
+        $news->strNewsTitle = $request->input("NewsTitle");
+        $news->txtNewsDescription = $request->input("NewsDescription");
+        $news->txtNewsReference = $request->input("NewsReference");
+        //$post->user_id = auth()->user()->id;
+        $news->txtNewsImage = $fileNameToStore;
+
+
       $news->save();
 
       return redirect('/news')->with('success', 'News Added');
     }
+
+    public function updateImage(Request $request)
+    {
+
+
+        return redirect('/news');
+    }
+
+
 
     /**
      * Display the specified resource.
@@ -91,11 +122,34 @@ class NewsController extends Controller
           'NewsDescription' => 'required'
           //'NewsReference' => 'required'
       ]);
+
+      $this -> validate($request,[
+        'image' => 'image|nullable|max:1999'
+      ]);
+      //$id =$request->input('newsid_img');
+      $oldImage = News::find($intNewsId);
+      if($request->hasFile('image')){
+        $filenameWithExt = $request-> file('image')->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $request-> file('image')->getClientOriginalExtension();
+        $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+      }else{
+        $fileNameToStore = $oldImage->txtNewsImage;
+      }
+        //
+
+
+
+
       $news = News::find($intNewsId);
       $news->strNewsTitle = $request->input("NewsTitle");
       $news->txtNewsDescription = $request->input("NewsDescription");
       $news->txtNewsReference = $request->input("NewsReference");
       //$post->user_id = auth()->user()->id;
+      //$data = HomeContent::where('intHomeContentId',$request->input('contentid'))->get();
+      $news->txtNewsImage = $fileNameToStore;
+
       $news->save();
 
       return redirect('/news')->with('success', 'News Updated');

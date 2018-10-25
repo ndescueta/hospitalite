@@ -14,7 +14,15 @@
   <!-- meta character set -->
   <meta charset="UTF-8">
   <!-- Site Title -->
-  <title>Medical</title>
+  <title>
+    @if (count($HomePageTitle) > 0)
+    @foreach ($HomePageTitle as $homecontent)
+    {{$homecontent->txtDescription}}
+    @endforeach
+    @else
+    Oof.
+    @endif
+  </title>
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
   <!--
@@ -38,7 +46,14 @@
       <div class="header-wrap">
         <div class="header-top d-flex justify-content-between align-items-center">
           <div class="logo">
-            <!-- <a href="#home"><img src="../img/logo.png" alt=""></a> -->
+            @if (count($HomePageTitle) > 0)
+            @foreach ($HomePageTitle as $homecontent)
+            {{$homecontent->txtDescription}}
+            <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editmodal' data-id='{{$homecontent->intHomeContentId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
+            @endforeach
+            @else
+            Oof.
+            @endif
           </div>
           <div class="main-menubar d-flex align-items-center">
             <nav class="hide">
@@ -93,14 +108,13 @@
           @if(count($bannerImage) >= 0)
           @foreach ($bannerImage as $homecontent)
           <!--Banner Text Description-->
-
           <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
           <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editimageModal' data-id='{{$homecontent->intImageId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
           @endforeach
           @else
-          <p>No Descriptions Found</p>
-
+          <img class="img-fluid" src="/img/header-img.png" alt="">
           @endif
+
         </div>
       </div>
     </div>
@@ -142,7 +156,6 @@
         @endforeach
         @else
         <p>No Services Found</p>
-
         @endif
       </div>
     </div>
@@ -155,7 +168,15 @@
     <div class="container-fluid">
       <div class="row d-flex justify-content-end align-items-center">
         <div class="col-lg-6 col-md-12 about-left no-padding">
-          <img class="img-fluid" src="../img/about-img.jpg" alt="">
+
+          @if(count($whoWeAreImage) >= 0)
+          @foreach ($whoWeAreImage as $homecontent)
+          <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
+          <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editimageModal' data-id='{{$homecontent->intImageId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
+          @endforeach
+          @else
+          <img class="img-fluid" src="/img/about-img.jpg" alt="">
+          @endif
         </div>
         <div class="col-lg-6 col-md-12 about-right no-padding">
           <h1>Who we are</h1>
@@ -164,6 +185,7 @@
             @if (count($WhoWeAreDesc) > 0)
             @foreach ($WhoWeAreDesc as $homecontent)
             {{$homecontent->txtDescription}}
+            <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editmodal' data-id='{{$homecontent->intHomeContentId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
             @endforeach
             @else
             Oof.
@@ -360,12 +382,14 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8 pb-30 header-text">
-        <h1>News and Events</h1>
+        <h1>News</h1>
         <p>
           @if (count($EventsDescriptions) >0)
           @foreach ($EventsDescriptions as $homecontent)
           {{$homecontent->txtDescription}}
+          <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editimageModal' data-id='{{$homecontent->intHomeContentId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
           @endforeach
+
           @else
           Oof.
           @endif
@@ -373,70 +397,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="single-blog col-lg-4 col-md-4">
 
-        <img class="f-img img-fluid mx-auto" src="../img/b1.jpg" alt="">
-        <h4>
-          <a href="#">Portable Fashion for young women</a>
-        </h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea.
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>
-        <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-          <div>
-            <img class="img-fluid" src="../img/user.png" alt="">
-            <a href="#"><span>Mark Wiens</span></a>
-          </div>
-          <div class="meta">
-            13th Dec
-            <span class="lnr lnr-heart"></span> 15
-            <span class="lnr lnr-bubble"></span> 04
-          </div>
-        </div>
-      </div>
-      <div class="single-blog col-lg-4 col-md-4">
-        <img class="f-img img-fluid mx-auto" src="../img/b2.jpg" alt="">
-        <h4>
-          <a href="#">Summer ware are coming</a>
-        </h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea.
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>
-        <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-          <div>
-            <img class="img-fluid" src="img/user.png" alt="">
-            <a href="#"><span>Mark Wiens</span></a>
-          </div>
-          <div class="meta">
-            13th Dec
-            <span class="lnr lnr-heart"></span> 15
-            <span class="lnr lnr-bubble"></span> 04
-          </div>
-        </div>
-      </div>
-      <div class="single-blog col-lg-4 col-md-4">
-        <img class="f-img img-fluid mx-auto" src="../img/b3.jpg" alt="">
-        <h4>
-          <a href="#">Summer ware are coming</a>
-        </h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.
-        </p>
-        <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-          <div>
-            <img class="img-fluid" src="img/user.png" alt="">
-            <a href="#"><span>Mark Wiens</span></a>
-          </div>
-          <div class="meta">
-            13th Dec
-            <span class="lnr lnr-heart"></span> 15
-            <span class="lnr lnr-bubble"></span> 04
-          </div>
-        </div>
-      </div>
-    </div>
+			@if(count($News) >= 0)
+			@foreach ($News as $New)
+			<div class="single-blog col-lg-4 col-md-4">
+				<div class="img-fluid text-center">
+					<img class="f-img img-fluid mx-auto" src="/storage/cover_images/{{$New->txtNewsImage}}" alt="" style="min-height: 100px; max-height: 200px">
+				</div>
+				<h4>
+					<a href="#">{{$New->strNewsTitle}}</a>
+				</h4>
+				<p>
+					{!!$New->txtNewsDescription!!}
+				</p>
+			</div>
+			@endforeach
+			@else
+			<p>No News Found</p>
+			@endif
+		</div>
   </div>
 </section>
 <!-- end blog Area -->
@@ -462,16 +441,14 @@
             </h5>
           </div>
           <div class="card card-body mt-2">
-            <h3>
               @if (count($ContactDescriptions) >0)
               @foreach ($ContactDescriptions as $homecontent)
-              {{$homecontent->txtDescription}}
-              <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editmodal' data-id='{{$homecontent->intHomeContentId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
+              <h3>{{$homecontent->txtDescription}}</h3>
+              <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editmodal' data-id='{{$homecontent->intHomeContentId}}'data-name='{{$homecontent->txtDescription}}'>Edit</button>
               @endforeach
               @else
               <p>No Contacts Found</p>
               @endif
-            </h3>
           </div>
         </div>
       </div>
@@ -689,6 +666,72 @@
     <!--/.Content-->
   </div>
 </div>
+<!-- Edit modal -->
+
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editdonorinfo">Edit Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-close="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form action="/update" method="post" name="editdescription">
+            <div class="form-group">
+              <input type = "hidden" id ='contentid' name ='contentid'>
+              {{ csrf_field() }}
+              <label for="description">Description</label>
+
+              <input type="text" class="form-control" id='description' name="description" required >
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-seconday" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" id="submit_edit">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editimageModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editdonorinfo">Edit Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-close="Close"> <span aria-hidden="true">&times;</span> </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form action="/updateImage" method="post" name="editimage" enctype="multipart/form-data">
+            <div class="form-group">
+              <input type = "hidden" id ='contentid_img' name ='contentid_img'>
+              {{ csrf_field() }}
+              <label for="image">Image</label>
+
+              <input type="file" class="form-control" id='image' name="image" required >
+
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-seconday" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" id="submit_image">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!--Modal: Login / Register Form-->
 
 <div class="text-center">
@@ -697,7 +740,7 @@
 <!-- SCRIPTS-->
 
 <script src="../js/vendor/jquery-2.2.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="{{ asset('assets/node_modules/popper/popper.min.js')}}"></script>
 <script src="../js/vendor/bootstrap.min.js"></script>
 <script src="../js/jquery.ajaxchimp.min.js"></script>
 <script src="../js/jquery.nice-select.min.js"></script>
@@ -708,6 +751,7 @@
 <script src="../js/waypoints.min.js"></script>
 <script src="../js/jquery.counterup.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="{{asset('homepageAssets/js/homepageView_edit.js')}}"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
 </body>

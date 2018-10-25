@@ -101,7 +101,15 @@
 					</p>
 				</div>
 				<div class="col-lg-6 d-flex align-self-end img-right">
-					<img class="img-fluid" src="img/header-img.png" alt="">
+					@if(count($bannerImage) >= 0)
+          @foreach ($bannerImage as $homecontent)
+          <!--Banner Text Description-->
+          <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
+          @endforeach
+          @else
+          <img class="img-fluid" src="img/header-img.png" alt="">
+					<!-- <h1>Oof.</h1> -->
+          @endif
 				</div>
 			</div>
 		</div>
@@ -125,76 +133,23 @@
 			</div>
 
 			<div class="row">
-				<div class="col-lg-6">
-					<div class="single-feature d-flex flex-row pb-30">
-						<div class="icon">
-							<span class="lnr lnr-rocket"></span>
-						</div>
-						<div class="desc">
-							<h4 class="text-uppercase">24/7 emergency</h4>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” <br> women face higher conduct women face higher conduct.
-							</p>
-						</div>
-					</div>
-					<div class="single-feature d-flex flex-row pb-30">
-						<div class="icon">
-							<span class="lnr lnr-chart-bars"></span>
-						</div>
-						<div class="desc">
-							<h4 class="text-uppercase">X-Ray Service</h4>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” <br> women face higher conduct women face higher conduct.
-							</p>
-						</div>
-					</div>
-					<div class="single-feature d-flex flex-row">
-						<div class="icon">
-							<span class="lnr lnr-bug"></span>
-						</div>
-						<div class="desc">
-							<h4 class="text-uppercase">Intensive Care</h4>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” <br> women face higher conduct women face higher conduct.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="single-feature d-flex flex-row pb-30">
-						<div class="icon">
-							<span class="lnr lnr-heart-pulse"></span>
-						</div>
-						<div class="desc">
-							<h4 class="text-uppercase">24/7 emergency</h4>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” <br> women face higher conduct women face higher conduct.
-							</p>
-						</div>
-					</div>
-					<div class="single-feature d-flex flex-row pb-30">
-						<div class="icon">
-							<span class="lnr lnr-paw"></span>
-						</div>
-						<div class="desc">
-							<h4 class="text-uppercase">X-Ray Service</h4>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” <br> women face higher conduct women face higher conduct.
-							</p>
-						</div>
-					</div>
-					<div class="single-feature d-flex flex-row">
-						<div class="icon">
-							<span class="lnr lnr-users"></span>
-						</div>
-						<div class="desc">
-							<h4 class="text-uppercase">Intensive Care</h4>
-							<p>
-								inappropriate behavior is often laughed off as “boys will be boys,” <br> women face higher conduct women face higher conduct.
-							</p>
-						</div>
-					</div>
-				</div>
+				@if(count($Services) >= 0)
+        @foreach ($Services as $service)
+        <div class="single-feature d-flex flex-row col-md-6">
+          <div class="icon">
+            <span class="lnr lnr-heart-pulse"></span>
+          </div>
+          <div class="desc">
+            <h4 class="text-uppercase">{{$service->strServiceName}}</h4>
+            <p>
+              {{$service->txtServiceDescription}}
+            </p>
+          </div>
+        </div>
+        @endforeach
+        @else
+        <p>No Services Found</p>
+        @endif
 			</div>
 		</div>
 	</section>
@@ -206,7 +161,13 @@
 		<div class="container-fluid">
 			<div class="row d-flex justify-content-end align-items-center">
 				<div class="col-lg-6 col-md-12 about-left no-padding">
-					<img class="img-fluid" src="img/about-img.jpg" alt="">
+					@if(count($whoWeAreImage) >= 0)
+          @foreach ($whoWeAreImage as $homecontent)
+          <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
+          @endforeach
+          @else
+          <img class="img-fluid" src="/img/about-img.jpg" alt="">
+          @endif
 				</div>
 				<div class="col-lg-6 col-md-12 about-right no-padding">
 					<h1>Who we are</h1>
@@ -401,7 +362,7 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-8 pb-30 header-text">
-				<h1>News and Events</h1>
+				<h1>News</h1>
 				<p>
 					@if (count($EventsDescriptions) >0)
 					@foreach ($EventsDescriptions as $homecontent)
@@ -414,72 +375,25 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="single-blog col-lg-4 col-md-4">
 
-				<img class="f-img img-fluid mx-auto" src="img/b1.jpg" alt="">
-				<h4>
-					<a href="#">Portable Fashion for young women</a>
-				</h4>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea.
-					commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-				</p>
-				<div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-					<div>
-						<img class="img-fluid" src="img/user.png" alt="">
-						<a href="#"><span>Mark Wiens</span></a>
-					</div>
-					<div class="meta">
-						13th Dec
-						<span class="lnr lnr-heart"></span> 15
-						<span class="lnr lnr-bubble"></span> 04
-					</div>
-				</div>
-			</div>
+			@if(count($News) >= 0)
+			@foreach ($News as $New)
 			<div class="single-blog col-lg-4 col-md-4">
-				<img class="f-img img-fluid mx-auto" src="img/b2.jpg" alt="">
+				<div class="img-fluid text-center">
+					<img class="f-img img-fluid mx-auto" src="/storage/cover_images/{{$New->txtNewsImage}}" alt="" style="min-height: 100px; max-height: 200px">
+				</div>
 				<h4>
-					<a href="#">Summer ware are coming</a>
+					<a href="#">{{$New->strNewsTitle}}</a>
 				</h4>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea.
-					commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+					{!!$New->txtNewsDescription!!}
 				</p>
-				<div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-					<div>
-						<img class="img-fluid" src="img/user.png" alt="">
-						<a href="#"><span>Mark Wiens</span></a>
-					</div>
-					<div class="meta">
-						13th Dec
-						<span class="lnr lnr-heart"></span> 15
-						<span class="lnr lnr-bubble"></span> 04
-					</div>
-				</div>
 			</div>
-			<div class="single-blog col-lg-4 col-md-4">
-				<img class="f-img img-fluid mx-auto" src="img/b3.jpg" alt="">
-				<h4>
-					<a href="#">Summer ware are coming</a>
-				</h4>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.
-				</p>
-				<div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-					<div>
-						<img class="img-fluid" src="img/user.png" alt="">
-						<a href="#"><span>Mark Wiens</span></a>
-					</div>
-					<div class="meta">
-						13th Dec
-						<span class="lnr lnr-heart"></span> 15
-						<span class="lnr lnr-bubble"></span> 04
-					</div>
-				</div>
-			</div>
+			@endforeach
+			@else
+			<p>No News Found</p>
+			@endif
 		</div>
-	</div>
-</section>
 <!-- end blog Area -->
 
 

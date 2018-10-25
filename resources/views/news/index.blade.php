@@ -15,9 +15,15 @@
   @if (count($news) > 0)
       @foreach ($news as $new)
           <div class = "card card-body">
-              <h3><a href = "/news/{{$new->intNewsId}}">{{$new->strNewsTitle}}</a></h3>
-              <small>From {{$new->txtNewsReference}}</small> <br>
-              <small>Written on {{$new->created_at}}</small>
+            <div class="row">
+              <img src="/storage/cover_images/{{$new->txtNewsImage}}" style="width: 200px; clear:both">
+              <div class="ml-5">
+                <h3><a href = "/news/{{$new->intNewsId}}">{{$new->strNewsTitle}}</a></h3>
+                <small>From {{$new->txtNewsReference}}</small> <br>
+                <small>Written: {{$new->created_at}}</small> <br>
+                <small>Updated: {{$new->updated_at}}</small>
+              </div>
+            </div>
           </div>
       @endforeach
       {{$news->links()}}
