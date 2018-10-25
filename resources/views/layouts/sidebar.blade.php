@@ -6,7 +6,7 @@
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">--- <b>MAINTENANCE</b></li>
                           <li> <a class="waves-effect waves-dark {{ Request::is('admin/homepage') ? 'active' : '' }}" href="{{ url('admin/homepage') }}" aria-expanded="false"><i class="ti-world"></i><span class="hide-menu">Homepage</span></a>
-                          <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-heart"></i><span class="hide-menu">Services</span></a>
+                          <li> <a class="waves-effect waves-dark {{ Request::is('admin/services') ? 'active' : '' }}" href="{{ url('admin/services') }}" aria-expanded="false"><i class="ti-heart"></i><span class="hide-menu">Services</span></a>
                           <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-thought"></i><span class="hide-menu">Inquiries</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('admin/trainings') ? 'active' : '' }}" href="{{ url('admin/trainings') }}" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Trainings and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seminars</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('admin/homepage') ? 'active' : '' }}" href="{{ url('admin/hospitaldirector') }}" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Hospital Directors</span></a>
