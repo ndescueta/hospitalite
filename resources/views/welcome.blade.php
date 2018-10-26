@@ -67,7 +67,7 @@
 							<a href="#consultant">Members</a>
 							<a href="#News">News</a>
 							<a href="#">Faqs</a>
-							<a href="#" data-toggle="modal" data-target="#modalLRForm">Sign Up/Login</a>
+							<a href="#" data-toggle="modal" data-target="#mdl_LoginRegistration">Sign Up/Login</a>
 						</nav>
 						<div class="menu-bar"><span class="lnr lnr-menu"></span></div>
 					</div>
@@ -503,7 +503,7 @@
 
 
 <!--Modal: Login / Register Form-->
-<div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="mdl_LoginRegistration" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog cascading-modal modal-lg" role="document">
 		<!--Content-->
 		<div class="modal-content">
@@ -528,20 +528,23 @@
 
 						<!--Body-->
 						<div class="modal-body mb-1">
-							<div class="md-form form-sm mb-5">
-								<i class="prefix"></i>
-								<input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
-							</div>
+							<form method="post">
+								<div class="md-form form-sm mb-5">
+									<i class="prefix"></i>
+									<input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
+									<label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
+								</div>
 
-							<div class="md-form form-sm mb-4">
-								<i class="prefix"></i>
-								<input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
-							</div>
-							<div class="text-center mt-2">
-								<button class="btn btn-elegant waves-light">Log in <i class="fa fa-sign-in ml-1  text-light"></i></button>
-							</div>
+								<div class="md-form form-sm mb-4">
+									<i class="prefix"></i>
+									<input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
+									<label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
+								</div>
+								{{ csrf_field() }}
+								<div class="text-center mt-2">
+									<button type="submit" class="btn btn-elegant waves-light">Log in <i class="fa fa-sign-in ml-1  text-light"></i></button>
+								</div>
+							</form>
 						</div>
 						<!--Footer-->
 						<div class="modal-footer">
@@ -560,13 +563,14 @@
 
 						<!--Body-->
 						<div class="modal-body">
-							<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Representative</h6>
-							<form method="post">
+							<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Representative</h6> <span><br><small>Fields with <span style="color:red">(*)</span> are required</small></span>
+
+							<form method="post" name="frm_repRegister">
 								<div class="row">
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
+										<i class="prefix" style="color:red">*</i>
 										<label data-error="wrong" data-success="right" for="rep_firstname">First Name</label>
-										<input type="text" id="rep_firstname" name="rep_firstname" class="form-control form-control-sm validate">
+										<input type="text" id="rep_firstname" name="rep_firstname" class="form-control form-control-sm validate" required>
 									</div>
 
 									<div class="mb-3 col-md-4">
@@ -576,15 +580,15 @@
 									</div>
 
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
+										<i class="prefix" style="color:red">*</i>
 										<label data-error="wrong" data-success="right" for="rep_lastname">Last Name</label>
-										<input type="text" id="rep_lastname" name="rep_lastname" class="form-control form-control-sm validate">
+										<input type="text" id="rep_lastname" name="rep_lastname" class="form-control form-control-sm validate" required>
 									</div>
 
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
+										<i class="prefix" style="color:red">*</i>
 										<label data-error="wrong" data-success="right" for="rep_sex">Sex</label>
-										<select class="form-control" name="rep_sex" id="rep_sex">
+										<select class="form-control" name="rep_sex" id="rep_sex" required>
 											<option selected disabled>Select appropriate sex</option>
 											<option value="Male">Male</option>
 											<option value="Female">Female</option>
@@ -592,27 +596,37 @@
 									</div>
 
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
+										<i class="prefix" style="color:red">*</i>
 										<label data-error="wrong" data-success="right" for="rep_bday">Birth Date</label>
-										<input type="text" id="rep_bday" name="rep_bday" class="form-control form-control-sm validate">
+										<input type="text" id="rep_bday" name="rep_bday" class="form-control form-control-sm validate" required>
+									</div>
+
+									<div class="mb-5 col-md-4">
+										<i class="prefix" style="color:red">*</i>
+										<label data-error="wrong" data-success="right" for="rep_contact">Contact</label>
+										<input type="text" id="rep_contact" name="rep_contact" class="form-control form-control-sm validate">
 									</div>
 
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
+										<i class="prefix" style="color:red">*</i>
 										<label data-error="wrong" data-success="right" for="rep_regcode">Registration Code</label>
-										<input type="text" id="rep_regcode" name="rep_regcode" class="form-control form-control-sm validate">
+										<input type="text" id="rep_regcode" name="rep_regcode" class="form-control form-control-sm validate" required>
 									</div>
 
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
+										<i class="prefix" style="color:red">*</i>
 										<label data-error="wrong" data-success="right" for="rep_email">Email</label>
-										<input type="email" id="rep_email" name="rep_email" class="form-control form-control-sm validate">
+										<input type="email" id="rep_email" name="rep_email" class="form-control form-control-sm validate" required>
 									</div>
 
 									<div class="mb-3 col-md-4">
-										<i class="prefix"></i>
-										<label data-error="wrong" data-success="right" for="rep_password">Your password</label>
-										<input type="password" id="rep_password" name="rep_password" class="form-control form-control-sm validate">
+										<i class="prefix" style="color:red">*</i>
+										<label data-error="wrong" data-success="right" for="rep_password">Password</label>
+										<input type="password" id="rep_password" name="rep_password" class="form-control form-control-sm validate" required>
+										<!-- <small id="letter">Lower case</small><br>
+										<small id="capital">Upper case</small><br>
+										<small id="number">Number</small><br>
+										<small id="length">Must be 8 characters or longer</small> -->
 									</div>
 
 									<!-- <div class="mb-5 col-md-4">
@@ -620,14 +634,13 @@
 										<label data-error="wrong" data-success="right" for="modalLRInput14">Repeat password</label>
 										<input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
 									</div> -->
-
-									<div class="mb-5 col-md-4">
-										<i class="prefix"></i>
-										<label data-error="wrong" data-success="right" for="rep_contact">Contact</label>
-										<input type="text" id="rep_contact" name="rep_contact" class="form-control form-control-sm validate">
+									{{ csrf_field() }}
+									<div class="text-center col-md-6 mx-auto form-sm mt-2">
+										<button class="btn btn-elegant btn-block">Sign up <i class="fa fa-sign-in text-light ml-1"></i></button>
 									</div>
 								</div>
-								<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Hospital</h6>
+							</form>
+								<!-- <h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Hospital</h6>
 								<div class="row border-bottom">
 									<div class="mb-3 col-md-12">
 										<i class="prefix"></i>
@@ -657,10 +670,25 @@
 									</div>
 								</div>
 								<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Hospital Director</h6>
-								<div class="text-center form-sm mt-2">
-									<button class="btn btn-elegant">Sign up <i class="fa fa-sign-in text-light ml-1"></i></button>
-								</div>
-							</form>
+								<div class="row">
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="dir_firstname">First Name</label>
+										<input type="text" id="dir_firstname" name="dirp_firstname" class="form-control form-control-sm validate">
+									</div>
+
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="dir_middlename">Middle Name</label>
+										<input type="text" id="dir_middlename" name="dir_middlename" class="form-control form-control-sm validate">
+									</div>
+
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="dir_lastname">Last Name</label>
+										<input type="text" id="dir_lastname" name="dirdir_lastname" class="form-control form-control-sm validate">
+									</div>
+								</div> -->
 						</div>
 						<!--Footer-->
 						<div class="modal-footer">
@@ -681,7 +709,7 @@
 <!--Modal: Login / Register Form-->
 
 <div class="text-center">
-	<a href="" class="btn btn-default btn-rounded my-3" data-toggle="modal" data-target="#modalLRForm">Launch Modal LogIn/Register</a>
+	<a href="" class="btn btn-default btn-rounded my-3" data-toggle="modal" data-target="#mdl_LoginRegistration">Launch Modal LogIn/Register</a>
 </div>
 
 
@@ -702,6 +730,7 @@
 <script src="js/waypoints.min.js"></script>
 <script src="js/jquery.counterup.min.js"></script>
 <script src="js/main.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
@@ -709,6 +738,60 @@
 $(function(){
 	$('#rep_bday').datepicker({
 		maxDate: 0
+	});
+});
+$(document).on("submit", "form[name='frm_repRegister']", function(e){
+	e.preventDefault();
+	let formdata = $(this).serialize()
+	console.log(formdata)
+	let firstName = $('#rep_firstname').val()
+	let middleName = $('#rep_middlename').val()
+	let lastName = $('#rep_lastname').val()
+	let sex = $('#rep_sex').val()
+	let bDay = $('#rep_bday').val()
+	let contact = $('#rep_contact').val()
+	let regCode = $('#rep_regcode').val()
+	let email = $('#rep_email').val()
+	let password = $('#rep_password').val()
+
+	$.ajax({
+		type: "POST",
+		url: "/register",
+		data: $(this).serialize(),
+		success: function (data){
+			console.log(data)
+			if (data == 1){
+				swal({
+					title:"Err",
+					text:"Registration not successful",
+					icon: "success",
+					buttons:{text:"Okay"},
+				})
+				.then((willApprove) => {
+					if (willApprove){
+						$('#mdl_LoginRegistration').modal('hide');
+					}
+				});
+			}
+			else if (data == 2){
+				swal({
+					title: "Registration Success!",
+					text: "You can now login!",
+					icon: "success",
+					buttons: false,
+					timer: 1000
+				})
+			}
+			else if (data == 3){
+				swal({
+					title: "Err",
+					text: "Username already exists",
+					icon: "error",
+					buttons: false,
+					timer: 1500
+				})
+			}
+		}
 	});
 });
 </script>
