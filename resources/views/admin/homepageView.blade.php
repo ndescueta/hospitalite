@@ -46,14 +46,18 @@
       <div class="header-wrap">
         <div class="header-top d-flex justify-content-between align-items-center">
           <div class="logo">
-            @if (count($HomePageTitle) > 0)
-            @foreach ($HomePageTitle as $homecontent)
-            {{$homecontent->txtDescription}}
-            <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editmodal' data-id='{{$homecontent->intHomeContentId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
-            @endforeach
-            @else
-            Oof.
-            @endif
+            <h3 class="karla">
+              @if (count($HomePageTitle) > 0)
+              @foreach ($HomePageTitle as $homecontent)
+              {{$homecontent->txtDescription}}
+              <span>
+                <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editmodal' data-id='{{$homecontent->intHomeContentId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
+              </span>
+              @endforeach
+              @else
+              Oof.
+              @endif
+            </h3>
           </div>
           <div class="main-menubar d-flex align-items-center">
             <nav class="hide">

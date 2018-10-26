@@ -4,8 +4,17 @@
 /* Mobile Layout: 320px */
 /* Wide Mobile Layout: 480px */
 /* =================================== */
-/*  Basic Style 
+/*  Basic Style
 /* =================================== */
+@font-face {
+    font-family: 'Karla-Regular';
+    src: url('../fonts/Karla/Karla-Regular.eot');
+    src: url('../fonts/Karla/Karla-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/Karla/Karla-Regular.woff2') format('woff2'),
+        url('../fonts/Karla/Karla-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 ::-moz-selection {
   /* Code for Firefox */
   background-color: #2482ff;
@@ -2746,4 +2755,8 @@ p {
 
 .fa {
   color: #1a1a1a;
+}
+.karla{
+  font-family: "Karla-Regular";
+  font-weight: bold;
 }
