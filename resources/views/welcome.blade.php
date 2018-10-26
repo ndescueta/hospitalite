@@ -36,6 +36,7 @@
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
 	<!-- Material Design Bootstrap -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
 </head>
@@ -503,7 +504,7 @@
 
 <!--Modal: Login / Register Form-->
 <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog cascading-modal" role="document">
+	<div class="modal-dialog cascading-modal modal-lg" role="document">
 		<!--Content-->
 		<div class="modal-content">
 
@@ -559,70 +560,107 @@
 
 						<!--Body-->
 						<div class="modal-body">
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="text" id="modalLRInput12" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput12">First Name</label>
-							</div>
+							<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Representative</h6>
+							<form method="post">
+								<div class="row">
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_firstname">First Name</label>
+										<input type="text" id="rep_firstname" name="rep_firstname" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="text" id="modalLRInput13" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput13">Middle Name</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_middlename">Middle Name</label>
+										<input type="text" id="rep_middlename" name="rep_middlename" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="text" id="modalLRInput14" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput14">Last Name</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_lastname">Last Name</label>
+										<input type="text" id="rep_lastname" name="rep_lastname" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="text" id="modalLRInput15" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput15">Gender</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_sex">Sex</label>
+										<select class="form-control" name="rep_sex" id="rep_sex">
+											<option selected disabled>Select appropriate sex</option>
+											<option value="Male">Male</option>
+											<option value="Female">Female</option>
+										</select>
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="text" id="modalLRInput16" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput16">Birth Date</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_bday">Birth Date</label>
+										<input type="text" id="rep_bday" name="rep_bday" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="text" id="modalLRInput17" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput17">Invitation/Hospital Code</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_regcode">Registration Code</label>
+										<input type="text" id="rep_regcode" name="rep_regcode" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="email" id="modalLRInput12" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput12">Your email</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_email">Email</label>
+										<input type="email" id="rep_email" name="rep_email" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-3">
-								<i class="prefix"></i>
-								<input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput13">Your password</label>
-							</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_password">Your password</label>
+										<input type="password" id="rep_password" name="rep_password" class="form-control form-control-sm validate">
+									</div>
 
-							<div class="md-form form-sm mb-5">
-								<i class="prefix"></i>
-								<input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
-								<label data-error="wrong" data-success="right" for="modalLRInput14">Repeat password</label>
-							</div>
+									<!-- <div class="mb-5 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="modalLRInput14">Repeat password</label>
+										<input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
+									</div> -->
 
-							<div class="md-form form-sm mb-4">
-								<i class="prefix"></i>
-
-
-							</div>
-
-							<div class="text-center form-sm mt-2">
-								<button class="btn btn-elegant">Sign up <i class="fa fa-sign-in text-light ml-1"></i></button>
-							</div>
-
+									<div class="mb-5 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="rep_contact">Contact</label>
+										<input type="text" id="rep_contact" name="rep_contact" class="form-control form-control-sm validate">
+									</div>
+								</div>
+								<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Hospital</h6>
+								<div class="row border-bottom">
+									<div class="mb-3 col-md-12">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="hospName">Hospital Name</label>
+										<input type="text" name="hospName" id="hospName" class="form-control form-control-sm">
+									</div>
+									<h6 class="col-md-12" style="color: rgb(40,40,40); margin-bottom: 0px">Hospital Address</h6>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="hospStreet">Street</label>
+										<input type="text" name="hospStreet" id="hospStreet" class="form-control form-control-sm">
+									</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="hospBrgy">Barangay</label>
+										<input type="text" name="hospBrgy" id="hospBrgy" class="form-control form-control-sm">
+									</div>
+									<div class="mb-3 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="hospCity">City</label>
+										<input type="text" name="hospCity" id="hospCity" class="form-control form-control-sm">
+									</div>
+									<div class="mb-5 col-md-4">
+										<i class="prefix"></i>
+										<label data-error="wrong" data-success="right" for="hospZcode">Zip Code</label>
+										<input type="text" name="hospZcode" id="hospZcode" class="form-control form-control-sm">
+									</div>
+								</div>
+								<h6 style="margin-top: -15px; color:rgb(110,110,110); font-weight: bold;">Hospital Director</h6>
+								<div class="text-center form-sm mt-2">
+									<button class="btn btn-elegant">Sign up <i class="fa fa-sign-in text-light ml-1"></i></button>
+								</div>
+							</form>
 						</div>
 						<!--Footer-->
 						<div class="modal-footer">
@@ -664,7 +702,15 @@
 <script src="js/waypoints.min.js"></script>
 <script src="js/jquery.counterup.min.js"></script>
 <script src="js/main.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#rep_bday').datepicker({
+		maxDate: 0
+	});
+});
+</script>
 </body>
 </html>

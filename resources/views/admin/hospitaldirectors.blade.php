@@ -82,7 +82,11 @@ function addDirector() {
             "</div>"+
             "<div class='form-group col-md-6'>"+
             "<label for='directorSex'>Sex</label>"+
-            "<input type='text' class='form-control' name='directorSex' id='directorSex' >"+
+            "<select class='form-control'>"+
+            "<option selected disabled>Select sex</option>"+
+            "<option value='Male'>Male</option>"+
+            "<option value='Female'>Female</option>"+
+            "</select>"+
             "</div>"+
             "<div class='form-group col-md-6'>"+
             "<label for='directorBirthday'>Birthday</label>"+
