@@ -45,6 +45,8 @@ Route::get('admin/test','TrainingsController@test');
 /*Route::get('admin/hospitalrequest','RequestsController@index');
 Route::get('admin/hospitalrequestShow/{intEventId}','RequestsController@show');*/
 Route::resource('admin/hospitalrequest','RequestsController');
+//PARTICIPANTS ROUTE
+Route::resource('admin/hospitalrequestShow','ParticipantsController');
 
 //DIRECTORS ROUTE
 Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
