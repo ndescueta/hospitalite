@@ -33,6 +33,7 @@ Route::post('admin/deleteService','ServicesController@deleteService');
 
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','TrainingsController@index');
+Route::get('admin/trainings/add','TrainingsController@addEventView');
 Route::get('admin/viewEvent/{intEventId}','TrainingsController@viewEvent');
 Route::post('admin/addEvent','TrainingsController@addEvent');
 Route::post('admin/editEvent','TrainingsController@editEvent');
