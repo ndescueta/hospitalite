@@ -37,6 +37,11 @@ Route::post('admin/editEvent','TrainingsController@editEvent');
 Route::post('admin/deleteEvent','TrainingsController@deleteEvent');
 Route::get('admin/test','TrainingsController@test');
 
+//REQUESTS Route
+/*Route::get('admin/hospitalrequest','RequestsController@index');
+Route::get('admin/hospitalrequestShow/{intEventId}','RequestsController@show');*/
+Route::resource('admin/hospitalrequest','RequestsController');
+
 //DIRECTORS ROUTE
 Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
 Route::get('admin/getModalEditDirector/{intDirectorId}','HospitalDirectorsController@getModalEditDirector');
