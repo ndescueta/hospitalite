@@ -34,12 +34,15 @@
                                       </tr>
                                   @endforeach
                                   </table>
+                                  <div class='float-right'>
+                                  {{$selectEvents->links()}}
+                                  </div>
                               @else
                                   There are currently no events.
                               @endif
                             </div>
                             <!-- Add Events -->
-                            <a href="#" onclick="addEvent()" data-target="#add-new-event" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                            <a href="trainings/add" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
                               <i class="ti-plus"></i> Add New Event
                             </a>
                           </div>
@@ -62,8 +65,6 @@
 
 
 
-
-@endsection
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- SCRIPTS -->
@@ -489,7 +490,34 @@ function viewEvent(id) {
     }).done(function (data) {
       eventDescCont.className = "";
       var result = JSON.parse(JSON.stringify(data));
-      eventDescCont.innerHTML = "<div><h3>"+result[0].strEventName+"</h3><br><h5>"+result[0].txtEventDescription+"</h5><br><p><b>Street:</b> "+result[0].txtEventStreet+"<br><b>Barangay:</b> "+result[0].txtEventBarangay+"<br><b>City:</b> "+result[0].txtEventCity+"<br><b>Zip Code:</b> "+result[0].intEventZip+"</p></div>";
+      eventDescCont.innerHTML = "<div><h3>"+result[0].strEventName+"</h3><br>"+
+      "<div id='carouselExampleIndicators2' class='carousel slide' data-ride='carousel'>"+
+"<ol class='carousel-indicators'>"+
+"<li data-target='#carouselExampleIndicators2' data-slide-to='0' class='active'></li>"+
+"<li data-target='#carouselExampleIndicators2' data-slide-to='1'></li>"+
+"<li data-target='#carouselExampleIndicators2' data-slide-to='2'></li>"+
+"</ol>"+
+"<div class='carousel-inner' role='listbox'>"+
+"<div class='carousel-item active'>"+
+"<img class='img-responsive' src='"+ "{{ asset('eventImages/imageName') }}".replace("imageName", result[0].txtEventImage1) +"' alt='First slide'>"+
+"</div>"+
+"<div class='carousel-item'>"+
+"<img class='img-responsive' src='"+ "{{ asset('eventImages/imageName') }}".replace("imageName", result[0].txtEventImage2) +"' alt='Second slide'>"+
+"</div>"+
+"<div class='carousel-item'>"+
+"<img class='img-responsive' src='"+ "{{ asset('eventImages/imageName') }}".replace("imageName", result[0].txtEventImage3) +"' alt='Third slide'>"+
+"</div>"+
+"</div>"+
+"<a class='carousel-control-prev' href='#carouselExampleIndicators2' role='button' data-slide='prev'>"+
+"<span class='carousel-control-prev-icon' aria-hidden='true'></span>"+
+"<span class='sr-only'>Previous</span>"+
+"</a>"+
+"<a class='carousel-control-next' href='#carouselExampleIndicators2' role='button' data-slide='next'>"+
+"<span class='carousel-control-next-icon' aria-hidden='true'></span>"+
+"<span class='sr-only'>Next</span>"+
+"</a>"+
+"</div><br>"+
+      "<h5>"+result[0].txtEventDescription+"</h5><br><p><b>Street:</b> "+result[0].txtEventStreet+"<br><b>Barangay:</b> "+result[0].txtEventBarangay+"<br><b>City:</b> "+result[0].txtEventCity+"<br><b>Zip Code:</b> "+result[0].intEventZip+"</p></div>";
     }).fail(function (data) {
       alert("Something when Wrong");
     });
@@ -505,3 +533,7 @@ function textEmpasis(elem) {
   },1000);
 }
 </script>
+
+
+
+@endsection

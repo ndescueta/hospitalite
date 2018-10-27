@@ -8,11 +8,28 @@ use App\Http\Controllers\Controller;
 
 class TrainingsController extends Controller
 {
+
+    //VIEW CONTROLLERS
+
     public function index() {
-        $selectEvents= DB::select("SELECT td.intEventId, DATEDIFF(datDateStart, NOW()) as status, strEventName,datPaymentDue FROM tblevent te JOIN tbldate td ON te.intEventId = td.intEventId WHERE stfEventStatus = 'Active' ", [1]);
+        // $selectEvents= DB::select("SELECT td.intEventId, DATEDIFF(datDateStart, NOW()) as status, strEventName,datPaymentDue FROM tblevent te JOIN tbldate td ON te.intEventId = td.intEventId WHERE stfEventStatus = 'Active' ", [1])->paginate(1);
+        // return view("admin.trainings")->with('selectEvents',$selectEvents);
+
+        $selectEvents = DB::table('tblevent')
+->join('tbldate', 'tbldate.intEventId', '=', 'tblevent.intEventId')
+->select('tblevent.intEventId',DB::raw(" DATEDIFF(datDateStart, NOW()) as status"), 'strEventName', 'datPaymentDue')
+->where('stfEventStatus', '=', 'Active')
+->paginate(4);
         return view("admin.trainings")->with('selectEvents',$selectEvents);
     }
+    
+    public function addEventView() {
+        return view("admin.trainingsAdd");
+    }
 
+
+
+    //CRUD CONTROLLERS
     public function viewEvent($intEventId) {
         $editEvent = DB::select("SELECT * FROM tblevent te JOIN tbldate td ON te.intEventId = td.intEventId WHERE te.intEventId = $intEventId ",[1]);
         return $editEvent;
@@ -37,13 +54,24 @@ class TrainingsController extends Controller
         $datDateEnd= $request->datDateEnd;
         $timTimeStart= $request->timTimeStart;
         $timTimeEnd= $request->timTimeEnd;
-
+        
+        $txtEventImage1 = $request->file('file1');
+        $txtEventImage2 = $request->file('file2');
+        $txtEventImage3 = $request->file('file3');
+        //Image Name
+        $file1Name = rand() . '.' . $txtEventImage1->getClientOriginalExtension();
+        $file2Name = rand() . '.' . $txtEventImage2->getClientOriginalExtension();
+        $file3Name = rand() . '.' . $txtEventImage3->getClientOriginalExtension();
+        //Move Image
+        $txtEventImage1->move(public_path('eventImages'),$file1Name);
+        $txtEventImage2->move(public_path('eventImages'),$file2Name);
+        $txtEventImage3->move(public_path('eventImages'),$file3Name);
         
         //TRANSACT
         DB::beginTransaction();
 
         try {
-            DB::insert("INSERT INTO tblevent (intAdminId,strEventName,txtEventStreet,txtEventBarangay,txtEventCity,intEventZip,txtEventDescription,intEventCapacity,monEventPrice,stfEventBankAccount,strEventPaymentCenter,datPaymentDue,stfEventStatus) values (1,'$strEventName', '$txtEventStreet','$txtEventBarangay','$txtEventCity',$intEventZip,'$txtEventDescription',$intEventCapacity,$monEventPrice,'$stfEventBankAccount','$strEventPaymentCenter','$datPaymentDue','Active'); ",[1]);
+            DB::insert("INSERT INTO tblevent (intAdminId,strEventName,txtEventStreet,txtEventBarangay,txtEventCity,intEventZip,txtEventDescription,intEventCapacity,monEventPrice,stfEventBankAccount,strEventPaymentCenter,datPaymentDue,stfEventStatus,txtEventImage1,txtEventImage2,txtEventImage3) values (1,'$strEventName', '$txtEventStreet','$txtEventBarangay','$txtEventCity',$intEventZip,'$txtEventDescription',$intEventCapacity,$monEventPrice,'$stfEventBankAccount','$strEventPaymentCenter','$datPaymentDue','Active','$file1Name','$file2Name','$file3Name'); ",[1]);
 
             DB::insert("INSERT INTO tbldate(intEventId, datDateStart, datDateEnd, timTimeStart, timTimeEnd, strDateDescription) VALUES((SELECT intEventId FROM tblevent ORDER BY intEventId DESC LIMIT 1),'$datDateStart','$datDateEnd','$timTimeStart','$timTimeEnd','($datDateStart to $datDateEnd) ($timTimeStart to $timTimeEnd)');",[1]);
 
@@ -55,7 +83,7 @@ class TrainingsController extends Controller
             return $e;
         }
 
-        return "Success";
+        index();
     }
 
     public function editEvent(Request $request) {
