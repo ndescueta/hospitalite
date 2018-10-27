@@ -25,57 +25,68 @@ class HospitalController extends Controller
     return view('hospital_side.home');
   }
 
-    public function seminars()
-    {
-        //$seminars = DB::select('SELECT * FROM tblevent LEFT JOIN tbldate ON tblevent.intEventId = tbldate.intEventId ORDER BY datDateStart DESC')->paginate(4);
+  public function seminars()
+  {
+    //$seminars = DB::select('SELECT * FROM tblevent LEFT JOIN tbldate ON tblevent.intEventId = tbldate.intEventId ORDER BY datDateStart DESC')->paginate(4);
 
-        $seminars = DB::table('tblevent')
-        ->join('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
-        ->select('*')
-        ->paginate(3);
+    $seminars = DB::table('tblevent')
+    ->join('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
+    ->select('*')
+    ->paginate(3);
 
-        //$events = $seminars->dates()->orderBy('datDateStart', 'desc')->get();
-        //$seminars = \App\Event::with('dates')->get();
-        //$seminars = Event::orderBy('datDateStart', 'desc')->dates;
-        return view('hospital_side.seminars')->with('seminars', $seminars);
-    }
+    //$events = $seminars->dates()->orderBy('datDateStart', 'desc')->get();
+    //$seminars = \App\Event::with('dates')->get();
+    //$seminars = Event::orderBy('datDateStart', 'desc')->dates;
+    return view('hospital_side.seminars')->with('seminars', $seminars);
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+  * Show the form for creating a new resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function create()
+  {
+    //
+  }
+
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(Request $request)
+  {
+    //
+  }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($intEventId)
-    {
-      // $seminars = Event::find($intEventId);
+  /**
+  * Display the specified resource.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function show($intEventId)
+  {
+    // $seminars = Event::find($intEventId);
 
-      //$seminars = DB::raw('SELECT * FROM tblevent LEFT JOIN tbldate ON tblevent.intEventId = tbldate.intEventId WHERE tblevent.intEventId = 1');
+    //$seminars = DB::raw('SELECT * FROM tblevent LEFT JOIN tbldate ON tblevent.intEventId = tbldate.intEventId WHERE tblevent.intEventId = 1');
 
-      // $seminars = Event::join('tbldate', 'tbldate.intEventId', '=','tblevent.intEventId')
-      // ->select('tbldate.*','tblevent.*')
-      // ->where('tblevent.intEventId', $intEventId)
-      // ->get();
+    // $seminars = Event::join('tbldate', 'tbldate.intEventId', '=','tblevent.intEventId')
+    // ->select('tbldate.*','tblevent.*')
+    // ->where('tblevent.intEventId', $intEventId)
+    // ->get();
 
-      $seminars = DB::table('tblevent')
-      ->leftjoin('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
-      ->select('*')
-      ->where('tblevent.intEventId', $intEventId)
-      ->get();
+    $seminars = DB::table('tblevent')
+    ->leftjoin('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
+    ->select('*')
+    ->where('tblevent.intEventId', $intEventId)
+    ->get();
 
-      return view('hospital_side.show')->with('seminars', $seminars);
-    }
+    return view('hospital_side.show')->with('seminars', $seminars);
+  }
 
   public function register(Request $request){
     $user = new Users();
@@ -83,13 +94,10 @@ class HospitalController extends Controller
     $users = Users::all();
     $representatives = Representative::all();
 
-
-
-
     foreach($users as $us){
       $uName = $us->strUserName;
       echo $uName;
-    // if($request->rep_email != $uName){
+      // if($request->rep_email != $uName){
       $user->strUserName = $request->rep_email;
       $user->strUserPassword = $request->rep_password;
       $representative->strRepresentativeFirstName = $request->rep_firstname;
@@ -109,33 +117,25 @@ class HospitalController extends Controller
       else {
         echo "2"; // successful
       }
-    // }
-    // else if ($uName == $request->rep_email){
-    //   echo "3"; // parehas ng username
-    // }
+      // }
+      // else if ($uName == $request->rep_email){
+      //   echo "3"; // parehas ng username
+      // }
+    }
   }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
   /**
-  * Store a newly created resource in storage.
+  * Show the form for editing the specified resource.
   *
-  * @param  \Illuminate\Http\Request  $request
+  * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request)
+  public function edit($id)
   {
     //
   }
+
 
   /**
   * Display the specified resource.
