@@ -528,17 +528,32 @@
 
 						<!--Body-->
 						<div class="modal-body mb-1">
-							<form method="post">
+							@if ($message = Session::get('error'))
+							<div class="alert alert-danger alert-block">
+								<button type="button" class="Close" data-dismiss="alert">x</button>
+								<strong>{{ $message }}</strong>
+							</div>
+							@endif
+							@if (count($errors) > 0 )
+							<div class="alert alert-danger">
+								<ul>
+									@foreach($errors->all() as $error)
+									<li>{{error}}</li>
+									@endforeach
+								</ul>
+							</div>
+							@endif
+							<form method="post" name="frm_Login">
 								<div class="md-form form-sm mb-5">
 									<i class="prefix"></i>
-									<input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-									<label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
+									<input type="email" id="repEmail" name="repEmail" class="form-control form-control-sm validate">
+									<label data-error="wrong" data-success="right" for="repEmail">Email</label>
 								</div>
 
 								<div class="md-form form-sm mb-4">
 									<i class="prefix"></i>
-									<input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-									<label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
+									<input type="password" id="repPassword" name="repPassword" class="form-control form-control-sm validate">
+									<label data-error="wrong" data-success="right" for="repPassword">Password</label>
 								</div>
 								{{ csrf_field() }}
 								<div class="text-center mt-2">
@@ -732,6 +747,7 @@
 <script src="js/main.js"></script>
 <script type="text/javascript" src="js/sweetalert.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/notify.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
 <script type="text/javascript">
@@ -783,14 +799,21 @@ $(document).on("submit", "form[name='frm_repRegister']", function(e){
 				})
 			}
 			else if (data == 3){
-				swal({
-					title: "Err",
-					text: "Username already exists",
-					icon: "error",
-					buttons: false,
-					timer: 1500
-				})
+				$.notify("Username already exists!", "error");
 			}
+		}
+	});
+});
+$(document).on("submit", "form[name='frm_Login']", function(e){
+	e.preventDefault();
+
+	let formdata = $(this).serialize()
+	$.ajax({
+		type: "POST",
+		url: "/login",
+		data: $(this).serialize(),
+		success: function(result){
+
 		}
 	});
 });
