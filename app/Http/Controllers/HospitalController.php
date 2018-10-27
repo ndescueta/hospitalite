@@ -10,6 +10,8 @@ use DB;
 
 use App\Users;
 use App\Representative;
+use Validator;
+use Auth;
 
 
 
@@ -88,43 +90,41 @@ class HospitalController extends Controller
     return view('hospital_side.show')->with('seminars', $seminars);
   }
 
-
+  public function login(Request $request){
+  }
 
   public function register(Request $request){
     $user = new Users();
     $representative = new Representative();
-    $users = Users::where('strUserName', '$request->rep_email')
-    ->get();
     $representatives = Representative::all();
-    // foreach($users as $us){
-    // $uName = $us->strUserName;
-    // echo $uName;
-    echo $users;
-    // if($request->rep_email != $uName){
-    $user->strUserName = $request->rep_email;
-    $user->strUserPassword = $request->rep_password;
-    $representative->strRepresentativeFirstName = $request->rep_firstname;
-    $representative->strRepresentativeMiddleName = $request->rep_middlename;
-    $representative->strRepresentativeLastName = $request->rep_lastname;
-    $representative->stfRepresentativeSex = $request->rep_sex;
-    // $representative->bDay = $request->bDay;
-    $representative->stfRepresentativeContact = $request->rep_contact;
-    $representative->intHospitalId = 2;
-    // $representative->regCode = $request->regCode;
-    $representative->txtRepresentativeEmailAddress = $request->rep_email;
-    $user->save();
-    $representative->save();
-    if(!$user && !$representative){
-      echo "1"; // not successful
-    }
-    else {
-      echo "2"; // successful
-    }
-    // }
-    // else if ($uName == $request->rep_email){
-    //   echo "3"; // parehas ng username
-    // }
+    $rep_email = $request->rep_email;
+    $users = Users::where('strUserName', '=', $rep_email)
+    ->get();
 
+    if (count($users) > 0){
+      echo "3";
+    }
+    else{
+      $user->strUserName = $request->rep_email;
+      $user->strUserPassword = $request->rep_password;
+      $representative->strRepresentativeFirstName = $request->rep_firstname;
+      $representative->strRepresentativeMiddleName = $request->rep_middlename;
+      $representative->strRepresentativeLastName = $request->rep_lastname;
+      $representative->stfRepresentativeSex = $request->rep_sex;
+      // $representative->bDay = $request->bDay;
+      $representative->stfRepresentativeContact = $request->rep_contact;
+      $representative->intHospitalId = 2;
+      // $representative->regCode = $request->regCode;
+      $representative->txtRepresentativeEmailAddress = $request->rep_email;
+      $user->save();
+      $representative->save();
+      if(!$user && !$representative){
+        echo "1"; // not successful
+      }
+      else {
+        echo "2"; // successful
+      }
+    }
   }
 
   /**

@@ -20,6 +20,7 @@
 Route::get('/', 'HomeContentsController@index2');
 /* REGISTRATION */
 Route::post('/register', 'HospitalController@register');
+Route::post('/login', 'HospitalController@login');
 
 //DASHBOARD ROUTE
 Route::get('admin/','AdminController@dashboard');
