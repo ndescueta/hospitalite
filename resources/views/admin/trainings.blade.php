@@ -491,7 +491,7 @@ function viewEvent(id) {
       eventDescCont.className = "";
       var result = JSON.parse(JSON.stringify(data));
       eventDescCont.innerHTML = "<div><h3>"+result[0].strEventName+"</h3><br>"+
-      "<div id='carouselExampleIndicators2' class='carousel slide' data-ride='carousel'>"+
+      "<div id='carouselExampleIndicators2' style='background: #EDF1F5' class='carousel slide' data-ride='carousel'>"+
 "<ol class='carousel-indicators'>"+
 "<li data-target='#carouselExampleIndicators2' data-slide-to='0' class='active'></li>"+
 "<li data-target='#carouselExampleIndicators2' data-slide-to='1'></li>"+

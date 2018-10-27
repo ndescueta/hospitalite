@@ -19,6 +19,7 @@ class TrainingsController extends Controller
 ->join('tbldate', 'tbldate.intEventId', '=', 'tblevent.intEventId')
 ->select('tblevent.intEventId',DB::raw(" DATEDIFF(datDateStart, NOW()) as status"), 'strEventName', 'datPaymentDue')
 ->where('stfEventStatus', '=', 'Active')
+->orderBy('intEventId','desc')
 ->paginate(4);
         return view("admin.trainings")->with('selectEvents',$selectEvents);
     }
@@ -83,7 +84,7 @@ class TrainingsController extends Controller
             return $e;
         }
 
-        index();
+        return redirect()->action('TrainingsController@index');
     }
 
     public function editEvent(Request $request) {

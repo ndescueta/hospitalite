@@ -32,20 +32,19 @@
                 <label>Event Images</label>
                 <div class="row">
                 <div class='col-md-4'>
-                <div class="uploadImage">
-                </div>
+                <img id='img1' width='100%'/>
                 <br>
-                <input type='file' name='file1' required/>
-                </div>
-                <div class='col-md-4'>
-                <div class="uploadImage"></div>
-                <br>
-                <input type='file' name='file2' required/>
+                <input type='file' name='file1' id='file1' required/>
                 </div>
                 <div class='col-md-4'>
-                <div class="uploadImage"></div>
+                <img id='img2' width='100%'/>
                 <br>
-                <input type='file' name='file3' required/>
+                <input type='file' name='file2' id='file2' required/>
+                </div>
+                <div class='col-md-4'>
+                <img id='img3' width='100%'/>
+                <br>
+                <input type='file' name='file3' id='file3' required/>
                 </div>
                 </div>
                 <br>
@@ -120,6 +119,55 @@
 <!-- SCRIPTS -->
 
 <script>
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#img1').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#img2').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL3(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#img3').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#file1").change(function(){
+        readURL1(this);
+    });
+
+    $("#file2").change(function(){
+        readURL2(this);
+    });
+
+    $("#file3").change(function(){
+        readURL3(this);
+    });
 
 </script>
 
