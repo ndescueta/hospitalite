@@ -73,4 +73,7 @@ Route::resource('news', 'NewsController');
 Route::get('hosp/home','HospitalController@index');
 Route::get('hosp/settings','HospitalController@index');
 Route::get('hosp/services','HospitalController@index');
-Route::get('hosp/seminars','HospitalController@index');
+Route::get('hosp/seminars','HospitalController@seminars');
+
+
+Route::resource('hospital_side', 'HospitalController');

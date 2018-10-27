@@ -28,7 +28,7 @@
       @endforeach
       {{$news->links()}}
   @else
-      <p> No Posts found. </p>
+      <p> No News found. </p>
   @endif
 
 @endsection
