@@ -18,6 +18,8 @@
 
 
 Route::get('/', 'HomeContentsController@index2');
+/* REGISTRATION */
+Route::post('/register', 'HospitalController@register');
 
 //DASHBOARD ROUTE
 Route::get('admin/','AdminController@dashboard');
