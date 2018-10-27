@@ -528,21 +528,6 @@
 
 						<!--Body-->
 						<div class="modal-body mb-1">
-							@if ($message = Session::get('error'))
-							<div class="alert alert-danger alert-block">
-								<button type="button" class="Close" data-dismiss="alert">x</button>
-								<strong>{{ $message }}</strong>
-							</div>
-							@endif
-							@if (count($errors) > 0 )
-							<div class="alert alert-danger">
-								<ul>
-									@foreach($errors->all() as $error)
-									<li>{{error}}</li>
-									@endforeach
-								</ul>
-							</div>
-							@endif
 							<form method="post" name="frm_Login">
 								<div class="md-form form-sm mb-5">
 									<i class="prefix"></i>
