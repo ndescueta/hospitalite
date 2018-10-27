@@ -2760,3 +2760,9 @@ p {
   font-family: "Karla-Regular";
   font-weight: bold;
 }
+.invalid{
+  color:red;
+}
+.valid{
+  color:green;
+}

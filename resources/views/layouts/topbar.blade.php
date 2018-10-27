@@ -13,7 +13,9 @@
                             <img src="{{ asset('assets/images/logo-light-icon.png')}}" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
-                        <span class="hidden-xs"><span class="font-bold">elite</span>hospital</span>
+                        <span class="hidden-xs"><span class="font-bold">
+                          Hospitalite
+                        </span></span>
                     </a>
                 </div>
                 <!-- ============================================================== -->
