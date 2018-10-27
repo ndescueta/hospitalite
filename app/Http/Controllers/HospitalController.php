@@ -88,58 +88,7 @@ class HospitalController extends Controller
     return view('hospital_side.show')->with('seminars', $seminars);
   }
 
-    $seminars = DB::table('tblevent')
-    ->join('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
-    ->select('*')
-    ->paginate(3);
 
-    //$events = $seminars->dates()->orderBy('datDateStart', 'desc')->get();
-    //$seminars = \App\Event::with('dates')->get();
-    //$seminars = Event::orderBy('datDateStart', 'desc')->dates;
-    return view('hospital_side.seminars')->with('seminars', $seminars);
-  }
-
-  /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
-  public function create()
-  {
-    //
-  }
-
-
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function show($intEventId)
-  {
-    // $seminars = Event::find($intEventId);
-
-<<<<<<< HEAD
-    foreach($users as $us){
-      $uName = $us->strUserName;
-      echo $uName;
-=======
-    //$seminars = DB::raw('SELECT * FROM tblevent LEFT JOIN tbldate ON tblevent.intEventId = tbldate.intEventId WHERE tblevent.intEventId = 1');
-
-    // $seminars = Event::join('tbldate', 'tbldate.intEventId', '=','tblevent.intEventId')
-    // ->select('tbldate.*','tblevent.*')
-    // ->where('tblevent.intEventId', $intEventId)
-    // ->get();
-
-    $seminars = DB::table('tblevent')
-    ->leftjoin('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
-    ->select('*')
-    ->where('tblevent.intEventId', $intEventId)
-    ->get();
-
-    return view('hospital_side.show')->with('seminars', $seminars);
-  }
 
   public function register(Request $request){
     $user = new Users();
@@ -148,43 +97,35 @@ class HospitalController extends Controller
     ->get();
     $representatives = Representative::all();
     // foreach($users as $us){
-      // $uName = $us->strUserName;
-      // echo $uName;
-      echo $users;
->>>>>>> e21ee2770bb52a6969687e568f0c280941620ca2
-      // if($request->rep_email != $uName){
-      $user->strUserName = $request->rep_email;
-      $user->strUserPassword = $request->rep_password;
-      $representative->strRepresentativeFirstName = $request->rep_firstname;
-      $representative->strRepresentativeMiddleName = $request->rep_middlename;
-      $representative->strRepresentativeLastName = $request->rep_lastname;
-      $representative->stfRepresentativeSex = $request->rep_sex;
-      // $representative->bDay = $request->bDay;
-      $representative->stfRepresentativeContact = $request->rep_contact;
-      $representative->intHospitalId = 2;
-      // $representative->regCode = $request->regCode;
-      $representative->txtRepresentativeEmailAddress = $request->rep_email;
-      $user->save();
-      $representative->save();
-      if(!$user && !$representative){
-        echo "1"; // not successful
-      }
-      else {
-        echo "2"; // successful
-      }
-      // }
-      // else if ($uName == $request->rep_email){
-      //   echo "3"; // parehas ng username
-      // }
-<<<<<<< HEAD
+    // $uName = $us->strUserName;
+    // echo $uName;
+    echo $users;
+    // if($request->rep_email != $uName){
+    $user->strUserName = $request->rep_email;
+    $user->strUserPassword = $request->rep_password;
+    $representative->strRepresentativeFirstName = $request->rep_firstname;
+    $representative->strRepresentativeMiddleName = $request->rep_middlename;
+    $representative->strRepresentativeLastName = $request->rep_lastname;
+    $representative->stfRepresentativeSex = $request->rep_sex;
+    // $representative->bDay = $request->bDay;
+    $representative->stfRepresentativeContact = $request->rep_contact;
+    $representative->intHospitalId = 2;
+    // $representative->regCode = $request->regCode;
+    $representative->txtRepresentativeEmailAddress = $request->rep_email;
+    $user->save();
+    $representative->save();
+    if(!$user && !$representative){
+      echo "1"; // not successful
     }
-  }
-
-
-=======
+    else {
+      echo "2"; // successful
+    }
     // }
-  }
+    // else if ($uName == $request->rep_email){
+    //   echo "3"; // parehas ng username
+    // }
 
+  }
 
   /**
   * Show the form for editing the specified resource.
@@ -196,40 +137,6 @@ class HospitalController extends Controller
   {
     //
   }
->>>>>>> e21ee2770bb52a6969687e568f0c280941620ca2
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function edit($id)
-  {
-    //
-  }
-
-
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  // public function show($id)
-  // {
-  //   //
-  // }
-
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  // public function edit($id)
-  // {
-  //   //
-  // }
 
   /**
   * Update the specified resource in storage.
