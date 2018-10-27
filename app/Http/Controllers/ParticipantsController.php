@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use App\tblrequest;
-use App\Event;
-use App\Representative;
 use App\Participants;
 use DB;
 
-class RequestsController extends Controller
+class ParticipantsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +16,7 @@ class RequestsController extends Controller
      */
     public function index()
     {
-      //  $requests = tblrequest::where('stfRequestStatus','Unnotified')->get();
-        $events = Event::where('stfEventStatus','Active')->get();
-        return view('admin.hospitalrequest')->with(compact('events'));
+        //
     }
 
     /**
@@ -52,23 +46,18 @@ class RequestsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($intEventId)
+    public function show($intRequestId)
     {
-      $events = Event::where('intEventId',$intEventId)->get();
-      $requests = DB::table('tblrequest')
-      ->join('tblrepresentative', 'tblrequest.intRepresentativeId', '=', 'tblrepresentative.intRepresentativeId')
+      //$participants = Participants::find($intRequestId)->get();
+      $participants = DB::table('tblparticipants')
+      ->join('tblhospital', 'tblparticipants.intHospitalId', '=', 'tblhospital.intHospitalId')
       ->select('*')
-      ->where('stfRequestStatus', '=', 'Unnotified')
-      ->where('intEventId', '=', $intEventId)
+      ->where('intRequestId', '=', $intRequestId)
       ->get();
-      return view('admin.hospitalrequestShow')->with(compact('events','requests'));
-    }
 
-    public function viewRequest($intRequestId)
-    {
-      $participants = Participants::find($intRequestId)->get();
+      $hospitals = DB::select("select DISTINCT(tblhospital.intHospitalId),strHospitalName from tblparticipants inner join tblhospital on tblparticipants.intHospitalId = tblhospital.intHospitalId where intRequestId = $intRequestId");
 
-      return view('admin.hospitalrequestView')->with('participants', $participants);
+      return view('admin.hospitalrequestView')->with((compact('participants','hospitals')));
     }
 
     /**
