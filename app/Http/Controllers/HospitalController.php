@@ -47,9 +47,15 @@ class HospitalController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function create()
+  public function create($intEventId)
   {
-    //
+    $seminars = DB::table('tblevent')
+    ->join('tbldate', 'tblevent.intEventId', '=', 'tbldate.intEventId')
+    ->select('*')
+    ->where('tblevent.intEventId', $intEventId)
+    ->get();
+
+    return view('hospital_side.create')->with('seminars', $seminars);
   }
 
   /**

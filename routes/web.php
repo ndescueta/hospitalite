@@ -88,3 +88,9 @@ Route::get('hosp/seminars','HospitalController@seminars');
 
 
 Route::resource('hospital_side', 'HospitalController');
+
+//Pass Variable from View to Controller
+Route::get('create/{intEventId}', [
+    "uses" => 'HospitalController@create',
+    "as" => 'create'
+]);

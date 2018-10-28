@@ -22,6 +22,8 @@
     <hr class="mr-3">
     <p>{!!$seminar->strDateDescription!!}</p>
   </div>
+  <a href = "{{route('create', $seminar->intEventId)}}" class = "btn btn-primary"> Add Participants </a>
   @endforeach
+
 </div>
 @endsection
