@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Participants;
 use DB;
+use App\tblrequest;
+use App\Event;
 
 class ParticipantsController extends Controller
 {
@@ -49,15 +51,17 @@ class ParticipantsController extends Controller
     public function show($intRequestId)
     {
       //$participants = Participants::find($intRequestId)->get();
+      $events = tblrequest::where('intRequestId',$intRequestId)->get();
       $participants = DB::table('tblparticipants')
       ->join('tblhospital', 'tblparticipants.intHospitalId', '=', 'tblhospital.intHospitalId')
+      ->join('tblrequest', 'tblrequest.intRequestId', '=', 'tblparticipants.intRequestId')
       ->select('*')
-      ->where('intRequestId', '=', $intRequestId)
+      ->where('tblrequest.intRequestId', '=', $intRequestId)
       ->get();
 
       $hospitals = DB::select("select DISTINCT(tblhospital.intHospitalId),strHospitalName from tblparticipants inner join tblhospital on tblparticipants.intHospitalId = tblhospital.intHospitalId where intRequestId = $intRequestId");
 
-      return view('admin.hospitalrequestView')->with((compact('participants','hospitals')));
+      return view('admin.hospitalrequestView')->with((compact('participants','hospitals','events')));
     }
 
     /**
@@ -78,9 +82,31 @@ class ParticipantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateRequest(Request $request)
     {
-        //
+          $status = $request->input('status');
+
+          $requestid = $request->input('requestid');
+          $data_request = tblrequest::find($requestid);
+          //$data = HomeContent::where('intHomeContentId',$request->input('contentid'))->get();
+          $data_request->stfRequestStatus = $request->input('status');
+          $data_request->save();
+
+if($status == 'Accepted'){
+  $countop = Participants::where('intRequestId',$requestid)->get();
+  $participantcount = $countop->count();
+  //$participantcount = $countop->Count_of_participants;
+  settype($participantcount,"int");
+
+  $eventid =$request->input('intEventId');
+  $data_event = Event::find($eventid);
+  $capacity = $data_event->intEventCapacity;
+  settype($capacity,"int");
+  $newEventCapacity = $capacity - $participantcount;
+  $data_event->intEventCapacity = $newEventCapacity;
+  $data_event->save();
+}
+//return redirect('/admin/hospitalrequest');
     }
 
     /**

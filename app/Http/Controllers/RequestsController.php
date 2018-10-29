@@ -21,7 +21,8 @@ class RequestsController extends Controller
     public function index()
     {
       //  $requests = tblrequest::where('stfRequestStatus','Unnotified')->get();
-        $events = Event::where('stfEventStatus','Active')->get();
+      //  $events = Event::where('stfEventStatus','Active')->get();
+      $events = DB::select("SELECT * FROM tblevent WHERE stfEventStatus = 'Active' AND intEventCapacity <> 0");
         return view('admin.hospitalrequest')->with(compact('events'));
     }
 

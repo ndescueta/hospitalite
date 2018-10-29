@@ -37,15 +37,21 @@
                                           <td>{{$participant->txtParticipantEmailAddress}}</td>
                                           <td>{{$participant->strParticipantContact}}</td>
                                         </tr>
+
                                     @endforeach
                                     </table>
                                 @else
                                     There are currently no Event Participants.
                                 @endif
                               </div>
-                            <button class='btn btn-success'>Accept Request</button>
-                            <button class='btn btn-danger'>Reject Request</button>
+                                @if(count($events) > 0)
+                                  @foreach($events as $event)
+                              <button class='btn btn-success' id='acceptRequest' data-event ='{{$event->intEventId}}'data-request='{{$event->intRequestId}}'>Accept Request</button>
+                              <button class='btn btn-danger' id='rejectRequest' data-event ='{{$event->intEventId}}'data-request='{{$event->intRequestId}}'>Reject Request</button>
+                                  @endforeach
+                                @else
 
+                                @endif
                             </div>
                           </div>
                         </div>
@@ -53,5 +59,45 @@
                     </div>
                   </div>
                 </div>
+
+                <script>
+                $("#acceptRequest").click(function(e){
+                  var events = $(this).data('event');
+                  var request = $(this).data('request');
+                  var status = 'Accepted';
+                  console.log(request);
+                  $.ajax({
+
+                    type: 'POST',
+                    url:'/updateRequest',
+                    /*data:{token:'{{csrf_token()}}',
+                         events:events,
+                         request:request},*/
+                    data:"intEventId="+events+"&_token=" + "{{csrf_token()}}"+"&requestid="+request+"&status="+status,
+                    success:function(data){
+                      //console.log(data);
+                      window.location.href = '/admin/hospitalrequest';
+                    }
+                  });
+                })
+                $("#rejectRequest").click(function(e){
+                  var events = $(this).data('event');
+                  var request = $(this).data('request');
+                  var status = 'Rejected';
+                  console.log(request);
+                  $.ajax({
+
+                    type: 'POST',
+                    url:'/updateRequest',
+                    /*data:{token:'{{csrf_token()}}',
+                         events:events,
+                         request:request},*/
+                    data:"intEventId="+events+"&_token=" + "{{csrf_token()}}"+"&requestid="+request+"&status="+status,
+                    success:function(data){
+                      //console.log(data);
+                    }
+                  });
+                })
+                </script>
 
 @endsection
