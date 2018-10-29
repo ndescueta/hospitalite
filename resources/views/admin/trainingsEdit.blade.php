@@ -22,13 +22,13 @@
 
 <div class="row page-titles">
                   <div class="col-md-5 align-self-center">
-                    <h4 class="text-themecolor">Add Trainings and Seminar</h4>
+                    <h4 class="text-themecolor">Edit Trainings and Seminar</h4>
                   </div>
                 </div>
                 <!-- Content -->
                 <div class='card'>
                 <div class='card-body'>               
-                <form id='frmAddEvent' class='form-group form-material p-2' method='post' enctype="multipart/form-data" action="<?php echo url('admin/addEvent')?>">
+                <form id='frmAddEvent' class='form-group form-material p-2' method='post' enctype="multipart/form-data" action="<?php echo url('admin/editEvent')?>">
                 <label>Event Images</label>
                 <div class="row">
                 <div class='col-md-4'>
@@ -51,67 +51,67 @@
 <div class='row'>
 <div class='form-group col-md-12'>
 <label for='eventName'>Event Name <small>(Required)</small></label>
-<input type='text' class='form-control' name='strEventName' id='eventName' required>
+<input type='text' class='form-control' name='strEventName' id='eventName' value="{{$editEvent[0]->strEventName}}" required>
 </div>
 <div class='form-group col-md-3'>
 <label for='eventStreet'>Event Street <small>(Required)</small></label>
-<input type='text' class='form-control' name='txtEventStreet' id='eventStreet' required>
+<input type='text' class='form-control' name='txtEventStreet' id='eventStreet' value="{{$editEvent[0]->txtEventStreet}}" required>
 </div>
 <div class='form-group col-md-3'>
 <label for='eventBarangay'>Event Barangay <small>(Required)</small></label>
-<input type='text' class='form-control' name='txtEventBarangay' id='eventBarangay' required>
+<input type='text' class='form-control' name='txtEventBarangay' id='eventBarangay' value="{{$editEvent[0]->txtEventBarangay}}" required>
 </div>
 <div class='form-group col-md-3'>
 <label for='eventCity'>Event City <small>(Required)</small></label>
-<input type='text' class='form-control' name='txtEventCity' id='eventCity' required>
+<input type='text' class='form-control' name='txtEventCity' id='eventCity' value="{{$editEvent[0]->txtEventCity}}" required>
 </div>
 <div class='form-group col-md-3'>
 <label for='eventZip'>Event Zip Code <small>(Required)</small></label>
-<input type='number' class='form-control' name='intEventZip' id='eventZip' required>
+<input type='number' class='form-control' name='intEventZip' id='eventZip' value="{{$editEvent[0]->intEventZip}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventDateStart'>Event Date Start <small>(Required)</small></label>
-<input type='date' name='datDateStart' id='eventDateStart' class='form-control' required>
+<input type='date' name='datDateStart' id='eventDateStart' class='form-control' value="{{$editEvent[0]->datDateStart}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventDateEnd'>Event Date End <small>(Required)</small></label>
-<input type='date' name='datDateEnd' id='eventDateEnd' class='form-control' required>
+<input type='date' name='datDateEnd' id='eventDateEnd' class='form-control' value="{{$editEvent[0]->datDateEnd}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventTimeStart'>Event Time Start <small>(Required)</small></label>
-<input type='time' name='timTimeStart' id='eventTimeStart' class='form-control' required>
+<input type='time' name='timTimeStart' id='eventTimeStart' class='form-control' value="{{$editEvent[0]->timTimeStart}}"  required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventTimeEnd'>Event Time End <small>(Required)</small></label>
-<input type='time' name='timTimeEnd' id='eventTimeEnd' class='form-control' required>
+<input type='time' name='timTimeEnd' id='eventTimeEnd' class='form-control' value="{{$editEvent[0]->timTimeEnd}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventCapacity'>Capacity <small>(Required)</small></label>
-<input type='number' name='intEventCapacity' id='eventCapacity' class='form-control' required>
+<input type='number' name='intEventCapacity' id='eventCapacity' class='form-control' value="{{$editEvent[0]->intEventCapacity}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventPaymentDue'>Payment Due <small>(Required)</small></label>
-<input type='date' name='datPaymentDue' id='eventPaymentDue' class='form-control' required>
+<input type='date' name='datPaymentDue' id='eventPaymentDue' class='form-control' value="{{$editEvent[0]->datPaymentDue}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label>Bank Account Number <small>(Required)</small></label>
-<input name='stfEventBankAccount' id='eventAccountNo' class='form-control' required>
+<input name='stfEventBankAccount' id='eventAccountNo' class='form-control' value="{{$editEvent[0]->stfEventBankAccount}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label>Payment Centre <small>(Required)</small></label>
-<input name='strEventPaymentCenter' id='eventPaymentCenter' class='form-control' required>
+<input name='strEventPaymentCenter' id='eventPaymentCenter' value="{{$editEvent[0]->strEventPaymentCenter}}" class='form-control' required>
 </div>
 <div class='form-group col-md-6'>
 <label>Event Price <small>(Required)</small></label>
-<input type='number' name='monEventPrice' id='eventPrice' class='form-control' required>
+<input type='number' name='monEventPrice' id='eventPrice' class='form-control' value="{{$editEvent[0]->monEventPrice}}" required>
 </div>
 <div class='form-group col-md-6'>
 <label for='eventDescription'>Description <small>(Required)</small></label>
-<textarea class='form-control' name='txtEventDescription' id='eventDescription' rows='5' require></textarea>
+<textarea class='form-control' name='txtEventDescription' id='eventDescription' rows='5' require>{{$editEvent[0]->txtEventDescription}}</textarea>
 <input type='hidden' name='_token' id='csrf-token' value='{{ Session::token() }}' />
 </div>
 </div>
-<button class='btn btn-primary float-right'>Add</button>
+<button class='btn btn-primary float-right'>Edit</button>
 </form>
                 </div>
                 </div>

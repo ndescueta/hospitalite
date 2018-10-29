@@ -35,6 +35,7 @@ Route::post('admin/deleteService','ServicesController@deleteService');
 //TRAININGS AND SEMINARS ROUTE
 Route::get('admin/trainings','TrainingsController@index');
 Route::get('admin/trainings/add','TrainingsController@addEventView');
+Route::get('admin/trainings/edit/{intEventId}','TrainingsController@editEventView');
 Route::get('admin/viewEvent/{intEventId}','TrainingsController@viewEvent');
 Route::post('admin/addEvent','TrainingsController@addEvent');
 Route::post('admin/editEvent','TrainingsController@editEvent');
@@ -89,3 +90,15 @@ Route::get('hosp/seminars','HospitalController@seminars');
 
 
 Route::resource('hospital_side', 'HospitalController');
+
+
+//LOGIN CONTROLLER
+Route::get('admin/login', 'LoginController@index');
+Route::post('admin/login/checkLogin', 'LoginController@checkLogin');
+Route::get('admin/logout', 'LoginController@logout');
+
+//Pass Variable from View to Controller
+Route::get('create/{intEventId}', [
+    "uses" => 'HospitalController@create',
+    "as" => 'create'
+]);
