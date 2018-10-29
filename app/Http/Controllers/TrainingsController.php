@@ -16,16 +16,22 @@ class TrainingsController extends Controller
         // return view("admin.trainings")->with('selectEvents',$selectEvents);
 
         $selectEvents = DB::table('tblevent')
-->join('tbldate', 'tbldate.intEventId', '=', 'tblevent.intEventId')
-->select('tblevent.intEventId',DB::raw(" DATEDIFF(datDateStart, NOW()) as status"), 'strEventName', 'datPaymentDue')
-->where('stfEventStatus', '=', 'Active')
-->orderBy('intEventId','desc')
-->paginate(4);
+        ->join('tbldate', 'tbldate.intEventId', '=', 'tblevent.intEventId')
+        ->select('tblevent.intEventId',DB::raw(" DATEDIFF(datDateStart, NOW()) as status"), 'strEventName', 'datPaymentDue')
+        ->where('stfEventStatus', '=', 'Active')
+        ->orderBy('intEventId','desc')
+        ->paginate(5);
         return view("admin.trainings")->with('selectEvents',$selectEvents);
     }
     
     public function addEventView() {
         return view("admin.trainingsAdd");
+    }
+
+    public function editEventView($intEventId) {
+        $editEvents = DB::select("SELECT * FROM tblevent te JOIN tbldate td ON te.intEventId = td.intEventId WHERE te.intEventId = $intEventId ",[1]);
+
+        return view("admin.trainingsEdit")->with('editEvent',$editEvents);
     }
 
 
