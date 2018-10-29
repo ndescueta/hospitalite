@@ -49,6 +49,7 @@ Route::resource('admin/hospitalrequest','RequestsController');
 //PARTICIPANTS ROUTE
 Route::resource('admin/hospitalrequestShow','ParticipantsController');
 Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2');
+Route::post('/updateRequest','ParticipantsController@updateRequest');
 
 //DIRECTORS ROUTE
 Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
