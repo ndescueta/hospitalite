@@ -48,6 +48,7 @@ Route::get('admin/hospitalrequestShow/{intEventId}','RequestsController@show');*
 Route::resource('admin/hospitalrequest','RequestsController');
 //PARTICIPANTS ROUTE
 Route::resource('admin/hospitalrequestShow','ParticipantsController');
+Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2');
 
 //DIRECTORS ROUTE
 Route::get('admin/hospitaldirector','HospitalDirectorsController@index');

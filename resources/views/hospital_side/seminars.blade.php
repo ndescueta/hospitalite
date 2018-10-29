@@ -1,12 +1,10 @@
 @extends('layouts.hospNav')
 @section('content')
-<div class="container-fluid">
   <div class="row page-titles">
     <div class="col-md-10 align-self-center">
       <h4 class="text-themecolor">Seminars</h4>
     </div>
   </div>
-</div>
 
 @if (count($seminars) > 0)
     @foreach ($seminars as $seminar)

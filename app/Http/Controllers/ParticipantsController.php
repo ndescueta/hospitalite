@@ -37,7 +37,20 @@ class ParticipantsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //INSERT REQUEST
+        $query = "INSERT INTO tblRequest(intRepresentativeId,intEventId,datRequestDate) VALUES (1,$request->intEventId,'".now()."')";
+        DB::insert($query,[1]);
+        //RETRIEVE LATEST REQUEST
+        $latestRequest = DB::select("SELECT MAX(intRequestId) as latestRequest FROM `tblrequest`",[1]);
+        $latestRequest = $latestRequest[0]->latestRequest;
+        return $latestRequest;
+    }
+
+    public function store2(Request $request) {
+        //INSERT PARTICIPANT
+        $query = "INSERT INTO tblParticipants(intRequestId,intHospitalId,strParticipantFirstName,strParticipantMiddleName,strParticipantLastName,stfParticipantSex,datParticipantBirthday,txtParticipantEmailAddress,strParticipantContact) VALUES($request->intRequestId,2,'$request->strParticipantFirstName','$request->strParticipantMiddleName','$request->strParticipantLastName','$request->stfParticipantSex','$request->datParticipantBirthday','$request->txtParticipantEmailAddress','$request->strParticipantContact')";
+        DB::insert($query,[1]);
+        return "Success";
     }
 
     /**
