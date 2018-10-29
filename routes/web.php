@@ -95,3 +95,9 @@ Route::resource('hospital_side', 'HospitalController');
 Route::get('admin/login', 'LoginController@index');
 Route::post('admin/login/checkLogin', 'LoginController@checkLogin');
 Route::get('admin/logout', 'LoginController@logout');
+
+//Pass Variable from View to Controller
+Route::get('create/{intEventId}', [
+    "uses" => 'HospitalController@create',
+    "as" => 'create'
+]);
