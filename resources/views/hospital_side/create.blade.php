@@ -41,7 +41,7 @@
           <input type='text' class='form-control' name='strParticipantFirstName' require/>
         </div>
         <div class = "form-group col-md-4">
-          <label>Middle Name <small>(Required)</small></label>
+          <label>Middle Name</label>
           <input type='text' class='form-control' name='strParticipantMiddleName' require/>
         </div>
         <div class = "form-group col-md-4">
@@ -61,13 +61,13 @@
               <input type="radio" value='Female' id="customRadio2" name="stfParticipantSex" class="custom-control-input" require>
               <label class="custom-control-label" for="customRadio2">Female</label>
             </div>
-     
+
         </div>
         <div class = "form-group col-md-3">
           <label>Birth Date</label>
           <input type='date' name='datParticipantBirthday' class='form-control'/>
         </div>
-      
+
         <div class = "form-group col-md-3">
           <label>Email Address <small>(Required)</small></label>
           <input type='text' name='txtParticipantEmailAddress' class='form-control'>
@@ -81,7 +81,7 @@
       </form>
     </div>
   </div>
-  
+
 </div>
 
 <div class='card'>
@@ -170,4 +170,3 @@ function submitRequest() {
 </script>
 
 @endsection
-

@@ -17,6 +17,7 @@
                           <li> <a class="waves-effect waves-dark {{ Request::is('admin/hospital') ? 'active' : '' }}" href="{{ url('admin/hospital') }}" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">Hospitals</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('news*') ? 'active' : '' }}" href="{{ url('news') }}" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">News</span></a>
                           <li> <a class="waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-help"></i><span class="hide-menu">Faqs</span></a>
+                          <li> <a class="waves-effect waves-dark" href="{{ url('adminAccount/edit') }}" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Admin Settings</span></a>
                           <br>
                           <li> <a class="waves-effect waves-dark" href="{{ url('admin/logout') }}" aria-expanded="false"><i class="ti-power-off"></i><span class="hide-menu">Logout</span></a>
 

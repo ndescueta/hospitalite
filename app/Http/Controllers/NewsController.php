@@ -119,8 +119,8 @@ class NewsController extends Controller
     {
       $this->validate($request, [
           'NewsTitle' => 'required',
-          'NewsDescription' => 'required'
-          //'NewsReference' => 'required'
+          'NewsDescription' => 'required',
+          'NewsReference' => 'required'
       ]);
 
       $this -> validate($request,[

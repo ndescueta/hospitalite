@@ -103,3 +103,7 @@ Route::get('create/{intEventId}', [
     "uses" => 'HospitalController@create',
     "as" => 'create'
 ]);
+
+//Admin Account Routes
+Route::get('adminAccount/edit', 'AdminAccountController@edit');
+Route::resource('adminAccount', 'AdminAccountController');

@@ -66,7 +66,7 @@ class HospitalController extends Controller
   */
   public function store(Request $request)
   {
-    //
+    
   }
 
 
