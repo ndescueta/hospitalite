@@ -2,7 +2,7 @@
 <html lang="en">
 @include('layouts.header')
 @include('layouts.reqScript')
-<body class="skin-megna fixed-layout">
+<body class="skin-red fixed-layout">
 
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
