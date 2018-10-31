@@ -152,11 +152,15 @@ public function updateImage(Request $request)
     'image' => 'image|nullable|max:1999'
   ]);
   if($request->hasFile('image')){
-    $filenameWithExt = $request-> file('image')->getClientOriginalName();
+  /*  $filenameWithExt = $request-> file('image')->getClientOriginalName();
     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
     $extension = $request-> file('image')->getClientOriginalExtension();
     $fileNameToStore = $filename.'_'.time().'.'.$extension;
-    $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+    $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);*/
+    $image = $request->file('image');
+    $fileNameToStore = rand() . '.' . $image->getClientOriginalExtension();
+    $image->move(public_path('HomeContentImages'),$fileNameToStore);
+
   }else{
     $fileNameToStore = '../img/header-img.png';
   }

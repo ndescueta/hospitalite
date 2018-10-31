@@ -112,7 +112,7 @@
           @if(count($bannerImage) >= 0)
           @foreach ($bannerImage as $homecontent)
           <!--Banner Text Description-->
-          <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
+          <img class="img-fluid" src="/HomeContentImages/{{$homecontent->txtImageDirectory}}" alt="">
           <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editimageModal' data-id='{{$homecontent->intImageId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
           @endforeach
           @else
@@ -175,7 +175,7 @@
 
           @if(count($whoWeAreImage) >= 0)
           @foreach ($whoWeAreImage as $homecontent)
-          <img class="img-fluid" src="/storage/cover_images/{{$homecontent->txtImageDirectory}}" alt="">
+          <img class="img-fluid" src="/HomeContentImages/{{$homecontent->txtImageDirectory}}" alt="">
           <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#editimageModal' data-id='{{$homecontent->intImageId}}' data-name='{{$homecontent->txtDescription}}'>Edit</button>
           @endforeach
           @else
@@ -406,7 +406,7 @@
 			@foreach ($News as $New)
 			<div class="single-blog col-lg-4 col-md-4">
 				<div class="img-fluid text-center">
-					<img class="f-img img-fluid mx-auto" src="/storage/cover_images/{{$New->txtNewsImage}}" alt="" style="min-height: 100px; max-height: 200px">
+					<img class="f-img img-fluid mx-auto" src="/HomeContentImages/{{$New->txtNewsImage}}" alt="" style="min-height: 100px; max-height: 200px">
 				</div>
 				<h4>
 					<a href="#">{{$New->strNewsTitle}}</a>
