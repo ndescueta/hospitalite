@@ -48,11 +48,16 @@ class NewsController extends Controller
         'image' => 'image|nullable|max:9999'
       ]);
       if($request->hasFile('image')){
-        $filenameWithExt = $request-> file('image')->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $request-> file('image')->getClientOriginalExtension();
-        $fileNameToStore = $filename.'_'.time().'.'.$extension;
-        $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+        // $filenameWithExt = $request-> file('image')->getClientOriginalName();
+        // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        // $extension = $request-> file('image')->getClientOriginalExtension();
+        // $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        // $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+
+        $image = $request->file('image');
+        $fileNameToStore = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('newsImages'), $fileNameToStore);
+
       }else{
         $fileNameToStore = '../img/header-img.png';
       }
@@ -129,11 +134,15 @@ class NewsController extends Controller
       //$id =$request->input('newsid_img');
       $oldImage = News::find($intNewsId);
       if($request->hasFile('image')){
-        $filenameWithExt = $request-> file('image')->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $request-> file('image')->getClientOriginalExtension();
-        $fileNameToStore = $filename.'_'.time().'.'.$extension;
-        $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+        // $filenameWithExt = $request-> file('image')->getClientOriginalName();
+        // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        // $extension = $request-> file('image')->getClientOriginalExtension();
+        // $fileNameToStore = $filename.'_'.time().'.'.$extension;
+        // $path = $request-> file('image')->storeAs('public/cover_images',$fileNameToStore);
+
+        $image = $request->file('image');
+        $fileNameToStore = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('newsImages'), $fileNameToStore);
       }else{
         $fileNameToStore = $oldImage->txtNewsImage;
       }

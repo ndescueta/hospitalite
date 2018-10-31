@@ -10,7 +10,7 @@
 <div class="card card-body mt-3">
   <div class="col-md-12">
     <div class="img-fluid">
-      <img src="/storage/cover_images/{{$news->txtNewsImage}}" class="float-right" style="width: 400px; clear:both">
+      <img src="/newsImages/{{$news->txtNewsImage}}" class="float-right" style="width: 400px; clear:both">
       <h1> {{$news->strNewsTitle}} </h1>
       <small>From <b>{{$news->txtNewsReference}}</b> • Written on <b>{{$news->created_at}}</b> • Updated Last <b>{{$news->updated_at}}</b></small>
     </div>

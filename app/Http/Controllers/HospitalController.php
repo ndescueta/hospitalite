@@ -66,7 +66,7 @@ class HospitalController extends Controller
   */
   public function store(Request $request)
   {
-    
+
   }
 
 
@@ -93,7 +93,21 @@ class HospitalController extends Controller
     ->where('tblevent.intEventId', $intEventId)
     ->get();
 
-    return view('hospital_side.show')->with('seminars', $seminars);
+    $latestRequest = DB::select('SELECT MAX(datRequestDate) as latestRequest FROM tblrequest WHERE intEventId = ' . $intEventId . ' AND intRepresentativeId = 1');
+
+
+    $requests = DB::table('tblrequest')
+    ->select('*')
+    ->where('intEventId', $intEventId)
+    ->where('intRepresentativeId', 1)
+    ->where('datRequestDate', $latestRequest[0]->latestRequest)
+    ->get();
+
+    $participantCounts = DB::select('SELECT COUNT(intParticipantId) as participantCount FROM tblparticipants WHERE intRequestId = ' . $requests[0]->intRequestId);
+
+    $totalCosts = DB::select('SELECT ' . $participantCounts[0]->participantCount*$seminars[0]->monEventPrice . ' as totalCost FROM tblparticipants LIMIT 1');
+
+    return view('hospital_side.show')->with(compact('seminars', 'requests', 'participantCounts', 'totalCosts'));
   }
 
   public function login(Request $request){

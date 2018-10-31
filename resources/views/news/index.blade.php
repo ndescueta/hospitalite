@@ -16,7 +16,7 @@
       @foreach ($news as $new)
           <div class = "card card-body">
             <div class="row">
-              <img src="/storage/cover_images/{{$new->txtNewsImage}}" style="width: 200px; clear:both">
+              <img src="/newsImages/{{$new->txtNewsImage}}" style="width: 200px; clear:both">
               <div class="ml-5">
                 <h3><a href = "/news/{{$new->intNewsId}}">{{$new->strNewsTitle}}</a></h3>
                 <small>From {{$new->txtNewsReference}}</small> <br>
