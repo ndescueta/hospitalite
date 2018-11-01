@@ -9,7 +9,7 @@ use Auth;
 
 class TrainingsController extends Controller
 {
-    
+
     //VIEW CONTROLLERS
 
     public function index() {
@@ -24,7 +24,7 @@ class TrainingsController extends Controller
         ->paginate(5);
         return view("admin.trainings")->with('selectEvents',$selectEvents);
     }
-    
+
     public function addEventView() {
         return view("admin.trainingsAdd");
     }
@@ -62,7 +62,7 @@ class TrainingsController extends Controller
         $datDateEnd= $request->datDateEnd;
         $timTimeStart= $request->timTimeStart;
         $timTimeEnd= $request->timTimeEnd;
-        
+
         $txtEventImage1 = $request->file('file1');
         $txtEventImage2 = $request->file('file2');
         $txtEventImage3 = $request->file('file3');
@@ -74,12 +74,12 @@ class TrainingsController extends Controller
         $txtEventImage1->move(public_path('eventImages'),$file1Name);
         $txtEventImage2->move(public_path('eventImages'),$file2Name);
         $txtEventImage3->move(public_path('eventImages'),$file3Name);
-        
+
         //TRANSACT
         DB::beginTransaction();
 
         try {
-            DB::insert("INSERT INTO tblevent (intAdminId,strEventName,txtEventStreet,txtEventBarangay,txtEventCity,intEventZip,txtEventDescription,intEventCapacity,monEventPrice,stfEventBankAccount,strEventPaymentCenter,datPaymentDue,stfEventStatus,txtEventImage1,txtEventImage2,txtEventImage3) values (1,'$strEventName', '$txtEventStreet','$txtEventBarangay','$txtEventCity',$intEventZip,'$txtEventDescription',$intEventCapacity,$monEventPrice,'$stfEventBankAccount','$strEventPaymentCenter','$datPaymentDue','Active','$file1Name','$file2Name','$file3Name'); ",[1]);
+            DB::insert("INSERT INTO tblevent (strEventName,txtEventStreet,txtEventBarangay,txtEventCity,intEventZip,txtEventDescription,intEventCapacity,monEventPrice,stfEventBankAccount,strEventPaymentCenter,datPaymentDue,stfEventStatus,txtEventImage1,txtEventImage2,txtEventImage3) values ('$strEventName', '$txtEventStreet','$txtEventBarangay','$txtEventCity',$intEventZip,'$txtEventDescription',$intEventCapacity,$monEventPrice,'$stfEventBankAccount','$strEventPaymentCenter','$datPaymentDue','Active','$file1Name','$file2Name','$file3Name'); ",[1]);
 
             DB::insert("INSERT INTO tbldate(intEventId, datDateStart, datDateEnd, timTimeStart, timTimeEnd, strDateDescription) VALUES((SELECT intEventId FROM tblevent ORDER BY intEventId DESC LIMIT 1),'$datDateStart','$datDateEnd','$timTimeStart','$timTimeEnd','($datDateStart to $datDateEnd) ($timTimeStart to $timTimeEnd)');",[1]);
 

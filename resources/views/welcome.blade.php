@@ -196,7 +196,13 @@
 		<div class="col-md-12 pb-80 header-text text-center">
 			<h1>Trainings and Seminars</h1>
 			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> labore  et dolore magna aliqua.
+				@if (count($EventsDescriptions) >0)
+				@foreach ($EventsDescriptions as $homecontent)
+				{{$homecontent->txtDescription}}
+				@endforeach
+				@else
+				Oof.
+				@endif
 			</p>
 		</div>
 
@@ -205,18 +211,42 @@
 			<div class="col-md-4 border-right element-animate">
 				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> Is Health Important?</a>
+
+					@if(count($Events) >= 0)
+					@foreach ($Events as $Event)
+					<a class="nav-link active" id="{{$Event->intEventId}}" data-toggle="pill" href="{{$Event->intEventId}}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{$Event->strEventName}}</a>
+					@endforeach
+					@else
+					<p>No Events Found</p>
+					@endif
+
+
+
+
+					<!-- <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span>01</span> Is Health Important?</a>
 					<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span>02</span> Medical Training</a>
 					<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span>03</span> Patient Guidance</a>
 					<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false"><span>04</span> Doctors</a>
+					aria-selected="false"><span>04</span> Doctors</a> -->
+
 				</div>
 			</div>
 			<div class="col-md-1"></div>
 			<div class="col-md-7 element-animate text-dark">
 
 				<div class="tab-content" id="v-pills-tabContent">
-					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+					@if(count($Events) >= 0)
+					@foreach ($Events as $Event)
+					<div class="tab-pane fade show active" id="{{$Event->intEventId}}" role="tabpanel" aria-labelledby="v-pills-home-tab">
+						<span class="icon flaticon-hospital mb-5"></span>
+						<h2 class="text-dark">{{$Event->strEventName}}</h2>
+						<p class="muted">{{$Event->strEventPaymentCenter}}</p>
+					</div>
+					@endforeach
+					@else
+					<p>No Events Found</p>
+					@endif
+					<!-- <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 						<span class="icon flaticon-hospital mb-5"></span>
 						<h2 class="text-dark">Is Health Important?</h2>
 						<p class="muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
@@ -243,7 +273,7 @@
 						<p class="muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt voluptate, quibusdam sunt iste dolores consequatur</p>
 						<p>Inventore fugit error iure nisi reiciendis fugiat illo pariatur quam sequi quod iusto facilis officiis nobis sit quis molestias asperiores rem, blanditiis! Commodi exercitationem vitae deserunt qui nihil ea, tempore et quam natus quaerat doloremque.</p>
 						<p><a href="#" class="btn btn-primary">Learn More</a></p>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -365,13 +395,7 @@
 			<div class="col-md-8 pb-30 header-text">
 				<h1>News</h1>
 				<p>
-					@if (count($EventsDescriptions) >0)
-					@foreach ($EventsDescriptions as $homecontent)
-					{{$homecontent->txtDescription}}
-					@endforeach
-					@else
-					Oof.
-					@endif
+
 				</p>
 			</div>
 		</div>
@@ -381,7 +405,7 @@
 			@foreach ($News as $New)
 			<div class="single-blog col-lg-4 col-md-4">
 				<div class="img-fluid text-center">
-					<img class="f-img img-fluid mx-auto" src="/storage/cover_images/{{$New->txtNewsImage}}" alt="" style="min-height: 100px; max-height: 200px">
+					<img class="f-img img-fluid mx-auto" src="/newsImages/{{$New->txtNewsImage}}" alt="" style="min-height: 100px; max-height: 200px">
 				</div>
 				<h4>
 					<a href="#">{{$New->strNewsTitle}}</a>
