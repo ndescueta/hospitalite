@@ -87,21 +87,24 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::resource('news', 'NewsController');
 });
 
+//USERS MIDDLEWARE
+Route::group(['middleware' => 'auth:users'], function() {
+    // Main page route
+    Route::get('hosp/home','HospitalController@index');
+    Route::get('hosp/settings','HospitalController@index');
+    Route::get('hosp/services','HospitalController@index');
+    Route::get('hosp/seminars','HospitalController@seminars');
+
+
+    Route::resource('hospital_side', 'HospitalController');
+
+    //Pass Variable from View to Controller
+    Route::get('create/{intEventId}', [
+        "uses" => 'HospitalController@create',
+        "as" => 'create'
+    ]);
+});
 /* HOSPITAL SIDE */
-// Main page route
-Route::get('hosp/home','HospitalController@index');
-Route::get('hosp/settings','HospitalController@index');
-Route::get('hosp/services','HospitalController@index');
-Route::get('hosp/seminars','HospitalController@seminars');
-
-
-Route::resource('hospital_side', 'HospitalController');
-
-//Pass Variable from View to Controller
-Route::get('create/{intEventId}', [
-    "uses" => 'HospitalController@create',
-    "as" => 'create'
-]);
 
 //Admin Account Routes
 Route::get('adminAccount/edit', 'AdminAccountController@edit');
@@ -112,3 +115,8 @@ Route::resource('adminAccount', 'AdminAccountController');
 Route::get('admin/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::post('admin/login','Auth\AdminLoginController@login')->name('admin.login.submit');
 Route::get('admin/logout','Auth\AdminLoginController@logout')->name('admin.logout');
+
+///////////LOGIN ROUTES
+Route::get('hosp/login','Auth\LoginController@showLoginForm')->name('hosp.login');
+Route::post('hosp/login','Auth\LoginController@login')->name('hosp.login.submit');;
+Route::get('hosp/logout','Auth\LoginController@logout')->name('hosp.logout');

@@ -31,5 +31,6 @@
                         <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                     </ul>
                 </div>
+                <button type="button" onclick="window.location.href = '{{route('admin.logout')}}'" name="button" class="btn btn-primary" style="color: white; margin-right: 30px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </nav>
         </header>

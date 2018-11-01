@@ -43,12 +43,9 @@
         <div class="login-register" style="background-image:url({{asset ('assets/images/background/login-register.jpg')}});">
             <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" method='post' id="loginform" action="{{ route('admin.login.submit') }}">
+                    <form class="form-horizontal form-material text-center" method='post' id="loginform" action="{{ route('admin.login.submit') }}">
                         {{ csrf_field() }}
-                        <h3 class="text-center m-b-20">Admin Sign In</h3>
-                        @if(Session::has('admin'))
-                            <script>window.location="/admin/trainings";</script>
-                        @endif
+                        <a href='#'><h3 class="text-center m-b-20">Admin</h3></a>
 
                         @if ($message = Session::get('error'))
                         <div class="alert alert-danger alert-block">

@@ -29,6 +29,6 @@
                         <li class="nav-item"> <a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a> </li>
                     </ul>
                 </div>
-                <button type="button" name="button" class="btn btn-link" style="color: white"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button type="button" onclick="window.location.href = '{{route('hosp.logout')}}'" name="button" class="btn btn-danger" style="color: white; margin-right: 30px;"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </nav>
         </header>

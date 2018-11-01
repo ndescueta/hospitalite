@@ -63,12 +63,12 @@ class Handler extends ExceptionHandler
         return response()->json(['error' => 'Unauthenticated.'],401);
        }
 
-       //Pag walang session saan reredirect
+       //PAG UNAUTHORIZED D2 PUPUNTA
         $guard = array_get($exception->guards(), 0);
          switch ($guard) {
            case 'admin': $login = 'admin.login';
            break;
-           default: $login = 'login';
+           default: $login = 'hosp.login';
            break;
          }
            return redirect()->guest(route($login));
