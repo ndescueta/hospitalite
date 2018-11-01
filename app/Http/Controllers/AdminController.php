@@ -11,6 +11,7 @@ use App\HomeContent;
 
 class AdminController extends Controller
 {
+  
    //DASHBOARD CONTROLLER
     public function index() {
 

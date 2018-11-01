@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class TrainingsController extends Controller
 {
-
+    
     //VIEW CONTROLLERS
 
     public function index() {
@@ -125,7 +126,9 @@ class TrainingsController extends Controller
     }
 
     public function test() {
-        $test= DB::select("INSERT INTO test values('asd2','asd3')", [1]);
+        Auth::guard('admin')->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
         return $test;
     }
 }
