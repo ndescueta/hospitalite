@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Auth;
 
 class HospitalSettingsController extends Controller
 {
     public function index(){
-        return view("hospital_side.accountSettings");
+        $accountInfo = DB::select("Select * from tblhospital inner JOIN tbldirector on tblhospital.intDirectorId = tbldirector.intDirectorId inner join tblrepresentative on tblrepresentative.intHospitalId = tblhospital.intHospitalId where intRepresentativeId = ". Auth::id(),[1]);
+        return view("hospital_side.accountSettings")->with('accountInfo',$accountInfo);
     }
 
     public function uploadLogo(Request $request) {

@@ -28,28 +28,35 @@
                     <form>
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control form-control-line" required> 
+                            <input type="text" value='{{$accountInfo[0]->strRepresentativeFirstName}}' class="form-control form-control-line" required> 
                         </div>
                         <div class="form-group">
                             <label>Middle Name</label>
-                            <input type="text" class="form-control form-control-line" required> 
+                            <input type="text" value = '{{$accountInfo[0]->strRepresentativeMiddleName}}' class="form-control form-control-line" required> 
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" class="form-control form-control-line" required> 
+                            <input type="text" value='{{$accountInfo[0]->strRepresentativeLastName}}' class="form-control form-control-line" required> 
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
-                            <div class="row text-center">
+                            <div class="row text-center">                              
                                 <div class='col-md-6'>
                                     <div class="custom-control custom-radio">
-                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
+                                    @if($accountInfo[0]->stfRepresentativeSex == 'Male')
+                                    checked
+                                    @endif>
                                     <label class="custom-control-label" for="customRadio1">Male</label>
                                     </div>
                                 </div>
                                 <div class='col-md-6'>
                                     <div class="custom-control custom-radio">
-                                    <input type="radio" id="customRadio2" name="customRadio2" class="custom-control-input">
+                                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"
+                                    @if($accountInfo[0]->stfRepresentativeSex == 'Female')
+                                    checked
+                                    @endif
+                                    >
                                     <label class="custom-control-label" for="customRadio2">Female</label>
                                     </div>
                                 </div>
@@ -57,11 +64,11 @@
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control form-control-line" required> 
+                            <input type="email" class="form-control form-control-line" value='{{$accountInfo[0]->txtRepresentativeEmailAddress}}' required> 
                         </div>
                         <div class="form-group">
                             <label>Contact</label>
-                            <input type="text" class="form-control form-control-line" required> 
+                            <input type="text" class="form-control form-control-line" value='{{$accountInfo[0]->stfRepresentativeContact}}' required> 
                         </div>
                         <button class='btn btn-primary float-right'>Save</button>
                     </form>
@@ -73,34 +80,34 @@
                 <div class="card-body">
                         <h4 class="card-title">Hospital</h4>
                         <h6 class="card-subtitle">Edit hospital information.</h6>
-                        <form class="m-t-40 form-material">
+                        <form class="m-t-40">
                             <div class="form-group">
                                 <label>Hospital Name</label>
-                                <input type="text" class="form-control form-control-line" required> 
+                                <input type="text" class="form-control form-control-line" value='{{$accountInfo[0]->strHospitalName}}' required> 
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                     <label>Street</label>
-                                    <input type="text" name="example-email" class="form-control" required>
+                                    <input type="text" name="example-email" class="form-control" value='{{$accountInfo[0]->txtHospitalStreet}}' required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                     <label for="example-email">Barangay</label>
-                                    <input type="text" id="example-email2" name="example-email" class="form-control" required>
+                                    <input type="text" id="example-email2" name="example-email" class="form-control" value='{{$accountInfo[0]->txtHospitalBarangay}}' required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                     <label for="example-email">City</label>
-                                    <input type="text" id="example-email2" name="example-email" class="form-control" required>
+                                    <input type="text" id="example-email2" name="example-email" class="form-control" value='{{$accountInfo[0]->txtHospitalCity}}' required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                     <label for="example-email">Zip</label>
-                                    <input type="Number" id="example-email2" name="example-email" class="form-control" required>
+                                    <input type="number" id="example-email2" name="example-email" class="form-control" value='{{$accountInfo[0]->intHospitalZip}}' required>
                                     </div>
                                 </div>
                             </div>
@@ -112,6 +119,64 @@
                 <div class='card-body'>
                     <h4 class="card-title">Director</h4>
                     <h6 class="card-subtitle">Edit hospital director information.</h6>
+                    <form>
+                        <div class="row">
+                            <div class='col-md-4'>
+                                <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control form-control-line" value='{{$accountInfo[0]->strDirectorFirstName}}' required> 
+                                </div>
+                            </div>
+                            <div class='col-md-4'>
+                                <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control form-control-line" value='{{$accountInfo[0]->strDirectorMiddleName}}' required> 
+                                </div>
+                            </div>
+                            <div class='col-md-4'>
+                                <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control form-control-line" required value='{{$accountInfo[0]->strDirectorLastName}}'> 
+                                </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="form-group">
+                                <label>Gender</label>
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" name="customRadio2" class="custom-control-input" @if($accountInfo[0]->stfDirectorSex == 'Male')
+                                    checked
+                                    @endif >
+                                    <label class="custom-control-label" for="customRadio3">Male</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio4" name="customRadio2" class="custom-control-input" @if($accountInfo[0]->stfDirectorSex == 'Female')
+                                    checked
+                                    @endif>
+                                    <label class="custom-control-label" for="customRadio4">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="form-group">
+                                <label>Birthdate</label>
+                                <input type="date" class="form-control form-control-line" value='{{$accountInfo[0]->datDirectorBirthday}}' required> 
+                                </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control form-control-line" value='{{$accountInfo[0]->strDirectorEmailAddress}}' required> 
+                                </div>
+                            </div>
+                            <div class='col-md-3'>
+                                <div class="form-group">
+                                <label>Contact</label>
+                                <input type="number" class="form-control form-control-line" value='{{$accountInfo[0]->stfDirectorContact}}' required> 
+                                </div>
+                            </div>
+                        </div>   
+                        <button class='btn btn-primary float-right'>Save</button>                 
+                    </form>
                 </div>
             </div>
       </div>
