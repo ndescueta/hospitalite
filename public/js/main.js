@@ -15,11 +15,11 @@ $(document).ready(function(){
   //-------- Active Sticky Js ----------//
      $(".default-header").sticky({topSpacing:0});
 
-  
+
   //------- Active Nice Select --------//
      $('select').niceSelect();
-     
-     
+
+
    // -------   Active Mobile Menu-----//
 
   $(".menu-bar").on('click', function(e){
@@ -42,8 +42,8 @@ $(document).ready(function(){
     .click(function(event) {
       // On-page links
       if (
-        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-        && 
+        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+        &&
         location.hostname == this.hostname
       ) {
         // Figure out element to scroll to
@@ -73,14 +73,14 @@ $(document).ready(function(){
 
 
 
-    //  Counter Js 
+    //  Counter Js
 
     $('.counter').counterUp({
         delay: 10,
         time: 1000
     });
 
-    
+
 
       // -------   Mail Send ajax
 
@@ -92,9 +92,10 @@ $(document).ready(function(){
             // form submit event
             form.on('submit', function(e) {
                 e.preventDefault(); // prevent default form submit
+								// console.log(form.serialize());
 
                 $.ajax({
-                    url: 'mail.php', // form action url
+                    url: '/sendQuestion', // form action url
                     type: 'POST', // form submit method get/post
                     dataType: 'html', // request type html/json/xml
                     data: form.serialize(), // serialize form data
@@ -103,6 +104,7 @@ $(document).ready(function(){
                         submit.html('Sending....'); // change submit button text
                     },
                     success: function(data) {
+											// console.log(data);
                         alert.html(data).fadeIn(); // fade in response data
                         form.trigger('reset'); // reset form
                         submit.attr("style", "display: none !important");; // reset submit button text
