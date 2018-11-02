@@ -460,24 +460,25 @@
 
 				<form class="booking-form" id="myForm" action="#">
 					<div class="row">
-						<div class="col-lg-12 d-flex flex-column">
-							<input name="name" placeholder="Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Patient name'" class="form-control mt-20" required="" type="text" required>
-						</div>
-						<div class="col-lg-6 d-flex flex-column">
-							<input name="phone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" class="form-control mt-20" required="" type="text" required>
-						</div>
-						<div class="col-lg-6 d-flex flex-column">
-							<input name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="form-control mt-20" required="" type="text" required>
-						</div>
-						<div class="col-lg-12 flex-column">
-							<textarea class="form-control mt-20" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-						</div>
-
-						<div class="col-lg-12 d-flex justify-content-end send-btn">
-							<button class="submit-btn primary-btn mt-20 text-uppercase ">Send Message<span class="lnr lnr-arrow-right"></span></button>
-						</div>
-
-						<div class="alert-msg"></div>
+						<form method="post" name="frmQuestion">
+							<!--div class="col-lg-12 d-flex flex-column">
+								<input name="inqName" placeholder="Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'" class="form-control mt-20" type="text" required>
+							</div>
+							<div class="col-lg-6 d-flex flex-column">
+								<input name="inqPhone" placeholder="Phone" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone'" class="form-control mt-20" required="" type="text" required>
+							</div>
+							<div class="col-lg-6 d-flex flex-column">
+								<input name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="form-control mt-20" required="" type="text" required>
+							</div-->
+							<div class="col-lg-12 flex-column">
+								<textarea class="form-control mt-20" name="inqQuestion" placeholder="Question" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter question here'" required=""></textarea>
+							</div>
+							{{ csrf_field() }}
+							<div class="col-lg-12 d-flex justify-content-end send-btn">
+								<button class="submit-btn primary-btn mt-20 text-uppercase" type="submit">Send Question<span class="lnr lnr-arrow-right"></span></button>
+							</div>
+							<div class="alert-msg"></div>
+						</form>
 					</div>
 				</form>
 			</div>
@@ -826,6 +827,11 @@ $(document).on("submit", "form[name='frm_Login']", function(e){
 		}
 	});
 });
+// $(document).on("submit", "form[name='frmQuestion']", function(e){
+// 	e.preventDefault();
+// 	let formdata = $(this).serialize();
+// 	console.log(formdata);
+// });
 </script>
 </body>
 </html>
