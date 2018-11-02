@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tbldirector extends Model
+class tblhospital extends Model
 {
     //Table Name
     protected $table = 'tblhospital';
-
+    protected $primaryKey = 'intHospitalId';
 }
