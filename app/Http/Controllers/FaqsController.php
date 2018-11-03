@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 use App\Question;
 use App\GeneralQuestion;
 
@@ -33,10 +34,32 @@ class FaqsController extends Controller
     //
   }
 
-  public function showQuestions(){
-    // $question = new Question();
+  public function saveEditedQuestion(Request $request){
+    try {
+      $generalQuestion = GeneralQuestion::where('intGeneralQuestionId', $request->hdnGenQueID)
+      ->update(['txtGeneralQuestion' => $request->editQuestion,
+      'txtAnswer' => $request->editAnswer]);
+      echo "1";
+    } catch (\Exception $e) {
+      echo $e;
+    }
+  }
 
+  public function showQuestions($intGeneralQuestionId){
+    $questions = DB::table('tblquestion')
+    ->join('tblgeneralquestion', 'tblquestion.intGeneralQuestionId', '=', 'tblgeneralquestion.intGeneralQuestionId')
+    ->select('*')
+    ->where('tblquestion.intGeneralQuestionId', $intGeneralQuestionId)
+    ->orderBy('intQuestionId', 'asc')
+    ->get();
+    return view('admin.faqsViewQuestions')->with('questions', $questions);
+  }
 
+  public function showQuestionandAnswer(Request $request){
+    $queAndans = GeneralQuestion::where('intGeneralQuestionId', $request->id)
+    ->get();
+
+    echo json_encode($queAndans);
   }
   /**
   * Store a newly created resource in storage.
@@ -74,6 +97,11 @@ class FaqsController extends Controller
     }
   }
 
+  public function deleteQuestion(Request $request){
+    // echo $request->id;
+    $deleteQuestion = Question::where('intQuestionId', $request->id)
+    ->delete();
+  }
 
   /**
   * Display the specified resource.

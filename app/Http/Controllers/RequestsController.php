@@ -22,7 +22,7 @@ class RequestsController extends Controller
     {
       //  $requests = tblrequest::where('stfRequestStatus','Unnotified')->get();
       //  $events = Event::where('stfEventStatus','Active')->get();
-      $events = DB::select("SELECT * FROM tblevent WHERE stfEventStatus = 'Active' AND intEventCapacity <> 0");
+      $events = DB::select("SELECT * FROM tblevent WHERE stfEventStatus = 'Active'");
         return view('admin.hospitalrequest')->with(compact('events'));
     }
 
@@ -62,7 +62,14 @@ class RequestsController extends Controller
       ->where('stfRequestStatus', '=', 'Unnotified')
       ->where('intEventId', '=', $intEventId)
       ->get();
-      return view('admin.hospitalrequestShow')->with(compact('events','requests'));
+      $acceptedRequests = DB::table('tblrequest')
+      ->join('tblrepresentative', 'tblrequest.intRepresentativeId', '=', 'tblrepresentative.intRepresentativeId')
+      ->select('*')
+      ->where('stfRequestStatus', '=', 'Accepted')
+      ->where('stfIsPaid', '=', 'No')
+      ->where('intEventId', '=', $intEventId)
+      ->paginate(10);;
+      return view('admin.hospitalrequestShow')->with(compact('events','requests','acceptedRequests'));
     }
 
     public function viewRequest($intRequestId)

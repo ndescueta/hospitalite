@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::resource('admin/hospitalrequestShow','ParticipantsController');
     Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2');
     Route::post('/updateRequest','ParticipantsController@updateRequest');
+    Route::post('/updatePayment','ParticipantsController@updatePayment');
 
     //DIRECTORS ROUTE
     Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
@@ -77,6 +78,10 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::post('/sendQuestion', 'FaqsController@storeQuestion');
     Route::post('admin/storeGeneralQuestion', 'FaqsController@storeGeneralQuestion');
     Route::post('admin/generalizeQuestion', 'FaqsController@generalizeQuestion');
+    Route::post('admin/showQuestionandAnswer', 'FaqsController@showQuestionandAnswer');
+    Route::get('admin/viewQuestions/{intGeneralQuestionId}', 'FaqsController@showQuestions');
+    Route::post('admin/saveEditedQuestion', 'FaqsController@saveEditedQuestion');
+    Route::post('admin/deleteQuestion', 'FaqsController@deleteQuestion');
 
     //ADMIN HOMEPAGE VIEW ROUTE
     Route::get('admin/homepageView','HomeContentsController@index');

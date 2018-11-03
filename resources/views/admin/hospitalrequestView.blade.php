@@ -47,7 +47,9 @@
                                 @if(count($events) > 0)
                                   @foreach($events as $event)
                               <button class='btn btn-success' id='acceptRequest' data-event ='{{$event->intEventId}}'data-request='{{$event->intRequestId}}'>Accept Request</button>
-                              <button class='btn btn-danger' id='rejectRequest' data-event ='{{$event->intEventId}}'data-request='{{$event->intRequestId}}'>Reject Request</button>
+
+                              <button class = 'btn btn-danger' data-toggle='modal' data-target='#rejectReasonModal' data-event ='{{$event->intEventId}}'data-request='{{$event->intRequestId}}'>Reject Request</button>
+
                                   @endforeach
                                 @else
 
@@ -60,44 +62,98 @@
                   </div>
                 </div>
 
+                <div class="modal fade" id="rejectReasonModal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editdonorinfo">Reason for Rejection</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-close="Close"> <span aria-hidden="true">&times;</span> </button>
+                      </div>
+                      <form name ='rejectform' id='rejectform' method="POST">
+                      <div class="modal-body">
+                        <div class="container-fluid">
+
+                            <div class="form-group">
+                              <input type="hidden" id ='eventId' name = 'eventId'>
+                              <input type="hidden" id ='requestid' name = 'requestid'>
+                              <input type="hidden" id ='status' name = 'status'>
+                              <input type="hidden" id ='_token' name = '_token' value ='{{csrf_token()}}'>
+                                <label for="duepayment">Reason for Rejection</label>
+                              <input type ='text' class ='form-control' placeholder="Enter Reason" name = 'txtreason' id ='txtreason' required>
+
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-seconday" data-dismiss="modal">Close</button>
+                          <button class='btn btn-danger' id='rejectRequest' >Reject Request</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <script>
                 $("#acceptRequest").click(function(e){
                   var events = $(this).data('event');
                   var request = $(this).data('request');
                   var status = 'Accepted';
+                  var confirmaction = confirm("Are you sure?");
                   console.log(request);
+                  if(confirmaction == true){
                   $.ajax({
 
                     type: 'POST',
                     url:'/updateRequest',
-                    /*data:{token:'{{csrf_token()}}',
-                         events:events,
-                         request:request},*/
-                    data:"intEventId="+events+"&_token=" + "{{csrf_token()}}"+"&requestid="+request+"&status="+status,
+                    data:"eventId="+events+"&_token=" + "{{csrf_token()}}"+"&requestid="+request+"&status="+status,
+                    success:function(data){
+                      console.log(data);
+                      if(data == ' error'){
+                        alert('Error in transaction, Participants are too many');
+                      }else{
+                        window.location.href = '/admin/hospitalrequest';
+                      }
+
+                    }
+                  });
+                }else{
+                  return false;
+                }
+                });
+                $("#rejectform").submit(function(e){
+                  e.preventDefault();
+                  var status = 'Rejected';
+                  var confirmaction = confirm("Are you sure?");
+                  if(confirmaction == true){
+                  $.ajax({
+
+                    type: 'POST',
+                    url:'/updateRequest',
+                    data:$(this).serialize(),
                     success:function(data){
                       //console.log(data);
                       window.location.href = '/admin/hospitalrequest';
                     }
                   });
-                })
-                $("#rejectRequest").click(function(e){
-                  var events = $(this).data('event');
-                  var request = $(this).data('request');
-                  var status = 'Rejected';
-                  console.log(request);
-                  $.ajax({
+                }else{
+                  return false;
+                }
+                });
 
-                    type: 'POST',
-                    url:'/updateRequest',
-                    /*data:{token:'{{csrf_token()}}',
-                         events:events,
-                         request:request},*/
-                    data:"intEventId="+events+"&_token=" + "{{csrf_token()}}"+"&requestid="+request+"&status="+status,
-                    success:function(data){
-                      //console.log(data);
-                    }
-                  });
-                })
+                $('#rejectReasonModal').on('show.bs.modal', function(e) {
+                  var events = $(e.relatedTarget).data('event');
+                  var request = $(e.relatedTarget).data('request');
+                  var status = 'Rejected'
+                //  alert(events);
+
+                  $('#eventId').val(events);
+                  $('#requestid').val(request);
+                  $('#status').val(status);
+
+
+                });
                 </script>
 
 @endsection
