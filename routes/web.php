@@ -99,7 +99,11 @@ Route::group(['middleware' => 'auth:admin'], function()
 Route::group(['middleware' => 'auth:users'], function() {
     // Main page route
     Route::get('hosp/home','HospitalController@index');
-    Route::get('hosp/settings','HospitalController@index');
+
+    //Hosp Settings
+    Route::get('hosp/settings','HospitalSettingsController@index');
+    Route::post('hosp/settings/uploadLogo','HospitalSettingsController@uploadLogo')->name('hosp.settings.uploadLogo');
+    //
     Route::get('hosp/services','HospitalController@index');
     Route::get('hosp/seminars','HospitalController@seminars');
 

@@ -25,6 +25,9 @@
     <link href="{{ asset('/css/animate.css') }}" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="{{asset('/css/all.css')}}">
+    <!-- Croppie CSS -->
+    <link rel="stylesheet" href="{{asset('/css/croppie.css')}}">
+    <meta name='csrf-token' content="{{csrf_token()}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -96,6 +99,8 @@
 <script src="{{ asset('dist/js/dashboard1.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
+<!-- Croppie JS -->
+<script src="{{ asset('js/croppie.js') }}"></script>
 
 <body class="skin-red fixed-layout">
 
@@ -151,14 +156,31 @@
         <!-- Sidebar -->
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
+            <!-- <div class="scroll-sidebar">
               <div class="hospital-img text-center">
-                <img src="{{asset('assets/images/imac.png')}}" alt="" class="img-fluid">
+                <img src="{{asset('assets/images/imac.png')}}" size="" alt="" class="img-fluid">
                 <b>Hospital Name</b>
-              </div>
+              </div> -->
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
+                    <li class="user-pro"> <a class="waves-effect waves-dark text-center" href="javascript:void(0)" aria-expanded="false"><img src="@php
+                            $rep = \App\Representative::where('intRepresentativeId',Auth::id())->get();
+                            $hospId = $rep[0]->intHospitalId;
+                            $hosp = \App\tblhospital::where('intHospitalId',$hospId)->get();
+                            echo asset('hospitalLogos/'.$hosp[0]->txtHospitalLogo);
+                        @endphp" alt="user-img" style="display: block;margin-left: auto;margin-right: auto;width: 100px;" class="img-circle img-fluid"><br><span class="hide-menu">@php
+                            $rep = \App\Representative::where('intRepresentativeId',Auth::id())->get();
+                            echo $rep[0]->strRepresentativeFirstName . ' '. $rep[0]->strRepresentativeMiddleName . ' ' . $rep[0]->strRepresentativeLastName;
+                        @endphp <b>
+                        @php
+                            $rep = \App\Representative::where('intRepresentativeId',Auth::id())->get();
+                            $hospId = $rep[0]->intHospitalId;
+                            $hosp = \App\tblhospital::where('intHospitalId',$hospId)->get();
+                            echo $hosp[0]->strHospitalName;
+                        @endphp  
+                        </b></span></a>
+                        </li>
                           <li> <a class="waves-effect waves-dark {{ Request::is('hosp/home') ? 'active' : '' }}" href="{{ url('hosp/home') }}" aria-expanded="false"><i class="ti-home"></i><span class="hide-menu">Home</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('hosp/settings') ? 'active' : '' }}" href="{{ url('hosp/settings') }}" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Account Settings</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('hosp/services') ? 'active' : '' }}" href="{{ url('hosp/services') }}" aria-expanded="false"><i class="ti-thought"></i><span class="hide-menu">Services</span></a>
