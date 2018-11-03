@@ -31,7 +31,12 @@
                                         <td>{{$selectDirector->strDirectorFirstName}}</td>
                                         <td>{{$selectDirector->strDirectorLastName}}</td>
                                         <td>{{$selectDirector->stfDirectorContact}}</td>
-                                        <td><div class='btn-group'><button class='btn btn-success'>View</button><button class='btn btn-warning' onclick='editDirector({{$selectDirector->intDirectorId}})'>Edit</button><button class='btn btn-danger'>Delete</button></div></td>
+                                        <td>
+                                          <div class='btn-group'>
+                                            <button class='btn btn-warning' onclick='editDirector({{$selectDirector->intDirectorId}})' data-toggle="modal" data-target="#directorModal"> Edit </button>
+                                            <button class='btn btn-danger' onclick='deleteDirector({{$selectDirector->intDirectorId}})'> Delete </button>
+                                          </div>
+                                        </td>
                                       </tr>
                                   @endforeach
                                   </table>
@@ -39,9 +44,72 @@
                                   There are currently no hospital directors.
                               @endif
                             </div>
-                            <a href="#" onclick="addDirector()" data-target="#add-new-director" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                            <a href="#" data-toggle="modal" data-target="#directorModal" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
                               <i class="ti-plus"></i> Add New Hospital Director
                             </a>
+
+                            <div class="modal fade" id="directorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" style="width: 90%;">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Hospital Director</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="form-group form-material p-2" id="directorForm">
+                                      <div class="row">
+                                        <div class="form-group col-md-12">
+                                          <input type="hidden" name="directorID" id="directorID">
+                                        </div>
+
+                                        <div class='form-group col-md-4'>
+                                          <label for='directorFirstName'>First Name</label>
+                                          <input type='text' class='form-control' name='directorFirstName' id='directorFirstName'>
+                                        </div>
+
+                                        <div class='form-group col-md-4'>
+                                          <label for='directorMiddleName'>Middle Name</label>
+                                          <input type='text' class='form-control' name='directorMiddleName' id='directorMiddleName'>
+                                        </div>
+                                        
+                                        <div class='form-group col-md-4'>
+                                          <label for='directorLastName'>First Name</label>
+                                          <input type='text' class='form-control' name='directorLastName' id='directorLastName'>
+                                        </div>
+
+                                        <div class='form-group col-md-6'>
+                                          <label for='directorSex'>Sex</label>
+                                          <select class='form-control' name='directorSex' id='directorSex'>
+                                            <option selected value='' disabled>Select sex</option>
+                                            <option value='Male'>Male</option>
+                                            <option value='Female'>Female</option>
+                                          </select>
+                                        </div>
+                                        
+                                        <div class='form-group col-md-6'>
+                                          <label for='directorBirthday'>Birthday</label>
+                                          <input type='date' name='directorBirthday' id='directorBirthday' class='form-control'>
+                                        </div>
+                                        
+                                        <div class='form-group col-md-6'>
+                                          <label for='directorEmailAddress'>Email Address</label>
+                                          <input type='text' class='form-control' name='directorEmailAddress' id='directorEmailAddress'>
+                                        </div>
+                                        
+                                        <div class='form-group col-md-6'>
+                                          <label for='directorContact'>Contact Number</label>
+                                          <input type='text' class='form-control' name='directorContact' id='directorContact' >
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <input type="hidden" value="add" name="directorMode" id=directorMode>
+                                    <button type="button" onclick="saveDirector();" class="btn btn-primary">Save</button>
+                                    <button type="button" onclick="clearForm();" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -56,145 +124,97 @@
 <script>
 
 //Add Event
-function addDirector() {
-  $.confirm({
-    theme: "bootstrap",
-    animateFromElement: false,
-    animation: 'top',
-    closeAnimation: 'top',
-    backgroundDismiss: true,
-    title: "<h4 class='modal-title'>Add Hospital Director</h4>",
-    boxWidth: '90%',
-    useBootstrap: false,
-    content:"<form class='form-group form-material p-2'>"+
-            "<div class='row'>"+
-            "<div class='form-group col-md-4'>"+
-            "<label for='directorFirstName'>First Name</label>"+
-            "<input type='text' class='form-control' name='directorFirstName' id='directorFirstName'>"+
-            "</div>"+
-            "<div class='form-group col-md-4'>"+
-            "<label for='directorMiddleName'>Middle Name</label>"+
-            "<input type='text' class='form-control' name='directorMiddleName' id='directorMiddleName'>"+
-            "</div>"+
-            "<div class='form-group col-md-4'>"+
-            "<label for='directorLastName'>Last Name</label>"+
-            "<input type='text' class='form-control' name='directorLastName' id='directorLastName' >"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorSex'>Sex</label>"+
-            "<select class='form-control'>"+
-            "<option selected disabled>Select sex</option>"+
-            "<option value='Male'>Male</option>"+
-            "<option value='Female'>Female</option>"+
-            "</select>"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorBirthday'>Birthday</label>"+
-            "<input type='date' name='directorBirthday' id='directorBirthday' class='form-control'>"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorEmailAddress'>Email Address</label>"+
-            "<input type='text' class='form-control' name='directorEmailAddress' id='directorEmailAddress' >"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorContact'>Contact Number</label>"+
-            "<input type='text' class='form-control' name='directorContact' id='directorContact' >"+
-            "</div>"+
-            "</div></form>",
-    buttons: {
-      save: {
-        btnClass: "btn btn-primary",
-        action: function () {
-          /////////////////VALIDATION
+function clearForm() {
+  $('#directorID').val('');
+  $('#directorMode').val('');
+  $('#directorFirstName').val('');
+  $('#directorMiddleName').val('');
+  $('#directorLastName').val('');
+  $('#directorSex').val('');
+  $('#directorBirthday').val('');
+  $('#directorEmailAddress').val('');
+  $('#directorContact').val('');
+}
 
-          //CHECK DIRECTOR NAME
+//Add Director
+function saveDirector(mode) {
+  var formData = $('#directorForm').serialize();
 
-          /////////////////AJAXX
-          $.ajax({
-            url: "<?php echo url('admin/addDirector')?>",
-            method: 'post',
-            data: "&strDirectorFirstName="+ this.$content.find("#directorFirstName").val() +"&strDirectorMiddleName="+this.$content.find("#directorMiddleName").val()+"&strDirectorLastName="+this.$content.find("#directorLastName").val()+"&strDirectorSex="+this.$content.find("#directorSex").val()+"&datDirectorBirthday="+this.$content.find("#directorBirthday").val()+"&strDirectorEmailAddress="+this.$content.find("#directorEmailAddress").val()+"&stfDirectorContact="+this.$content.find("#directorContact").val()+ "&_token=" + "{{csrf_token()}}",
-            async: false,
-            success: function (data) {
-              //LOG RESPONSE
-              console.log(data);
-              //REFRESH PAGE IF SUCCESS
-              //window.location.href = "/admin/hospitaldirector";
-            },
-            error: function (error) {
-              console.log(error);
-            }
-          });
-        }
+  if($('#directorMode').val() == 'add'){
+    $.ajax({
+      url: "<?php echo url('admin/addDirector')?>",
+      method: 'post',
+      data: formData + "&_token=" + "{{csrf_token()}}",
+      async: false,
+      success: function (data) {
+        //LOG RESPONSE
+        console.log(data);
+        //REFRESH PAGE IF SUCCESS
+        window.location.href = "/admin/hospitaldirector";
       },
-      close: {
-        btnClass: "btn btn-secondary",
+      error: function (error) {
+        console.log(error);
       }
-    },
-  });
+    });
+  }
+
+  else if($('#directorMode').val() == 'edit'){
+    $.ajax({
+      url: "<?php echo url('admin/editDirector')?>",
+      method: 'post',
+      data: formData + "&_token=" + "{{csrf_token()}}",
+      async: false,
+      success: function (data) {
+        //LOG RESPONSE
+        console.log(data);
+        //REFRESH PAGE IF SUCCESS
+        window.location.href = "/admin/hospitaldirector";
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
+
 }
 
 //Edit Director Info
 function editDirector(id) {
-  $.confirm({
-    theme: "bootstrap",
-    animation: 'top',
-    closeAnimation: 'top',
-    backgroundDismiss: true,
-    title: "<h4 class='modal-title'>Edit Hospital Director</h4>",
-    boxWidth: '90%',
-    useBootstrap: false,
-    content: function () {
-        var self = this;
-        return $.ajax({
-            url: "/admin/getModalEditDirector/"+ id,
-            dataType: 'json',
-            method: 'get'
-        }).done(function (response) {
-            var result = JSON.parse(JSON.stringify(response));
-            self.setContent("<form class='form-group form-material p-2'>"+
-            "<div class='row'>"+
-            "<div class='form-group col-md-4'>"+
-            "<label for='directorFirstName'>First Name</label>"+
-            "<input type='text' class='form-control' name='directorFirstName' id='directorFirstName' value='"+result[0].strDirectorFirstName+"'>"+
-            "</div>"+
-            "<div class='form-group col-md-4'>"+
-            "<label for='directorMiddleName'>Middle Name</label>"+
-            "<input type='text' class='form-control' name='directorMiddleName' id='directorMiddleName' value='"+result[0].strDirectorMiddleName+"'>"+
-            "</div>"+
-            "<div class='form-group col-md-4'>"+
-            "<label for='directorLastName'>Last Name</label>"+
-            "<input type='text' class='form-control' name='directorLastName' id='directorLastName' value='"+result[0].strDirectorLastName+"'>"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorSex'>Sex</label>"+
-            "<input type='text' class='form-control' name='directorSex' id='directorSex' value='"+result[0].strDirectorSex+"'>"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorBirthday'>Birthday</label>"+
-            "<input type='date' name='directorBirthday' id='directorBirthday' class='form-control' value='"+result[0].datDirectorBirthday+"'>"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorEmailAddress'>Email Address</label>"+
-            "<input type='text' class='form-control' name='directorEmailAddress' id='directorEmailAddress' value='"+result[0].strDirectorEmailAddress+"'>"+
-            "</div>"+
-            "<div class='form-group col-md-6'>"+
-            "<label for='directorContact'>Contact Number</label>"+
-            "<input type='text' class='form-control' name='directorContact' id='directorContact' value='"+result[0].stfDirectorContact+"'>"+
-            "</div>"+
-            "</div></form>");
-        }).fail(function(){
-            self.setContent('Something went wrong.');
-        });
-    },
-    buttons: {
-      save: {
-        btnClass: "btn btn-primary",
+  $.ajax({
+    url: "/admin/getModalEditDirector/"+ id,
+    dataType: 'json',
+    method: 'get'
+  }).done(function (result) {
+    $('#directorID').val(id);
+    $('#directorMode').val('edit');
+    $('#directorFirstName').val(result[0].strDirectorFirstName);
+    $('#directorMiddleName').val(result[0].strDirectorMiddleName);
+    $('#directorLastName').val(result[0].strDirectorLastName);
+    $('#directorSex').val(result[0].stfDirectorSex);
+    $('#directorBirthday').val(result[0].datDirectorBirthday);
+    $('#directorEmailAddress').val(result[0].strDirectorEmailAddress);
+    $('#directorContact').val(result[0].stfDirectorContact);
+  }).fail(function(){
+      alert('Something went wrong.');
+  });
+}
+
+//Delete Director Info
+function deleteDirector(id) {
+  $.ajax({
+      url: "<?php echo url('admin/deleteDirector')?>" + "/" + id,
+      method: 'post',
+      data: "&_token=" + "{{csrf_token()}}",
+      async: false,
+      success: function (data) {
+        //LOG RESPONSE
+        console.log(data);
+        //REFRESH PAGE IF SUCCESS
+        window.location.href = "/admin/hospitaldirector";
       },
-      close: {
-        btnClass: "btn btn-secondary",
+      error: function (error) {
+        console.log(error);
       }
-    },
   });
 }
 </script>

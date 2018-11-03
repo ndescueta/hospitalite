@@ -54,16 +54,21 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::resource('admin/hospitalrequestShow','ParticipantsController');
     Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2');
     Route::post('/updateRequest','ParticipantsController@updateRequest');
+    Route::post('/updatePayment','ParticipantsController@updatePayment');
 
     //DIRECTORS ROUTE
     Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
     Route::get('admin/getModalEditDirector/{intDirectorId}','HospitalDirectorsController@getModalEditDirector');
     Route::post('admin/addDirector','HospitalDirectorsController@addDirector');
+    Route::post('admin/editDirector','HospitalDirectorsController@editDirector');
+    Route::post('admin/deleteDirector/{intDirectorId}','HospitalDirectorsController@deleteDirector');
 
     //HOSPITALS ROUTE
     Route::get('admin/hospital','HospitalsController@index');
     Route::get('admin/getModalEditHospital/{intHospitalId}','HospitalsController@getModalEditHospital');
     Route::post('admin/addHospital','HospitalsController@addHospital');
+    Route::post('admin/editHospital','HospitalsController@editHospital');
+    Route::post('admin/deleteHospital/{intHospitalId}','HospitalsController@deleteHospital');
 
     //ADMIN HOMEPAGE ROUTE
     Route::get('admin/homepage','AdminController@homepage');
@@ -73,6 +78,10 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::post('/sendQuestion', 'FaqsController@storeQuestion');
     Route::post('admin/storeGeneralQuestion', 'FaqsController@storeGeneralQuestion');
     Route::post('admin/generalizeQuestion', 'FaqsController@generalizeQuestion');
+    Route::post('admin/showQuestionandAnswer', 'FaqsController@showQuestionandAnswer');
+    Route::get('admin/viewQuestions/{intGeneralQuestionId}', 'FaqsController@showQuestions');
+    Route::post('admin/saveEditedQuestion', 'FaqsController@saveEditedQuestion');
+    Route::post('admin/deleteQuestion', 'FaqsController@deleteQuestion');
 
     //ADMIN HOMEPAGE VIEW ROUTE
     Route::get('admin/homepageView','HomeContentsController@index');

@@ -9,7 +9,7 @@
                 <!-- Content -->
                 <div class="card">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="card-body">
                         <h4 class="card-title m-t-10">Current List of Hospitals</h4>
                         <div class="row">
@@ -19,15 +19,22 @@
                               @if(count($selectHospitals) > 0)
                                   <table class='table'>
                                   <tr>
-                                    <th>Name</th>
-                                    <th>Barangay</th>
+                                    <th>Hospital Name</th>
+                                    <th>Hospital Director</th>
+                                    <th>City</th>
                                     <th>Action</th>
                                   </tr>
                                   @foreach($selectHospitals as $selectHospital)
                                       <tr onclick='displayHospital()'>
                                         <td>{{$selectHospital->strHospitalName}}</td>
-                                        <td>{{$selectHospital->txtHospitalBarangay}}</td>
-                                        <td><div class='btn-group'><button class='btn btn-success' onclick='viewHospital({{$selectHospital->intHospitalId}})'>View</button><button class='btn btn-warning' onclick='editHospital({{$selectHospital->intHospitalId}})'>Edit</button><button class='btn btn-danger' onclick='deleteHospital({{$selectHospital->intHospitalId}})'>Delete</button></div></td>
+                                        <td>{{$selectHospital->strDirectorName}}</td>
+                                        <td>{{$selectHospital->txtHospitalCity}}</td>
+                                        <td>
+                                          <div class='btn-group'>
+                                            <button class='btn btn-warning' onclick='editHospital({{$selectHospital->intHospitalId}})' data-toggle="modal" data-target="#hospitalModal"> Edit </button>
+                                            <button class='btn btn-danger' onclick='deleteHospital({{$selectHospital->intHospitalId}})' > Delete </button>
+                                          </div>
+                                        </td>
                                       </tr>
                                   @endforeach
                                   </table>
@@ -37,9 +44,69 @@
                             </div>
 
                             <!-- Add Hospital -->
-                            <a href="#" onclick="addHospital()" data-target="#add-new-hospital" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                            <a href="#" data-toggle="modal" data-target="#hospitalModal" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
                               <i class="ti-plus"></i> Add New Hospital
                             </a>
+
+                            <div class="modal fade" id="hospitalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" style="width: 90%;">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Hospital</h4>
+                                  </div>
+
+                                  <div class="modal-body">
+                                    <form class="form-group form-material p-2" id="hospitalForm">
+                                      <div class="row">
+                                        <div class="form-group col-md-12">
+                                          <input type="hidden" name="hospitalID" id="hospitalID">
+                                        </div>
+
+                                        <div class='form-group col-md-12'>
+                                          <label for='hospitalName'>Hospital Name</label>
+                                          <input type='text' class='form-control' name='hospitalName' id='hospitalName'>
+                                        </div>
+
+                                        <div class='form-group col-md-12'>
+                                          <label for='hospitalDirector'>Director Name</label>
+                                          <select class='form-control' name='hospitalDirector' id='hospitalDirector'>
+                                            <option selected value='' disabled>Select director</option>
+                                            @foreach($directorList as $director)
+                                              <option value='{{$director->intDirectorId}}'>{{$director->strDirectorName}}</option>
+                                            @endforeach
+                                          </select>
+                                        </div>
+
+                                        <div class='form-group col-md-6'>
+                                          <label for='hospitalStreet'> Hospital Street <small>(Required)</small></label>
+                                          <input type='text' class='form-control' name='hospitalStreet' id='hospitalStreet'>
+                                        </div>
+
+                                        <div class='form-group col-md-6'>
+                                          <label for='hospitalBarangay'> Hospital Barangay <small>(Required)</small></label>
+                                          <input type='text' class='form-control' name='hospitalBarangay' id='hospitalBarangay'>
+                                        </div>
+
+                                        <div class='form-group col-md-6'>
+                                          <label for='hospitalCity'> Hospital City <small>(Required)</small></label>
+                                          <input type='text' class='form-control' name='hospitalCity' id='hospitalCity'>
+                                        </div>
+
+                                        <div class='form-group col-md-6'>
+                                          <label for='hospitalZip'> Hospital Zip <small>(Required)</small></label>
+                                          <input type='text' class='form-control' name='hospitalZip' id='hospitalZip'>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <input type="hidden" value="add" name="hospitalMode" id=hospitalMode>
+                                    <button type="button" onclick="saveHospital();" class="btn btn-primary">Save</button>
+                                    <button type="button" onclick="clearForm();" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -48,253 +115,102 @@
                 </div>
               </div>
 
-
-
-
-
 @endsection
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- SCRIPTS -->
 <script>
 
+function clearForm() {
+  $('#hospitalID').val('');
+  $('#hospitalMode').val('');
+  $('#hospitalName').val('');
+  $('#hospitalDirector').val('');
+  $('#hospitalStreet').val('');
+  $('#hospitalBarangay').val('');
+  $('#hospitalCity').val('');
+  $('#hospitalZip').val('');
+}
+
 //Add Hospital
-function addHospital() {
-  $.confirm({
-    theme: "bootstrap",
-    animateFromElement: false,
-    animation: 'top',
-    closeAnimation: 'top',
-    backgroundDismiss: true,
-    title: "<h4 class='modal-title'>Add Hospital</h4>",
-    boxWidth: '90%',
-    useBootstrap: false,
-    content:"<form id='frmAddHospital' class='form-group form-material p-2'>"+
-            "<div class='row'>"+
+function saveHospital() {
+  var formData = $('#hospitalForm').serialize();
 
-            "<div class='form-group col-md-12'>"+
-            "<label for='hospitalName'> Hospital Name <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='strHospitalName' id='hospitalName'>"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalStreet'> Hospital Street <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='txtHospitalStreet' id='hospitalStreet'>"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalBarangay'> Hospital Barangay <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='txtHospitalBarangay' id='hospitalBarangay'>"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalCity'> Hospital City <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='txtHospitalBarangay' id='hospitalBarangay'>"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalZip'> Hospital Zip <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='intHospitalZip' id='hospitalZip'>"+
-            "</div>"+
-
-            "</div>"+
-            "</form>",
-    buttons: {
-      save: {
-        text: "Save",
-        btnClass: "btn btn-primary",
-        action: function () {
-          /////////////////VALIDATION
-
-          //CHECK Hospital NAME
-          if(this.$content.find("#hospitalName").val() == "") {
-            textEmpasis(document.getElementById("hospitalName").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalStreet").val() == "") {
-            textEmpasis(document.getElementById("hospitalStreet").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalBarangay").val() == "") {
-            textEmpasis(document.getElementById("hospitalBarangay").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalCity").val() == "") {
-            textEmpasis(document.getElementById("hospitalCity").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalZip").val() == "") {
-            textEmpasis(document.getElementById("hospitalZip").previousSibling);
-            return false;
-          }
-          
-          /////////////////AJAXX
-          $.ajax({
-            url: "<?php echo url('admin/addHospital')?>",
-            method: 'post',
-            data: this.$content.find("#frmAddHospital").serialize() + "&_token=" + "{{csrf_token()}}",
-            async: false,
-            success: function (data) {
-              //LOG RESPONSE
-              console.log(data);
-              //REFRESH PAGE IF SUCCESS
-              //window.location.href = "/admin/hospital";
-            },
-            error: function (error) {
-              console.log(error);
-            }
-          });
-        }
+  if($('#hospitalMode').val() == 'add'){  
+    $.ajax({
+      url: "<?php echo url('admin/addHospital')?>",
+      method: 'post',
+      data: formData + "&_token=" + "{{csrf_token()}}",
+      async: false,
+      success: function (data) {
+        //LOG RESPONSE
+        console.log(data);
+        //REFRESH PAGE IF SUCCESS
+        window.location.href = "/admin/hospital";
       },
-      close: {
-        btnClass: "btn btn-secondary",
+      error: function (error) {
+        console.log(error);
       }
-    },
-  });
+    });
+  }
+
+  else if($('#hospitalMode').val() == 'edit'){
+    $.ajax({
+      url: "<?php echo url('admin/editHospital')?>",
+      method: 'post',
+      data: formData + "&_token=" + "{{csrf_token()}}",
+      async: false,
+      success: function (data) {
+        //LOG RESPONSE
+        console.log(data);
+        //REFRESH PAGE IF SUCCESS
+        window.location.href = "/admin/hospital";
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+  }
 }
 
 //Edit Hospital Info
 function editHospital(id) {
-  $.confirm({
-    theme: "bootstrap",
-    animation: 'top',
-    closeAnimation: 'top',
-    backgroundDismiss: true,
-    title: "<h4 class='modal-title'>Edit Hospital</h4>",
-    boxWidth: '90%',
-    useBootstrap: false,
-    content: function () {
-        var self = this;
-        return $.ajax({
-            url: "/admin/viewHospital/"+ id,
-            dataType: 'json',
-            method: 'get'
-        }).done(function (response) {
-            var result = JSON.parse(JSON.stringify(response));
-            self.setContent("<form id='frmEditHospital'class='form-group form-material p-2'>"+
-            "<input type='hidden' name='intHospitalId' id='intHospitalId' value='"+id+"' />"+
-            "<div class='row'>"+
-
-            "<div class='form-group col-md-12'>"+
-            "<label for='hospitalName'> Hospital Name <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='strHospitalName' id='hospitalName' value='"+result[0].strHospitalName+">"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalStreet'> Hospital Street <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='txtHospitalStreet' id='hospitalStreet' value='"+result[0].strHospitalStreet+">"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalBarangay'> Hospital Barangay <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='txtHospitalBarangay' id='hospitalBarangay' value='"+result[0].strHospitalBarangay+">"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalCity'> Hospital City <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='txtHospitalCity' id='hospitalCity' value='"+result[0].strHospitalCity+">"+
-            "</div>"+
-
-            "<div class='form-group col-md-3'>"+
-            "<label for='hospitalZip'> Hospital Zip <small>(Required)</small></label>"+
-            "<input type='text' class='form-control' name='intHospitalZip' id='hospitalZip' value='"+result[0].strHospitalZip+">"+
-            "</div>"+
-
-            "</div></form>");
-        }).fail(function(){
-            self.setContent('Something went wrong.');
-        });
-    },
-    buttons: {
-      save: {
-        btnClass: "btn btn-primary",
-        action: function () {
-          /////////////////VALIDATION
-
-          //CHECK Hospital NAME
-          if(this.$content.find("#hospitalName").val() == "") {
-            textEmpasis(document.getElementById("hospitalName").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalStreet").val() == "") {
-            textEmpasis(document.getElementById("hospitalStreet").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalBarangay").val() == "") {
-            textEmpasis(document.getElementById("hospitalBarangay").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalCity").val() == "") {
-            textEmpasis(document.getElementById("hospitalCity").previousSibling);
-            return false;
-          }
-          if(this.$content.find("#hospitalZip").val() == "") {
-            textEmpasis(document.getElementById("hospitalZip").previousSibling);
-            return false;
-          }
-
-          // /////////////////AJAXX
-          $.ajax({
-            url: "<?php echo url('admin/editHospital')?>",
-            method: 'post',
-            data: this.$content.find("#frmEditHospital").serialize(),
-            async: false,
-            success: function (data) {
-              //LOG RESPONSE
-              console.log(data);
-              //REFRESH PAGE IF SUCCESS
-              window.location.href = "/admin/hospital";
-            },
-            error: function (error) {
-              console.log(error);
-            }
-          });
-        }
-      },
-      close: {
-        btnClass: "btn btn-secondary",
-      }
-    },
+  $.ajax({
+    url: "/admin/getModalEditHospital/"+ id,
+    dataType: 'json',
+    method: 'get'
+  }).done(function (result) {
+    $('#hospitalID').val(id);
+    $('#hospitalMode').val('edit');
+    $('#hospitalName').val(result[0].strHospitalName);
+    $('#hospitalDirector').val(result[0].intDirectorId);
+    $('#hospitalStreet').val(result[0].txtHospitalStreet);
+    $('#hospitalBarangay').val(result[0].txtHospitalBarangay);
+    $('#hospitalCity').val(result[0].txtHospitalCity);
+    $('#hospitalZip').val(result[0].intHospitalZip);
+  }).fail(function(){
+      alert('Something went wrong.');
   });
 }
 
 //Delete Hospital
 function deleteHospital(id) {
   // /////////////////AJAXX
-  $.confirm({
-    theme: "bootstrap",
-    animation: 'top',
-    closeAnimation: 'top',
-    backgroundDismiss: true,
-    icon: "ti-trash",
-    title: "<h4 class='modal-title'></i>Delete Hospital</h4>",
-    useBootstrap: false,
-    content: "Are you sure you want to delete this hospital?",
-    buttons: {
-      confirm: {
-        btnClass: "btn btn-primary",
-        action: function () {
-          $.ajax({
-            url: "<?php echo url('admin/deleteHospital')?>",
-            method: 'post',
-            data: "intHospitalId="+id+"&_token=" + "{{csrf_token()}}",
-            async: false,
-            success: function (data) {
-              //LOG RESPONSE
-              console.log(data);
-              //REFRESH PAGE IF SUCCESS
-              window.location.href = "/admin/hospitals";
-            },
-            error: function (error) {
-              console.log(error);
-            }
-          });
-        }
+  $.ajax({
+      url: "<?php echo url('admin/deleteHospital')?>" + "/" + id,
+      method: 'post',
+      data: "&_token=" + "{{csrf_token()}}",
+      async: false,
+      success: function (data) {
+        //LOG RESPONSE
+        console.log(data);
+        //REFRESH PAGE IF SUCCESS
+        window.location.href = "/admin/hospital";
       },
-      cancel: { }
-    }
+      error: function (error) {
+        console.log(error);
+      }
   });
-  
 }
 
 function textEmpasis(elem) {
