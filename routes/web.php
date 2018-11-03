@@ -73,6 +73,10 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::post('/sendQuestion', 'FaqsController@storeQuestion');
     Route::post('admin/storeGeneralQuestion', 'FaqsController@storeGeneralQuestion');
     Route::post('admin/generalizeQuestion', 'FaqsController@generalizeQuestion');
+    Route::post('admin/showQuestionandAnswer', 'FaqsController@showQuestionandAnswer');
+    Route::get('admin/viewQuestions/{intGeneralQuestionId}', 'FaqsController@showQuestions');
+    Route::post('admin/saveEditedQuestion', 'FaqsController@saveEditedQuestion');
+    Route::post('admin/deleteQuestion', 'FaqsController@deleteQuestion');
 
     //ADMIN HOMEPAGE VIEW ROUTE
     Route::get('admin/homepageView','HomeContentsController@index');

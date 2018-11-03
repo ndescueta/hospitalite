@@ -13,6 +13,7 @@
 </div>
 <div class="card card-body">
   <h3 class="mb-3">Questions</h3>
+  @if (count($questions) > 0)
   @foreach ($questions as $question)
   <div class="input-group mb-1">
     <div class="input-group-prepend">
@@ -21,8 +22,16 @@
       </div>
     </div>
     <input type="text" name="" value="{{$question->txtQuestion}}" class="form-control" readonly>
+    <div class="input-group-append">
+      <div class="input-group-text">
+        <button type="button" class="btn btn-danger btnDeleteQuestion" id="{{$question->intQuestionId}}"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
   </div>
   @endforeach
+  @else
+  <p>No Questions Found</p>
+  @endif
   <button type="button" name="button" id="btnGenQue" class="btn btn-primary mt-3" data-toggle="modal" data-target="#mdlGeneralizeQuestions">Generalize marked questions</button>
 </div>
 <div class="card mt-3">
@@ -57,8 +66,8 @@
       <td><b>Q: </b>{{$generalQuestion->txtGeneralQuestion}}<br><b>A:  </b>{{$generalQuestion->txtAnswer}}</td>
       <td>
         <div class="btn-group">
-          <button type="button" name="btnViewGenQue" id="{{$generalQuestion->intGeneralQuestionId}}" class="btn btn-default"><i class="fas fa-eye"></i> View</button>
-          <button type="button" name="btnEditGenQue" id="{{$generalQuestion->intGeneralQuestionId}}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button>
+          <button type="button" name="btnViewGenQue" id="{{$generalQuestion->intGeneralQuestionId}}" class="btn btn-default" onclick=" location.href='viewQuestions/{{$generalQuestion->intGeneralQuestionId}}' "><i class="fas fa-eye"></i> View</button>
+          <button type="button" name="btnEditGenQue" id="{{$generalQuestion->intGeneralQuestionId}}" class="btn btn-primary" data-toggle="modal" data-target="#mdlEditGeneralQuestion"><i class="fas fa-edit"></i> Edit</button>
         </div>
       </td>
     </tr>
@@ -121,19 +130,105 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="mdlViewGeneralQuestion" tabindex="-1" role="dialog" aria-labelledby="modalViewGeneralQuestion" aria-hidden="true">
+<div class="modal fade" id="mdlEditGeneralQuestion" tabindex="-1" role="dialog" aria-labelledby="modalViewGeneralQuestion" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        
+        <h4 class="modal-title">Edit general question</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
+      <form class="form-material" method="post" name="frmEditGeneralQuestion">
       <div class="modal-body">
-
+        <input type="hidden" name="hdnGenQueID" id="hdnGenQueID">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Q:</span>
+          </div>
+          <textarea name="editQuestion" rows="3" id="editQuestion" class="form-control"></textarea>
+          <!-- <input type="text" name="editQuestion" id="editQuestion" class="form-control"> -->
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">A:</span>
+          </div>
+          <textarea name="editAnswer" rows="3" id="editAnswer" class="form-control"></textarea>
+          <!-- <input type="text" name="editAnswer" id="editAnswer" class="form-control"> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        {{ csrf_field() }}
+        <button type="submit" class="btn btn-success">Save</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
+$(document).on("click", ".btnDeleteQuestion", function(e){
+  let questionID = $(this).attr("id")
+  // console.log(questionID)
+  swal({
+    title: "Are you sure?",
+    text: "You are about to delete this question",
+    icon: "info",
+    buttons: true,
+  })
+  .then((willApprove) => {
+    if (willApprove){
+      $.ajax({
+        method: "POST",
+        url: "deleteQuestion",
+        data: {id: questionID, _token: "{{csrf_token()}}"},
+        success: function (response){
+          swal({
+            title: "",
+            text: "Question deleted",
+            icon: "success",
+            buttons: {text:"Okay"},
+          })
+          .then((willApprove) => {
+            if (willApprove) {
+              location.reload()
+            }
+          })
+        }
+      })
+    }
+    else {
+      swal("","Cancelled")
+    }
+  })
+})
+$(document).on("submit", "form[name='frmEditGeneralQuestion']", function(e){
+  e.preventDefault()
+  // console.log($(this).serialize())
+
+  $.ajax({
+    method: "POST",
+    url: "saveEditedQuestion",
+    data: $(this).serialize(),
+    success: function(response){
+      console.log(response)
+      if (response == " 1"){
+        // alert("error")
+        swal({
+          title: "",
+          text: "General question successfully edited!",
+          icon: "success",
+          buttons: {text:"Okay"},
+        })
+        .then((willApprove) => {
+          if (willApprove){
+            location.reload()
+          }
+        })
+      }
+      else if (response == "2"){
+        swal("Err","Error updating general question.", "error")
+      }
+    }
+  })
+})
 $(document).on("show.bs.modal", "#mdlGeneralizeQuestions", function(){
   // get selected question id's
   let selectedQuestions = []
@@ -154,6 +249,31 @@ $(document).on("show.bs.modal", "#mdlGeneralizeQuestions", function(){
     $("#selGeneralQuestions").show()
   }
 })
+$(document).on("show.bs.modal", "#mdlEditGeneralQuestion", function(evt){
+  let genQID = $(evt.relatedTarget).attr("id")
+  $("#hdnGenQueID").val(genQID)
+  console.log(genQID)
+
+  $.ajax({
+    method: "POST",
+    url: "showQuestionandAnswer",
+    data: {id: genQID, _token: "{{csrf_token()}}"},
+    dataType: "json",
+    success: function(response){
+      console.log(response.length)
+      for (var i = 0; i < response.length; i++) {
+        let genque = response[i].txtGeneralQuestion
+        let genans = response[i].txtAnswer
+
+        $("#editQuestion").val(genque)
+        $("#editAnswer").val(genans)
+        // console.log(genque+" "+genans)
+      }
+      // $("#editQuestion").val(response.txtGeneralQuestion)
+      // $("#editAnswer").val(response.txtAnswer)
+    }
+  })
+})
 $(document).on("submit", "form[name='frmGeneralizeQuestions']", function(e){
   e.preventDefault()
   // console.log($(this).serialize())
@@ -163,7 +283,18 @@ $(document).on("submit", "form[name='frmGeneralizeQuestions']", function(e){
     url: "generalizeQuestion",
     data: $(this).serialize(),
     success: function(response){
-      console.log(response)
+      // console.log(response)
+      swal({
+        title: "",
+        text: "Success!",
+        icon: "success",
+        buttons: {text:"Okay"}
+      })
+      .then((willApprove) => {
+        if (willApprove) {
+          location.reload()
+        }
+      })
     }
   })
 })
