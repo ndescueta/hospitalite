@@ -98,28 +98,52 @@ class ParticipantsController extends Controller
     public function updateRequest(Request $request)
     {
           $status = $request->input('status');
-
-          $requestid = $request->input('requestid');
-          $data_request = tblrequest::find($requestid);
-          //$data = HomeContent::where('intHomeContentId',$request->input('contentid'))->get();
-          $data_request->stfRequestStatus = $request->input('status');
-          $data_request->save();
+          $date = date('Y-m-d H:i:s');
 
 if($status == 'Accepted'){
+  $requestid = $request->input('requestid');
   $countop = Participants::where('intRequestId',$requestid)->get();
   $participantcount = $countop->count();
-  //$participantcount = $countop->Count_of_participants;
   settype($participantcount,"int");
 
-  $eventid =$request->input('intEventId');
+  $eventid =$request->input('eventId');
   $data_event = Event::find($eventid);
   $capacity = $data_event->intEventCapacity;
   settype($capacity,"int");
   $newEventCapacity = $capacity - $participantcount;
-  $data_event->intEventCapacity = $newEventCapacity;
-  $data_event->save();
+  settype($newEventCapacity,"int");
+
+    if($newEventCapacity >= 0){
+      $data_event->intEventCapacity = $newEventCapacity;
+      $data_event->save();
+
+      $requestid = $request->input('requestid');
+      $data_request = tblrequest::find($requestid);
+      $data_request->stfRequestStatus = $request->input('status');
+      $data_request->datRequestUpdate = $date;
+      $data_request->save();
+    }else if ($newEventCapacity < 0){
+      echo 'error';
+      //echo 'Error in transaction, Participants are too many';
+    }
+}else if($status == 'Rejected'){
+  $requestid = $request->input('requestid');
+  $data_request = tblrequest::find($requestid);
+  $data_request->stfRequestStatus = $request->input('status');
+  $data_request->txtReasonForRejection = $request->input('txtreason');
+  $data_request->datRequestUpdate = $date;
+  $data_request->save();
+
 }
+
 //return redirect('/admin/hospitalrequest');
+    }
+
+    public function updatePayment(Request $request){
+      $requestid = $request->input('requestid');
+      $data_request = tblrequest::find($requestid);
+      $data_request->stfIsPaid = 'Yes';
+      $data_request->save();
     }
 
     /**
