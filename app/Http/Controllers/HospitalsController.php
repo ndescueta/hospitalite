@@ -9,18 +9,26 @@ use App\Http\Controllers\Controller;
 class HospitalsController extends Controller
 {
     public function index() {
-        $selectHospitals= DB::select("SELECT * from tblHospital" , [1]);
-        return view("admin.hospitals")->with('selectHospitals',$selectHospitals);
+        $selectHospitals= DB::select("SELECT H.intHospitalId, H.intDirectorId, CONCAT(D.strDirectorFirstName, ' ', D.strDirectorLastName) strDirectorName, H.strHospitalName, H.txtHospitalStreet, H.txtHospitalBarangay, H.txtHospitalCity, H.intHospitalZip, H.txtHospitalLogo FROM tblhospital H INNER JOIN tbldirector D ON H.intDirectorId = D.intDirectorId" , [1]);
+        $selectDirectors= DB::select("SELECT D.intDirectorId, CONCAT(D.strDirectorFirstName, ' ', D.strDirectorLastName) strDirectorName FROM tbldirector D", [1]);
+
+        return view("admin.hospitals")->with('selectHospitals',$selectHospitals)->with('directorList', $selectDirectors);
+    }
+
+    public function getModalEditHospital($intHospitalId) {
+        $editHospital = DB::select("SELECT * FROM tblhospital WHERE intHospitalId = '$intHospitalId'; ",[1]);
+        return $editHospital;
     }
 
     public function addHospital(Request $request) {
 
         //POST
-        $strHospitalName= $request->strHospitalName;
-        $strHospitalStreet = $request->strHospitalStreet;
-        $txtHospitalBarangay= $request->txtHospitalBarangay;
-        $txtHospitalCity= $request->txtHospitalCity;
-        $intHospitalZip= $request->intHospitalZip;
+        $strHospitalName= $request->hospitalName;
+        $intDirectorId= $request->hospitalDirector;
+        $strHospitalStreet = $request->hospitalStreet;
+        $txtHospitalBarangay= $request->hospitalBarangay;
+        $txtHospitalCity= $request->hospitalCity;
+        $intHospitalZip= $request->hospitalZip;
 
         
         //TRANSACT
@@ -28,7 +36,7 @@ class HospitalsController extends Controller
 
         try {
 
-            DB::insert("INSERT INTO tblhospital(strHospitalName, txtHospitalStreet, txtHospitalBarangay, txtHospitalCity, intHospitalZip) VALUES ('$strHospitalName', '$strHospitalStreet', '$txtHospitalBarangay', '$txtHospitalCity', '$intHospitalZip');",[1]);
+            DB::insert("INSERT INTO tblhospital (strHospitalName, intDirectorId, txtHospitalStreet, txtHospitalBarangay, txtHospitalCity, intHospitalZip) VALUES ('$strHospitalName', $intDirectorId, '$strHospitalStreet', '$txtHospitalBarangay', '$txtHospitalCity', '$intHospitalZip'); ",[1]);
 
             DB::commit();
             // all good
@@ -43,33 +51,52 @@ class HospitalsController extends Controller
 
     public function editHospital(Request $request) {
         //POST
-        $intEventId = $request->intEventId;
-        $strEventName= $request->strEventName;
-        $txtEventStreet= $request->txtEventStreet;
-        $txtEventBarangay= $request->txtEventBarangay;
-        $txtEventCity= $request->txtEventCity;
-        $intEventZip= $request->intEventZip;
-        $txtEventDescription= $request->txtEventDescription;
-        $intEventCapacity= $request->intEventCapacity;
-        $monEventPrice= $request->monEventPrice;
-        $stfEventBankAccount= $request->stfEventBankAccount;
-        $strEventPaymentCenter= $request->strEventPaymentCenter;
-        $datPaymentDue= $request->datPaymentDue;
+        $intHospitalId= $request->hospitalID;
+        $strHospitalName= $request->hospitalName;
+        $intDirectorId= $request->hospitalDirector;
+        $strHospitalStreet = $request->hospitalStreet;
+        $txtHospitalBarangay= $request->hospitalBarangay;
+        $txtHospitalCity= $request->hospitalCity;
+        $intHospitalZip= $request->hospitalZip;
+        
+                //TRANSACT
+                DB::beginTransaction();
 
-        $datDateStart= $request->datDateStart;
-        $datDateEnd= $request->datDateEnd;
-        $timTimeStart= $request->timTimeStart;
-        $timTimeEnd= $request->timTimeEnd;
-
-        DB::insert("UPDATE tblevent SET strEventName = '$strEventName', txtEventStreet = '$txtEventStreet',txtEventBarangay = '$txtEventBarangay', txtEventCity = '$txtEventCity', intEventZip = $intEventZip,txtEventDescription = '$txtEventDescription',intEventCapacity = $intEventCapacity,monEventPrice = $monEventPrice,stfEventBankAccount = '$stfEventBankAccount',strEventPaymentCenter = '$strEventPaymentCenter',datPaymentDue = '$datPaymentDue' WHERE intEventId = $intEventId",[1]);
-
+                try {
+                    DB::insert("UPDATE tblhospital 
+                                SET strHospitalName = '$strHospitalName',
+                                    intDirectorId = $intDirectorId,
+                                    txtHospitalStreet = '$strHospitalStreet',
+                                    txtHospitalBarangay = '$txtHospitalBarangay',
+                                    txtHospitalCity = '$txtHospitalCity',
+                                    intHospitalZip = '$intHospitalZip'
+                                WHERE intHospitalId = $intHospitalId; ", [1]);
+        
+                    DB::commit();
+                    // all good
+                } catch (\Exception $e) {
+                    DB::rollback();
+                    // something went wrong
+                    return $e;
+                }
+        
+                return "Success";
     }
 
-    public function deleteEvent(Request $request) {
-        //POST
-        $intEventId = $request->intEventId;
-        DB::insert("UPDATE tblevent SET stfEventStatus = 'Inactive' WHERE intEventId = $intEventId;",[1]);
-        return "success";
+    public function deleteHospital($intHospitalId) {
+        DB::beginTransaction();
+
+        try {
+            DB::insert("DELETE FROM tblhospital WHERE intHospitalId = '$intHospitalId'; ",[1]);
+            DB::commit();
+            // all good
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+            return $e;
+        }
+
+        return "Success";
     }
 
     public function test() {
