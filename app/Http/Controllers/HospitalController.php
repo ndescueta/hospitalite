@@ -93,19 +93,25 @@ class HospitalController extends Controller
     ->where('tblevent.intEventId', $intEventId)
     ->get();
 
-    $latestRequest = DB::select('SELECT MAX(datRequestDate) as latestRequest FROM tblrequest WHERE intEventId = ' . $intEventId . ' AND intRepresentativeId = 1');
+    //SUBUKAN KUNG MERONG REQUEST
+    try {
+      $latestRequest = DB::select('SELECT MAX(datRequestDate) as latestRequest FROM tblrequest WHERE intEventId = ' . $intEventId . ' AND intRepresentativeId = 1');
 
-
-    $requests = DB::table('tblrequest')
-    ->select('*')
-    ->where('intEventId', $intEventId)
-    ->where('intRepresentativeId', 1)
-    ->where('datRequestDate', $latestRequest[0]->latestRequest)
-    ->get();
-
-    $participantCounts = DB::select('SELECT COUNT(intParticipantId) as participantCount FROM tblparticipants WHERE intRequestId = ' . $requests[0]->intRequestId);
-
-    $totalCosts = DB::select('SELECT ' . $participantCounts[0]->participantCount*$seminars[0]->monEventPrice . ' as totalCost FROM tblparticipants LIMIT 1');
+      $requests = DB::table('tblrequest')
+      ->select('*')
+      ->where('intEventId', $intEventId)
+      ->where('intRepresentativeId', 1)
+      ->where('datRequestDate', $latestRequest[0]->latestRequest)
+      ->get();
+  
+      $participantCounts = DB::select('SELECT COUNT(intParticipantId) as participantCount FROM tblparticipants WHERE intRequestId = ' . $requests[0]->intRequestId);
+  
+      $totalCosts = DB::select('SELECT ' . $participantCounts[0]->participantCount*$seminars[0]->monEventPrice . ' as totalCost FROM tblparticipants LIMIT 1');
+    }
+    //PAG WALA EDI WALA
+    catch(\Exception $e) {
+      $latestRequest;$requests;$participantCounts;$totalCosts;
+    }
 
     return view('hospital_side.show')->with(compact('seminars', 'requests', 'participantCounts', 'totalCosts'));
   }

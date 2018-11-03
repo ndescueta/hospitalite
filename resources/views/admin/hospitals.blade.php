@@ -44,7 +44,7 @@
                             </div>
 
                             <!-- Add Hospital -->
-                            <a href="#" data-toggle="modal" data-target="#hospitalModal" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                            <a href="#" data-toggle="modal" data-target="#hospitalModal" onclick='generateRegCode()' class="btn m-t-10 btn-info btn-block waves-effect waves-light">
                               <i class="ti-plus"></i> Add New Hospital
                             </a>
 
@@ -56,7 +56,7 @@
                                   </div>
 
                                   <div class="modal-body">
-                                    <form class="form-group form-material p-2" id="hospitalForm">
+                                    <form class="form-group p-2" id="hospitalForm">
                                       <div class="row">
                                         <div class="form-group col-md-12">
                                           <input type="hidden" name="hospitalID" id="hospitalID">
@@ -96,6 +96,10 @@
                                           <label for='hospitalZip'> Hospital Zip <small>(Required)</small></label>
                                           <input type='text' class='form-control' name='hospitalZip' id='hospitalZip'>
                                         </div>
+                                        <div class='form-group col-md-12'>
+                                          <label for='hospitalRegCode'> Hospital Registration Code <small>(Required)</small></label>
+                                          <input type='text' class='form-control' name='hospitalRegCode' id='hospitalRegCode' disabled>
+                                        </div>
                                       </div>
                                     </form>
                                   </div>
@@ -120,6 +124,9 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- SCRIPTS -->
 <script>
+function generateRegCode() {
+  alert("henlo");
+}
 
 function clearForm() {
   $('#hospitalID').val('');
