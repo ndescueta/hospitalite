@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Question;
 use App\GeneralQuestion;
+use App\Category;
 
 class FaqsController extends Controller
 {
@@ -21,7 +22,9 @@ class FaqsController extends Controller
     ->orderBy('intQuestionId', 'DESC')
     ->get();
     $generalQuestions = GeneralQuestion::all();
-    return view('admin.faqs')->with(compact('questions','generalQuestions'));
+    $activecategories = Category::where('stfCategoryStatus', 'Active')
+    ->get();
+    return view('admin.faqs')->with(compact('questions', 'generalQuestions', 'activecategories'));
   }
 
   /**
@@ -32,6 +35,62 @@ class FaqsController extends Controller
   public function create()
   {
     //
+  }
+
+  public function storeCategory(Request $request){
+    $category = new Category();
+    try {
+      $category->strCategoryName = $request->txtCategory;
+      $category->stfCategoryStatus = "Active";
+      $category->save();
+    } catch (\Exception $e) {
+      echo $e;
+    }
+  }
+
+  public function showGeneralQuestions($intCategoryId){
+      $generalQuestions = DB::table('tblgeneralquestion')
+      ->join('tblcategory', 'tblgeneralquestion.intCategoryId', '=', 'tblcategory.intCategoryId')
+      ->where('tblgeneralquestion.intCategoryId', $intCategoryId)
+      ->select('*')
+      ->get();
+      return view('admin.faqsViewGeneralQuestions')->with('generalQuestions', $generalQuestions);
+  }
+
+  public function getCategoryDetails(Request $request){
+    $categoryDetails = Category::where('intCategoryId', $request->id)
+    ->get();
+    echo json_encode($categoryDetails);
+  }
+
+  public function updateCategory(Request $request){
+    $getCategoryDetails = GeneralQuestion::where('intCategoryId', $request->hdnCategoryId)
+    ->get();
+    if (count($getCategoryDetails) > 0){
+      echo "1"; // forbid user to deactivate category because it has general questions in it
+    }
+    else {
+      $updateCategoryDetails = Category::where('intCategoryId', $request->hdnCategoryId)
+      ->update(['strCategoryName' => $request->txtEditCategory, 'stfCategoryStatus' => $request->selCategoryStatus]);
+      echo "2"; // success
+    }
+  }
+
+  public function categorizeGenQue(Request $request){
+    $generalQuestions = GeneralQuestion::all();
+    if(empty($request->selAvailableCategories)){
+      echo 1; // ekis
+    }
+    else {
+      $catID = $request->selAvailableCategories;
+      $selectedGenQueId = $request->hdnSelectedGenQue;
+      $selGQID = explode(',', $selectedGenQueId);
+      foreach($selGQID as $id){
+        $generalQuestions = GeneralQuestion::where('intGeneralQuestionId', $id)
+        ->update(['intCategoryId' => $catID]);
+      }
+      echo 2; //success
+    }
   }
 
   public function saveEditedQuestion(Request $request){
@@ -88,12 +147,18 @@ class FaqsController extends Controller
 
   public function generalizeQuestion(Request $request){
     $question = new Question();
-    $genQID = $request->selGeneralQuestions;
-    $selectedQuestionsId = $request->hdnSelectedQuestions;
-    $selQID = explode(",", $selectedQuestionsId);
-    foreach($selQID as $sid){
-      $questions = Question::where('intQuestionId', $sid)
-      ->update(['intGeneralQuestionId' => $genQID]);
+    if (empty($request->selGeneralQuestions)){
+      echo 1; // no selected general question
+    }
+    else {
+      $genQID = $request->selGeneralQuestions;
+      $selectedQuestionsId = $request->hdnSelectedQuestions;
+      $selQID = explode(",", $selectedQuestionsId);
+      foreach($selQID as $sid){
+        $questions = Question::where('intQuestionId', $sid)
+        ->update(['intGeneralQuestionId' => $genQID]);
+      }
+      echo 2; // success
     }
   }
 
