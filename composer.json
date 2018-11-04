@@ -11,7 +11,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "reliese/laravel": "^0.0.13",
-        "unisharp/laravel-ckeditor": "^4.7"
+        "unisharp/laravel-ckeditor": "^4.7",
+        "yajra/laravel-datatables-oracle": "^8.9"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
