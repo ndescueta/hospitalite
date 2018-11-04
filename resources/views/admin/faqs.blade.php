@@ -58,7 +58,7 @@
 </div>
 @endforeach
 </div> -->
-<table class="table color-table info-table text-center">
+<table class="table color-table info-table text-center" id="tblGeneralQuestion">
   <thead>
     <tr>
       <th></th>
@@ -89,7 +89,7 @@
     <h3 class="mb-3">Categories</h3>
   </div>
   <div class="card-body">
-    <table class="table color-table info-table text-center">
+    <table class="table color-table info-table text-center" id="tblCategory">
       <thead>
         <tr>
           <th>Category</th>
@@ -289,6 +289,10 @@
   </div>
 </div>
 <script type="text/javascript">
+$(function(){
+  $("#tblGeneralQuestion").DataTable()
+  $("#tblCategory").DataTable()
+})
 $(document).on("click", ".btnDeleteQuestion", function(e){
   let questionID = $(this).attr("id")
   // console.log(questionID)

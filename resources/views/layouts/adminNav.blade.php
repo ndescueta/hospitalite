@@ -26,7 +26,7 @@
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="{{asset('/css/all.css')}}">
     <!-- Datatables CSS -->
-    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.css') }}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -99,7 +99,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.dataTables.js')}}"></script>
 
 <body class="skin-megna fixed-layout">
 
