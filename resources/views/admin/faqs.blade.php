@@ -36,8 +36,15 @@
 </div>
 <div class="card mt-3">
   <div class="card-header">
-    <button type="button" name="button" id="btnCreateGenQue" class="btn btn-default float-right" data-toggle="modal" data-target="#mdlCreateGeneralQuestion">Create general question</button>
-    <h3 class="mb-3">General Questions</h3>
+    <div class="row">
+      <div class="col-md-3">
+        <h3 class="mb-3">General Questions</h3>
+      </div>
+      <div class="col-md-9">
+        <button type="button" name="button" class="btn btn-default float-right" data-toggle="modal" data-target="#mdlCategorizeGenQue">Categorize marked question</button>
+        <button type="button" name="button" id="btnCreateGenQue" class="btn btn-default float-right mr-2" data-toggle="modal" data-target="#mdlCreateGeneralQuestion">Create general question</button>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <!-- <div class="row">
@@ -51,8 +58,8 @@
 </div>
 @endforeach
 </div> -->
-<table class="table color-table info-table">
-  <thead class="text-center">
+<table class="table color-table info-table text-center" id="tblGeneralQuestion">
+  <thead>
     <tr>
       <th></th>
       <th>Questions</th>
@@ -62,7 +69,7 @@
   <tbody>
     @foreach ($generalQuestions as $generalQuestion)
     <tr>
-      <td><input type="checkbox" name="{{$generalQuestion->intGeneralQuestionId}}" id="{{$generalQuestion->intGeneralQuestionId}}"></td>
+      <td><input type="checkbox" class="chkGeneralQuestion" name="{{$generalQuestion->intGeneralQuestionId}}" id="{{$generalQuestion->intGeneralQuestionId}}"></td>
       <td><b>Q: </b>{{$generalQuestion->txtGeneralQuestion}}<br><b>A:  </b>{{$generalQuestion->txtAnswer}}</td>
       <td>
         <div class="btn-group">
@@ -76,6 +83,43 @@
 </table>
 </div>
 </div>
+<div class="card">
+  <div class="card-header">
+    <button type="button" class="btn btn-default float-right" id="btnCreateCategory" data-toggle="modal" data-target="#mdlCreateCategory">Create Category</button>
+    <h3 class="mb-3">Categories</h3>
+  </div>
+  <div class="card-body">
+    <table class="table color-table info-table text-center" id="tblCategory">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(count($activecategories) > 0)
+        @foreach($activecategories as $activecategory)
+        <tr>
+          <td>{{ $activecategory->strCategoryName }}</td>
+          <td>{{ $activecategory->stfCategoryStatus }}</td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default" id="{{$activecategory->intCategoryId}}" onclick=" location.href='viewGeneralQuestions/{{$activecategory->intCategoryId}}' "><i class="fas fa-eye"></i>  View</button>
+              <button type="button" class="btn btn-success" id="{{$activecategory->intCategoryId}}" data-toggle="modal" data-target="#mdlEditCategory"><i class="fas fa-edit"></i>  Edit</button>
+            </div>
+          </td>
+        </tr>
+        @endforeach
+        @else
+        <tr class="text-center">
+          <td>No Categories found</td>
+        </tr>
+        @endif
+      </tbody>
+    </table>
+  </div>
+</div>
 <!-- modal declaration -->
 <div class="modal fade" id="mdlGeneralizeQuestions" tabindex="-1" role="dialog" aria-labelledby="modalGeneralizeQuestions" aria-hidden="true">
   <div class="modal-dialog">
@@ -88,7 +132,7 @@
         <h4 class="lblGenQue">General questions</h4>
         <form method="post" name="frmGeneralizeQuestions">
         <input type="hidden" name="hdnSelectedQuestions" id="hdnSelectedQuestions">
-        <select class="form-control" name="selGeneralQuestions" id="selGeneralQuestions">
+        <select class="form-control" name="selGeneralQuestions" id="selGeneralQuestions" required>
           <option selected disabled>Select general question</option>
           @foreach ($generalQuestions as $generalQuestion)
           <option value="{{$generalQuestion->intGeneralQuestionId}}">{{$generalQuestion->txtGeneralQuestion}}</option>
@@ -97,7 +141,7 @@
       </div>
       {{csrf_field()}}
       <div class="modal-footer">
-        <button type="submit" name="btnSubmitGenQue" class="btn btn-info">Submit</button>
+        <button type="submit" name="btnSubmitGenQue" class="btn btn-info" id="btnSubmitGenQue">Submit</button>
       </form>
       </div>
     </div>
@@ -163,7 +207,92 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="mdlCreateCategory" tabindex="-1" role="dialog" aria-labelledby="modalCreateCategory" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <form class="form-material" method="post" name="frmCreateCategory">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Category Name</label>
+          <input type="text" name="txtCategory" class="form-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        {{ csrf_field() }}
+        <button type="submit" class="btn btn-success">Save</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="mdlEditCategory" tabindex="-1" role="dialog" aria-labelledby="modalEditCategory" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <form class="form-material" method="post" name="frmEditCategory">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Category</label>
+          <input type="text" name="txtEditCategory" class="form-control" id="txtEditCategory">
+        </div>
+        <div class="form-group">
+          <label>Category Status</label>
+          <select class="form-control" name="selCategoryStatus" id="selCategoryStatus" required>
+            <option selected disabled>Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+        <input type="hidden" name="hdnCategoryId" id="hdnCategoryId">
+      </div>
+      <div class="modal-footer">
+        {{csrf_field()}}
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="mdlCategorizeGenQue" tabindex="-1" role="dialog" aria-labelledby="modalCategorizeGeneralQuestion" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Categorize general questions</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <form class="form-material" method="post" name="frmCategorizeGenQue">
+      <div class="modal-body">
+        <div class="form-group">
+          <h4 id="lblActiveCategories"></h4>
+          <select class="form-control" name="selAvailableCategories" id="selAvailableCategories" required>
+            <option selected disabled>Select category</option>
+            @foreach($activecategories as $activecategory)
+            <option value="{{$activecategory->intCategoryId}}">{{$activecategory->strCategoryName}}</option>
+            @endforeach
+          </select>
+        </div>
+        <input type="hidden" name="hdnSelectedGenQue" id="hdnSelectedGenQue">
+      </div>
+      <div class="modal-footer">
+        {{ csrf_field() }}
+        <button type="submit" name="btnSubmitCategorization" id="btnSubmitCategorization" class="btn btn-success">Submit</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
+$(function(){
+  $("#tblGeneralQuestion").DataTable()
+  $("#tblCategory").DataTable()
+})
 $(document).on("click", ".btnDeleteQuestion", function(e){
   let questionID = $(this).attr("id")
   // console.log(questionID)
@@ -243,10 +372,12 @@ $(document).on("show.bs.modal", "#mdlGeneralizeQuestions", function(){
   if (!selectedQuestions.length){
     $(".lblGenQue").text("No Selected Questions")
     $("#selGeneralQuestions").hide()
+    $("#btnSubmitGenQue").hide()
   }
   else{
     $(".lblGenQue").text("General questions")
     $("#selGeneralQuestions").show()
+    $("#btnSubmitGenQue").show()
   }
 })
 $(document).on("show.bs.modal", "#mdlEditGeneralQuestion", function(evt){
@@ -276,25 +407,42 @@ $(document).on("show.bs.modal", "#mdlEditGeneralQuestion", function(evt){
 })
 $(document).on("submit", "form[name='frmGeneralizeQuestions']", function(e){
   e.preventDefault()
-  // console.log($(this).serialize())
-  //send form via ajax
-  $.ajax({
-    method: "POST",
-    url: "generalizeQuestion",
-    data: $(this).serialize(),
-    success: function(response){
-      // console.log(response)
-      swal({
-        title: "",
-        text: "Success!",
-        icon: "success",
-        buttons: {text:"Okay"}
-      })
-      .then((willApprove) => {
-        if (willApprove) {
-          location.reload()
+
+  swal({
+    title: "Are you sure?",
+    text: "You are about to generalize this/these questions",
+    icon: "info",
+    buttons: true,
+  })
+  .then((willApprove) => {
+    if (willApprove) {
+      //send form via ajax
+      $.ajax({
+        method: "POST",
+        url: "generalizeQuestion",
+        data: $(this).serialize(),
+        success: function(response){
+          if (response == " 1"){
+            swal("err", "Please select a general question", "error")
+          }
+          else if (response == " 2"){
+            swal({
+              title: "",
+              text: "Success!",
+              icon: "success",
+              buttons: {text:"Okay"}
+            })
+            .then((willApprove) => {
+              if (willApprove) {
+                location.reload()
+              }
+            })
+          }
         }
       })
+    }
+    else {
+      swal("","Cancelled")
     }
   })
 })
@@ -317,6 +465,113 @@ $(document).on("submit", "form[name='frmCreateGeneralQuestion']", function(e){
 })
 $(document).on("hidden.bs.modal", "#mdlCreateGeneralQuestion", function(e){
   $(this).find("textarea").val("")
+})
+$(document).on("submit", "form[name='frmCreateCategory']", function(e){
+  e.preventDefault()
+  // console.log($(this).serialize())
+
+  // send data via ajax
+  $.ajax({
+    method: "POST",
+    url: "storeCategory",
+    data: $(this).serialize(),
+    success: function(response){
+      console.log(response)
+    }
+  })
+})
+$(document).on("show.bs.modal", "#mdlEditCategory", function(e){
+  let categoryID = $(e.relatedTarget).attr("id")
+
+  $.ajax({
+    method: "POST",
+    url: "getCategoryDetails",
+    data: {id: categoryID, _token: "{{csrf_token()}}"},
+    dataType: "json",
+    success: function(response){
+      for (var i = 0; i < response.length; i++) {
+        let category = response[i].strCategoryName
+        let categoryStatus = response[i].stfCategoryStatus
+        console.log(response[i].strCategoryName)
+        $("#hdnCategoryId").val(categoryID)
+        $("#selCategoryStatus").val(categoryStatus)
+        $("#txtEditCategory").val(category)
+      }
+    }
+  })
+})
+$(document).on("submit", "form[name='frmEditCategory']", function(e){
+  e.preventDefault()
+
+  $.ajax({
+    method: "POST",
+    url: "updateCategory",
+    data: $(this).serialize(),
+    success: function(response){
+      console.log(response)
+    }
+  })
+})
+$(document).on("show.bs.modal", "#mdlCategorizeGenQue", function(){
+  let selectedGenQue = []
+  $(".chkGeneralQuestion").each(function(){
+    if ( $(this).is(":checked") ){
+      selectedGenQue.push($(this).attr("id"))
+    }
+  })
+  $("#hdnSelectedGenQue").val(selectedGenQue)
+  console.log( $("#hdnSelectedGenQue").val() )
+  if (!selectedGenQue.length){
+    $("#lblActiveCategories").text("No selected general questions")
+    $("#selAvailableCategories").hide()
+    $("#btnSubmitCategorization").hide()
+  }
+  else {
+    $("#lblActiveCategories").text("Active Categories")
+    $("#selAvailableCategories").show()
+    $("#btnSubmitCategorization").show()
+  }
+})
+$(document).on("submit", "form[name='frmCategorizeGenQue']", function(e){
+  e.preventDefault()
+
+  swal({
+    title: "Are you sure?",
+    text: "You are about to categorize this/these general questions",
+    icon: "info",
+    buttons: true,
+  })
+  .then((willApprove) => {
+    if (willApprove) {
+      $.ajax({
+        method: "POST",
+        url: "categorizeGenQue",
+        data: $(this).serialize(),
+        success: function(response){
+          // console.log(response)
+          if (response == " 1"){
+            swal("err","Please select a category!","info")
+          }
+          else if (response == " 2"){
+            swal({
+              title: "Success!",
+              text: "General Questions are now Categorized",
+              icon: "success",
+              buttons: {text:"Okay"},
+            })
+            .then((willApprove) => {
+              if (willApprove){
+                location.reload()
+              }
+            })
+          }
+        }
+      })
+    }
+    else {
+      swal("","Cancelled")
+    }
+  })
 })
 </script>
 @endsection
