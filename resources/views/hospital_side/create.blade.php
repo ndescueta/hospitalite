@@ -8,11 +8,12 @@
 <button onclick="location.href = '/hosp/seminars'" class = "btn btn-primary"> Go Back </button>
 <div class="card card-body mt-3">
   <h4> Add Participants for: </h4>
-  @foreach ($seminars as $seminar)
   <div class="col-md-12">
     <div class="img-fluid">
       <div class="row">
+        @foreach($seminars as $seminar)
         <div class="col-md-6">
+
           <h5> Event Name: <b>{{$seminar->strEventName}}</b> </h5>
           <h6> Event Date: From <b>{{$seminar->datDateStart}}</b> to <b>{{$seminar->datDateEnd}} </b></h6>
           <h6> Payment Due <b>{{$seminar->datPaymentDue}}</b></h6>
@@ -24,11 +25,11 @@
           <h6>Bank Account: <b>{{$seminar->stfEventBankAccount}}</b></h6>
           <h6>Payment Center: <b>{{$seminar->strEventPaymentCenter}}</b></h6>
         </div>
+        @endforeach
       </div>
     </div>
 
   </div>
-  @endforeach
 </div>
 
 <div id="participants">
@@ -133,23 +134,27 @@ function submitRequest() {
         //inputs[x].previousSibling.previousSibling.style.color = '#462529';
       }
     }
+    //GET EVENT ID
     var intEventId = "{{$seminar->intEventId}}";
-
+    //GET EVENT PRICE
+    var monEventPrice = "{{$seminar->monEventPrice}}";
+    //GET TOTAL NUMBER OF PARTICIPANTS
+    var frmParticipants = document.getElementsByTagName("form");
+    var totalPrice = parseFloat(monEventPrice) * frmParticipants.length;
     //Submit Request
     $.ajax({
         url: "{{ route('hospitalrequestShow.store') }}",
         method: 'post',
-        data: "intEventId="+intEventId+"&_token=" + "{{csrf_token()}}",
+        data: "intEventId="+intEventId+"&_token=" + "{{csrf_token()}}"+"&intRepresentativeId=" + "{{Auth::id()}}" + "&decTotalPaymentDue=" + totalPrice,
         async: false,
         success: function (data) {
           //Submit Participant
           // ajax returns latestRequest
-          var frmParticipants = document.getElementsByTagName("form");
           for (i=0;i<frmParticipants.length;i++) {
               $.ajax({
               url: "/admin/hospitalrequestShow/storeParticipants",
               method: 'post',
-              data: $(frmParticipants[i]).serialize() + "&intRequestId=" + data,
+              data: $(frmParticipants[i]).serialize() + "&intRequestId=" + data ,
               async: false,
               success: function (data) {
                 window.location.href = "/hosp/seminars"

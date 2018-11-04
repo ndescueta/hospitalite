@@ -27,35 +27,50 @@
           <h6>Payment Center: <b>{{$seminar->strEventPaymentCenter}}</b></h6>
         </div>
         <div class="col-md-3">
+        @if (isset($requests))
           @foreach($requests as $request)
           <h6>Request Status: {{$request->stfRequestStatus}}</h6>
           <h6>Date Requested: {{$request->datRequestDate}}</h6>
           <h6>Date Accepted/Rejected: {{$request->datRequestUpdate}}</h6>
           <h6>Reason for Rejection: </h6>
           @endforeach
-        </div>
-        <div class="col-md-3">
+          </div>
+        @endif
+        @if(isset($participantCounts))
+          <div class="col-md-3">
           @foreach($participantCounts as $participantCount)
           <h6>Number of Participants: {{$participantCount->participantCount}}</h6>
           @endforeach
+        @endif
+        @if(isset($totalCosts))
           @foreach($totalCosts as $totalCost)
           <h6>Total Cost: {{$totalCost->totalCost}}</h6>
           @endforeach
+        @endif
+        @if(isset($requests))
           @foreach($requests as $request)
           <h6>Payment Status: {{$request->stfIsPaid}}</h6>
           <h6>Payment Date: {{$request->dtmDatePaid}}</h6>
           @endforeach
+        @endif
         </div>
       </div>
     </div>
 
     <hr class="mr-3">
-    <p>{!!$seminar->strDateDescription!!}</p>
+
+    <p>{!!$seminar->txtEventDescription!!}</p>
   </div>
 
+
+
+    @if($yo != 'Unnotified')
     <div class="float right">
       <a href = "{{route('create', $seminar->intEventId)}}" class = "btn btn-primary"> Add Participants </a>
     </div>
+    @endif
+
+
 
 
   @endforeach
