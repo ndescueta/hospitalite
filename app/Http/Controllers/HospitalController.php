@@ -93,6 +93,8 @@ class HospitalController extends Controller
     ->where('tblevent.intEventId', $intEventId)
     ->get();
 
+
+
     //SUBUKAN KUNG MERONG REQUEST
     try {
       $latestRequest = DB::select('SELECT MAX(datRequestDate) as latestRequest FROM tblrequest WHERE intEventId = ' . $intEventId . ' AND intRepresentativeId = 1');
@@ -103,9 +105,11 @@ class HospitalController extends Controller
       ->where('intRepresentativeId', 1)
       ->where('datRequestDate', $latestRequest[0]->latestRequest)
       ->get();
-  
+
+      $yo = $requests[0]->stfRequestStatus;
+
       $participantCounts = DB::select('SELECT COUNT(intParticipantId) as participantCount FROM tblparticipants WHERE intRequestId = ' . $requests[0]->intRequestId);
-  
+
       $totalCosts = DB::select('SELECT ' . $participantCounts[0]->participantCount*$seminars[0]->monEventPrice . ' as totalCost FROM tblparticipants LIMIT 1');
     }
     //PAG WALA EDI WALA
@@ -113,7 +117,7 @@ class HospitalController extends Controller
       $latestRequest;$requests;$participantCounts;$totalCosts;
     }
 
-    return view('hospital_side.show')->with(compact('seminars', 'requests', 'participantCounts', 'totalCosts'));
+    return view('hospital_side.show')->with(compact('seminars', 'requests', 'participantCounts', 'totalCosts', 'yo'));
   }
 
   public function login(Request $request){

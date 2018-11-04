@@ -58,15 +58,19 @@
     </div>
 
     <hr class="mr-3">
-<<<<<<< HEAD
+
     <p>{!!$seminar->txtEventDescription!!}</p>
-=======
->>>>>>> e73d8c9e45eee8008ab4e2d4d08457e3fca3fa69
   </div>
 
+
+
+    @if($yo != 'Unnotified')
     <div class="float right">
       <a href = "{{route('create', $seminar->intEventId)}}" class = "btn btn-primary"> Add Participants </a>
     </div>
+    @endif
+
+
 
 
   @endforeach
