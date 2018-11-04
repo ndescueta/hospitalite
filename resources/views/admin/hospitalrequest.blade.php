@@ -31,6 +31,9 @@
                                             <a href="/admin/hospitalrequest/{{$event->intEventId}}" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
                                                Show Requests
                                             </a>
+                                            <a href="{{route('participantList', $event->intEventId)}}" class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                                               Show Participant List
+                                            </a>
                                           </div>
                                         </div>
                                       </div>

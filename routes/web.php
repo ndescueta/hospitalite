@@ -99,6 +99,13 @@ Route::group(['middleware' => 'auth:admin'], function()
 
     //NEWS ROUTES
     Route::resource('news', 'NewsController');
+
+
+    //reports
+    Route::get('participantList/{intEventId}', [
+        "uses" => 'RequestsController@participantList',
+        "as" => 'participantList'
+    ]);
 });
 
 //USERS MIDDLEWARE

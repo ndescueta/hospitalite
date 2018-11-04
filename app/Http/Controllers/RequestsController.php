@@ -79,6 +79,21 @@ class RequestsController extends Controller
       return view('admin.hospitalrequestView')->with('participants', $participants);
     }
 
+
+    //report
+    public function participantList($intEventId)
+    {
+      $participants = DB::select('SELECT *
+FROM tblparticipants INNER JOIN tblrequest
+	ON tblparticipants.intRequestId = tblrequest.intRequestId INNER JOIN tblevent
+  ON tblrequest.intEventId = tblevent.intEventId INNER JOIN tblrepresentative
+  ON tblrequest.intRepresentativeId = tblrepresentative.intRepresentativeId INNER JOIN tblhospital
+  ON tblrepresentative.intHospitalId = tblhospital.intHospitalId
+WHERE tblrequest.intEventId = '.$intEventId.' AND tblrequest.stfRequestStatus = "Accepted"
+ORDER BY tblparticipants.strParticipantLastName ASC');
+      return view('admin.participantList')->with('participants', $participants);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
