@@ -58,7 +58,6 @@
     </div>
 
     <hr class="mr-3">
-    <p>{!!$seminar->strDateDescription!!}</p>
   </div>
 
     <div class="float right">

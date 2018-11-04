@@ -50,11 +50,6 @@ Route::group(['middleware' => 'auth:admin'], function()
     /*Route::get('admin/hospitalrequest','RequestsController@index');
     Route::get('admin/hospitalrequestShow/{intEventId}','RequestsController@show');*/
     Route::resource('admin/hospitalrequest','RequestsController');
-    //PARTICIPANTS ROUTE
-    Route::resource('admin/hospitalrequestShow','ParticipantsController');
-    Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2');
-    Route::post('/updateRequest','ParticipantsController@updateRequest');
-    Route::post('/updatePayment','ParticipantsController@updatePayment');
 
     //DIRECTORS ROUTE
     Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
@@ -120,6 +115,12 @@ Route::group(['middleware' => 'auth:users'], function() {
         "uses" => 'HospitalController@create',
         "as" => 'create'
     ]);
+
+        //PARTICIPANTS ROUTE
+        Route::resource('admin/hospitalrequestShow','ParticipantsController');
+        Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2')->name('hospitalrequestShow.storeParticipants');
+        Route::post('/updateRequest','ParticipantsController@updateRequest');
+        Route::post('/updatePayment','ParticipantsController@updatePayment');
 });
 /* HOSPITAL SIDE */
 

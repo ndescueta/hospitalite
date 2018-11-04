@@ -40,8 +40,9 @@ class ParticipantsController extends Controller
     public function store(Request $request)
     {
         //INSERT REQUEST
-        $query = "INSERT INTO tblRequest(intRepresentativeId,intEventId,datRequestDate) VALUES (1,$request->intEventId,'".now()."')";
+        $query = "INSERT INTO tblRequest(intRepresentativeId,intEventId,datRequestDate,decTotalPaymentDue) VALUES ($request->intRepresentativeId,$request->intEventId,'".now()."',$request->decTotalPaymentDue)";
         DB::insert($query,[1]);
+        
         //RETRIEVE LATEST REQUEST
         $latestRequest = DB::select("SELECT MAX(intRequestId) as latestRequest FROM `tblrequest`",[1]);
         $latestRequest = $latestRequest[0]->latestRequest;
@@ -49,8 +50,12 @@ class ParticipantsController extends Controller
     }
 
     public function store2(Request $request) {
+        //GET HOSPITAL ID
+        $intHospitalId = DB::select("SELECT tblhospital.intHospitalId from tblrequest inner join tblrepresentative on tblrequest.intRepresentativeId = tblrepresentative.intRepresentativeId inner join tblhospital on tblrepresentative.intHospitalId = tblhospital.intHospitalId where intRequestId = $request->intRequestId",[1]);
+        $intHospitalId = $intHospitalId[0]->intHospitalId;
+
         //INSERT PARTICIPANT
-        $query = "INSERT INTO tblParticipants(intRequestId,intHospitalId,strParticipantFirstName,strParticipantMiddleName,strParticipantLastName,stfParticipantSex,datParticipantBirthday,txtParticipantEmailAddress,strParticipantContact) VALUES($request->intRequestId,2,'$request->strParticipantFirstName','$request->strParticipantMiddleName','$request->strParticipantLastName','$request->stfParticipantSex','$request->datParticipantBirthday','$request->txtParticipantEmailAddress','$request->strParticipantContact')";
+        $query = "INSERT INTO tblParticipants(intRequestId,intHospitalId,strParticipantFirstName,strParticipantMiddleName,strParticipantLastName,stfParticipantSex,datParticipantBirthday,txtParticipantEmailAddress,strParticipantContact) VALUES($request->intRequestId,$intHospitalId,'$request->strParticipantFirstName','$request->strParticipantMiddleName','$request->strParticipantLastName','$request->stfParticipantSex','$request->datParticipantBirthday','$request->txtParticipantEmailAddress','$request->strParticipantContact')";
         DB::insert($query,[1]);
         return "Success";
     }
