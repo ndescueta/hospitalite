@@ -26,7 +26,7 @@
           <h6>Bank Account: <b>{{$seminar->stfEventBankAccount}}</b></h6>
           <h6>Payment Center: <b>{{$seminar->strEventPaymentCenter}}</b></h6>
         </div>
-        <div class="col-md-3">                        
+        <div class="col-md-3">
         @if (isset($requests))
           @foreach($requests as $request)
           <h6>Request Status: {{$request->stfRequestStatus}}</h6>
@@ -58,7 +58,7 @@
     </div>
 
     <hr class="mr-3">
-    <p>{!!$seminar->strDateDescription!!}</p>
+    <p>{!!$seminar->txtEventDescription!!}</p>
   </div>
 
     <div class="float right">
