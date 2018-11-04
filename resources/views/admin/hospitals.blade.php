@@ -98,7 +98,7 @@
                                         </div>
                                         <div class='form-group col-md-12'>
                                           <label for='hospitalRegCode'> Hospital Registration Code <small>(Required)</small></label>
-                                          <input type='text' class='form-control' name='hospitalRegCode' id='hospitalRegCode' disabled>
+                                          <input type='text' class='form-control' name='hospitalRegCode' id='hospitalRegCode'>
                                         </div>
                                       </div>
                                     </form>
@@ -124,9 +124,26 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- SCRIPTS -->
 <script>
-function generateRegCode() {
-  alert("henlo");
+window.onload = function() {
+  $('#hospitalRegCode').keypress(function(e) {
+    return false
+  });
 }
+
+function generateRegCode() {
+  $('#hospitalRegCode').val(makeid(50));
+}
+
+function makeid(no) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < no; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
 
 function clearForm() {
   $('#hospitalID').val('');
@@ -195,6 +212,7 @@ function editHospital(id) {
     $('#hospitalBarangay').val(result[0].txtHospitalBarangay);
     $('#hospitalCity').val(result[0].txtHospitalCity);
     $('#hospitalZip').val(result[0].intHospitalZip);
+    $('#hospitalRegCode').val(result[0].txtRegisterCode);
   }).fail(function(){
       alert('Something went wrong.');
   });

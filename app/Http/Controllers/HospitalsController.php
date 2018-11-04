@@ -29,14 +29,14 @@ class HospitalsController extends Controller
         $txtHospitalBarangay= $request->hospitalBarangay;
         $txtHospitalCity= $request->hospitalCity;
         $intHospitalZip= $request->hospitalZip;
+        $hospitalRegCode= $request->hospitalRegCode;
 
-        
         //TRANSACT
         DB::beginTransaction();
 
         try {
 
-            DB::insert("INSERT INTO tblhospital (strHospitalName, intDirectorId, txtHospitalStreet, txtHospitalBarangay, txtHospitalCity, intHospitalZip) VALUES ('$strHospitalName', $intDirectorId, '$strHospitalStreet', '$txtHospitalBarangay', '$txtHospitalCity', '$intHospitalZip'); ",[1]);
+            DB::insert("INSERT INTO tblhospital (strHospitalName, intDirectorId, txtHospitalStreet, txtHospitalBarangay, txtHospitalCity, intHospitalZip,txtRegisterCode ) VALUES ('$strHospitalName', $intDirectorId, '$strHospitalStreet', '$txtHospitalBarangay', '$txtHospitalCity', '$intHospitalZip','$hospitalRegCode'); ",[1]);
 
             DB::commit();
             // all good

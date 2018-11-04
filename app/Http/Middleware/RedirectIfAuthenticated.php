@@ -28,7 +28,7 @@ class RedirectIfAuthenticated
             //REDIRECT SA USERS ACCOUNT PAG PUMUNTA SA LOGIN
             default:
                 if (Auth::guard($guard)->check()) {
-                    return redirect('hosp/home');
+                    return redirect('hosp/seminars');
                 }
                 break;
         }

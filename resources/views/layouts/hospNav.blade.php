@@ -84,6 +84,7 @@
 <script src="{{ asset('dist/js/sidebarmenu.js') }}"></script>
 <!--Custom JavaScript -->
 <script src="{{ asset('dist/js/custom.min.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->
@@ -97,7 +98,6 @@
 <script src="{{ asset('assets/node_modules/peity/jquery.peity.min.js') }}"></script>
 <script src="{{ asset('assets/node_modules/peity/jquery.peity.init.js') }}"></script>
 <script src="{{ asset('dist/js/dashboard1.js') }}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
 <!-- Croppie JS -->
 <script src="{{ asset('js/croppie.js') }}"></script>
@@ -181,9 +181,7 @@
                         @endphp  
                         </b></span></a>
                         </li>
-                          <li> <a class="waves-effect waves-dark {{ Request::is('hosp/home') ? 'active' : '' }}" href="{{ url('hosp/home') }}" aria-expanded="false"><i class="ti-home"></i><span class="hide-menu">Home</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('hosp/settings') ? 'active' : '' }}" href="{{ url('hosp/settings') }}" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Account Settings</span></a>
-                          <li> <a class="waves-effect waves-dark {{ Request::is('hosp/services') ? 'active' : '' }}" href="{{ url('hosp/services') }}" aria-expanded="false"><i class="ti-thought"></i><span class="hide-menu">Services</span></a>
                           <li> <a class="waves-effect waves-dark {{ Request::is('hosp/seminars') ? 'active' : '' }}" href="{{ url('hosp/seminars') }}" aria-expanded="false"><i class="ti-agenda"></i><span class="hide-menu">Trainings and &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seminars</span></a>
                     </ul>
                 </nav>

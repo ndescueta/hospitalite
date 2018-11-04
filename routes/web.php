@@ -116,11 +116,11 @@ Route::group(['middleware' => 'auth:users'], function() {
         "as" => 'create'
     ]);
 
-        //PARTICIPANTS ROUTE
-        Route::resource('admin/hospitalrequestShow','ParticipantsController');
-        Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2')->name('hospitalrequestShow.storeParticipants');
-        Route::post('/updateRequest','ParticipantsController@updateRequest');
-        Route::post('/updatePayment','ParticipantsController@updatePayment');
+    //PARTICIPANTS ROUTE
+    Route::resource('admin/hospitalrequestShow','ParticipantsController');
+    Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2')->name('hospitalrequestShow.storeParticipants');
+    Route::post('/updateRequest','ParticipantsController@updateRequest');
+    Route::post('/updatePayment','ParticipantsController@updatePayment');
 });
 /* HOSPITAL SIDE */
 
@@ -138,3 +138,7 @@ Route::get('admin/logout','Auth\AdminLoginController@logout')->name('admin.logou
 Route::get('hosp/login','Auth\LoginController@showLoginForm')->name('hosp.login');
 Route::post('hosp/login','Auth\LoginController@login')->name('hosp.login.submit');;
 Route::get('hosp/logout','Auth\LoginController@logout')->name('hosp.logout');
+
+Route::get('hosp/register','RepresentativeRegisterController@showRegisterForm')->name('hosp.register');
+Route::post('hosp/register','RepresentativeRegisterController@register')->name('hosp.register');
+Route::post('hosp/register/checkRegCode','RepresentativeRegisterController@checkRegCode')->name('hosp.checkRegCode');

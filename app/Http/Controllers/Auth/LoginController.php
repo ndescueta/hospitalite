@@ -37,7 +37,7 @@ class LoginController extends Controller
         $password = $request->password;
 
         if(Auth::guard('users')->attempt(['strRepresentativeUsername' => $username , 'password' => $password])) {
-            return redirect()->intended('/hosp/home');
+            return redirect()->intended('/hosp/seminars');
         }
         else {
             return back()->with('error', 'Wrong Login Details');
