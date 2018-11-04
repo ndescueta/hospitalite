@@ -29,7 +29,8 @@
 	CSS
 	============================================= -->
 	<link rel="stylesheet" href="css/linearicons.css">=
-	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="css/all.css">
 	<link rel="stylesheet" href="css/magnific-popup.css">
 	<link rel="stylesheet" href="css/nice-select.css">
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -493,6 +494,24 @@
 		</div>
 	</div>
 </footer>
+<section>
+	<div class="container-fluid card card-body">
+		<div class="row">
+			<div class="col-md-4 text-center align-self-center">
+				<i class="fas fa-question fa-10x" style="color: black;"></i>
+			</div>
+			<div class="col-md-8">
+				<h1>Frequently Asked Questions</h1>
+				@if(count($generalQuestions) > 0)
+				@foreach($generalQuestions as $generalQuestion)
+				<h3>Q: <small>{{$generalQuestion->txtGeneralQuestion}}</small></h3>
+				<h3>A: <small>{{$generalQuestion->txtAnswer}}</small></h3><br>
+				@endforeach
+				@endif
+			</div>
+		</div>
+	</div>
+</section>
 <!-- End footer Area -->
 
 

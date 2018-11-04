@@ -8,11 +8,12 @@
 <button onclick="location.href = '/hosp/seminars'" class = "btn btn-primary"> Go Back </button>
 <div class="card card-body mt-3">
   <h4> Add Participants for: </h4>
-  @foreach ($seminars as $seminar)
   <div class="col-md-12">
     <div class="img-fluid">
       <div class="row">
+        @foreach($seminars as $seminar)
         <div class="col-md-6">
+
           <h5> Event Name: <b>{{$seminar->strEventName}}</b> </h5>
           <h6> Event Date: From <b>{{$seminar->datDateStart}}</b> to <b>{{$seminar->datDateEnd}} </b></h6>
           <h6> Payment Due <b>{{$seminar->datPaymentDue}}</b></h6>
@@ -24,11 +25,11 @@
           <h6>Bank Account: <b>{{$seminar->stfEventBankAccount}}</b></h6>
           <h6>Payment Center: <b>{{$seminar->strEventPaymentCenter}}</b></h6>
         </div>
+        @endforeach
       </div>
     </div>
 
   </div>
-  @endforeach
 </div>
 
 <div id="participants">

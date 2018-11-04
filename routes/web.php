@@ -49,7 +49,13 @@ Route::group(['middleware' => 'auth:admin'], function()
     //REQUESTS Route
     /*Route::get('admin/hospitalrequest','RequestsController@index');
     Route::get('admin/hospitalrequestShow/{intEventId}','RequestsController@show');*/
+    //PARTICIPANTS ROUTE
     Route::resource('admin/hospitalrequest','RequestsController');
+    Route::resource('admin/hospitalrequestShow','ParticipantsController');
+    Route::post('admin/hospitalrequestShow/storeParticipants','ParticipantsController@store2')->name('hospitalrequestShow.storeParticipants');
+    Route::post('/updateRequest','ParticipantsController@updateRequest');
+    Route::post('/updatePayment','ParticipantsController@updatePayment');
+
 
     //DIRECTORS ROUTE
     Route::get('admin/hospitaldirector','HospitalDirectorsController@index');
@@ -77,6 +83,11 @@ Route::group(['middleware' => 'auth:admin'], function()
     Route::get('admin/viewQuestions/{intGeneralQuestionId}', 'FaqsController@showQuestions');
     Route::post('admin/saveEditedQuestion', 'FaqsController@saveEditedQuestion');
     Route::post('admin/deleteQuestion', 'FaqsController@deleteQuestion');
+    Route::post('admin/storeCategory', 'FaqsController@storeCategory');
+    Route::post('admin/getCategoryDetails', 'FaqsController@getCategoryDetails');
+    Route::post('admin/updateCategory', 'FaqsController@updateCategory');
+    Route::post('admin/categorizeGenQue', 'FaqsController@categorizeGenQue');
+    Route::get('admin/viewGeneralQuestions/{intCategoryId}', 'FaqsController@showGeneralQuestions');
 
     //ADMIN HOMEPAGE VIEW ROUTE
     Route::get('admin/homepageView','HomeContentsController@index');
@@ -93,9 +104,19 @@ Route::group(['middleware' => 'auth:admin'], function()
 
     //NEWS ROUTES
     Route::resource('news', 'NewsController');
+
+    //Admin Account Routes
+    Route::get('adminAccount/edit', 'AdminAccountController@edit');
+    Route::resource('adminAccount', 'AdminAccountController');
+
+    //reports
+    Route::get('participantList/{intEventId}', [
+        "uses" => 'RequestsController@participantList',
+        "as" => 'participantList'
+    ]);
 });
 
-//USERS MIDDLEWARE
+//USERS MIDDLEWARE OR HOSPITAL SIDE
 Route::group(['middleware' => 'auth:users'], function() {
     // Main page route
     Route::get('hosp/home','HospitalController@index');
@@ -122,12 +143,6 @@ Route::group(['middleware' => 'auth:users'], function() {
     Route::post('/updateRequest','ParticipantsController@updateRequest');
     Route::post('/updatePayment','ParticipantsController@updatePayment');
 });
-/* HOSPITAL SIDE */
-
-//Admin Account Routes
-Route::get('adminAccount/edit', 'AdminAccountController@edit');
-Route::resource('adminAccount', 'AdminAccountController');
-
 
 ////////////ADMIN LOGIN ROUTES
 Route::get('admin/login','Auth\AdminLoginController@showLoginForm')->name('admin.login');

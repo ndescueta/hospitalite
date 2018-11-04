@@ -66,7 +66,7 @@ class RequestsController extends Controller
       ->join('tblrepresentative', 'tblrequest.intRepresentativeId', '=', 'tblrepresentative.intRepresentativeId')
       ->select('*')
       ->where('stfRequestStatus', '=', 'Accepted')
-      ->where('stfIsPaid', '=', 'No')
+      ->where('stfIsPaid', '=', 'Not Yet')
       ->where('intEventId', '=', $intEventId)
       ->paginate(10);;
       return view('admin.hospitalrequestShow')->with(compact('events','requests','acceptedRequests'));
@@ -77,6 +77,21 @@ class RequestsController extends Controller
       $participants = Participants::find($intRequestId)->get();
 
       return view('admin.hospitalrequestView')->with('participants', $participants);
+    }
+
+
+    //report
+    public function participantList($intEventId)
+    {
+      $participants = DB::select('SELECT *
+FROM tblparticipants INNER JOIN tblrequest
+	ON tblparticipants.intRequestId = tblrequest.intRequestId INNER JOIN tblevent
+  ON tblrequest.intEventId = tblevent.intEventId INNER JOIN tblrepresentative
+  ON tblrequest.intRepresentativeId = tblrepresentative.intRepresentativeId INNER JOIN tblhospital
+  ON tblrepresentative.intHospitalId = tblhospital.intHospitalId
+WHERE tblrequest.intEventId = '.$intEventId.' AND tblrequest.stfRequestStatus = "Accepted"
+ORDER BY tblparticipants.strParticipantLastName ASC');
+      return view('admin.participantList')->with('participants', $participants);
     }
 
     /**

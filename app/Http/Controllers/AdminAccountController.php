@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Users;
 use DB;
 use Session;
+use Hash;
 
 class AdminAccountController extends Controller
 {
@@ -60,9 +61,8 @@ class AdminAccountController extends Controller
      */
     public function edit()
     {
-        $admin = DB::table('tbluser')
+        $admin = DB::table('tbladmin')
         ->select('*')
-        ->where('intUserId', 1)
         ->get();
 
         return view('adminAccount.edit')->with('admin', $admin);
@@ -75,7 +75,7 @@ class AdminAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $intUserId)
+    public function update(Request $request, $id)
     {
       // $admin = DB::table('tbluser')
       // ->select('*')
@@ -101,19 +101,21 @@ class AdminAccountController extends Controller
         ]);
       }
 
-      $admin = Users::find($intUserId);
+      $admin = Users::all();
 
-      if($request->input("NewAdminPassword") != '' && $request->input("NewAdminPassword") == $request->input("ConfirmNewAdminPassword") && $admin->strUserPassword == $request->input("CurrentAdminPassword"))
+      if($request->input("NewAdminPassword") != '' && $request->input("NewAdminPassword") == $request->input("ConfirmNewAdminPassword") && Hash::check($request->input("CurrentAdminPassword"), $admin[0]->password))
       {
-        $admin->strUserName = $request->input("AdminUsername");
-        $admin->strUserPassword = $request->input('ConfirmNewAdminPassword');
-        $admin->save();
+        $admin[0]->strAdminUsername = $request->input("AdminUsername");
+        $admin[0]->password = Hash::make($request->input('ConfirmNewAdminPassword'));
+        $admin[0]->save();
         return redirect('/adminAccount/edit')->with('success', 'Admin Account Updated');
       }
-      elseif($admin->strUserPassword == $request->input("CurrentAdminPassword"))
+      //elseif($admin[0]->password == $request->input("CurrentAdminPassword"))
+      elseif(Hash::check($request->input("CurrentAdminPassword"), $admin[0]->password))
+
       {
-        $admin->strUserName = $request->input("AdminUsername");
-        $admin->save();
+        $admin[0]->strAdminUsername = $request->input("AdminUsername");
+        $admin[0]->save();
         return redirect('/adminAccount/edit')->with('success', 'Admin Username Updated');
       }
       else

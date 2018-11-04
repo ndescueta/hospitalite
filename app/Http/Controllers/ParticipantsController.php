@@ -42,7 +42,7 @@ class ParticipantsController extends Controller
         //INSERT REQUEST
         $query = "INSERT INTO tblRequest(intRepresentativeId,intEventId,datRequestDate,decTotalPaymentDue) VALUES ($request->intRepresentativeId,$request->intEventId,'".now()."',$request->decTotalPaymentDue)";
         DB::insert($query,[1]);
-        
+
         //RETRIEVE LATEST REQUEST
         $latestRequest = DB::select("SELECT MAX(intRequestId) as latestRequest FROM `tblrequest`",[1]);
         $latestRequest = $latestRequest[0]->latestRequest;
@@ -145,9 +145,11 @@ if($status == 'Accepted'){
     }
 
     public function updatePayment(Request $request){
+      $date = date('Y-m-d H:i:s');
       $requestid = $request->input('requestid');
       $data_request = tblrequest::find($requestid);
       $data_request->stfIsPaid = 'Yes';
+      $data_request->dtmDatePaid = $date;
       $data_request->save();
     }
 

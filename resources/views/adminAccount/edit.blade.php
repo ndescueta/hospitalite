@@ -10,10 +10,10 @@
 <div class="container-fluid">
   <h1> Admin Account Configurations </h1>
   @foreach ($admin as $admins)
-  {!! Form::open(['action' => ['AdminAccountController@update', $admins->intUserId], 'method' => 'PUT']) !!}
+  {!! Form::open(['action' => ['AdminAccountController@update', $admins->id], 'method' => 'PUT']) !!}
   <div class = "form-group">
     {{Form::label('AdminUsername', 'Username')}}
-    {{Form::text('AdminUsername', $admins->strUserName, ['class' => 'form-control', 'placeholder' => 'Username Here'])}}
+    {{Form::text('AdminUsername', $admins->strAdminUsername, ['class' => 'form-control', 'placeholder' => 'Username Here'])}}
   </div>
   <div class = "form-group">
     {{Form::label('NewAdminPassword', 'New Password')}}
