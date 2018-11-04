@@ -32,7 +32,7 @@
           <h6>Request Status: {{$request->stfRequestStatus}}</h6>
           <h6>Date Requested: {{$request->datRequestDate}}</h6>
           <h6>Date Accepted/Rejected: {{$request->datRequestUpdate}}</h6>
-          <h6>Reason for Rejection: </h6>
+          <h6>Reason for Rejection: {{$request->txtReasonForRejection}}</h6>
           @endforeach
           </div>
         @endif
@@ -49,8 +49,8 @@
         @endif
         @if(isset($requests))
           @foreach($requests as $request)
-          <h6>Payment Status: {{$request->stfIsPaid}}</h6>
-          <h6>Payment Date: {{$request->dtmDatePaid}}</h6>
+          <h6>Payment Verified? {{$request->stfIsPaid}}</h6>
+          <h6>Payment Verification Date: {{$request->dtmDatePaid}}</h6>
           @endforeach
         @endif
         </div>

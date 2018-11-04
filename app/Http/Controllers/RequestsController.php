@@ -66,7 +66,7 @@ class RequestsController extends Controller
       ->join('tblrepresentative', 'tblrequest.intRepresentativeId', '=', 'tblrepresentative.intRepresentativeId')
       ->select('*')
       ->where('stfRequestStatus', '=', 'Accepted')
-      ->where('stfIsPaid', '=', 'No')
+      ->where('stfIsPaid', '=', 'Not Yet')
       ->where('intEventId', '=', $intEventId)
       ->paginate(10);;
       return view('admin.hospitalrequestShow')->with(compact('events','requests','acceptedRequests'));

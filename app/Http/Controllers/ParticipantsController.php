@@ -145,9 +145,11 @@ if($status == 'Accepted'){
     }
 
     public function updatePayment(Request $request){
+      $date = date('Y-m-d H:i:s');
       $requestid = $request->input('requestid');
       $data_request = tblrequest::find($requestid);
       $data_request->stfIsPaid = 'Yes';
+      $data_request->dtmDatePaid = $date;
       $data_request->save();
     }
 
