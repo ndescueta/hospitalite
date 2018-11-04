@@ -10,6 +10,7 @@ use App\Service;
 use App\Event;
 use App\HomeContentImage;
 use App\News;
+use App\GeneralQuestion;
 
 class HomeContentsController extends Controller
 {
@@ -71,7 +72,9 @@ class HomeContentsController extends Controller
 
         $HomePageTitle = HomeContent::where('txtTitle', 'Home Page Title')->get();
 
-      return view('welcome')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts','ContactDescriptions','bannerImage','WhoWeAreDesc', 'HomePageTitle', 'whoWeAreImage', 'News'));
+        $generalQuestions = GeneralQuestion::all();
+        
+      return view('welcome')->with(compact('bannerTexts','bannerTextDescriptions','ServiceDescriptions','Services','EventsDescriptions','Events','Contacts','ContactDescriptions','bannerImage','WhoWeAreDesc', 'HomePageTitle', 'whoWeAreImage', 'News','generalQuestions'));
 
     }
 

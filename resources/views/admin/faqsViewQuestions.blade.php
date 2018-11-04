@@ -13,8 +13,8 @@
   @endforeach
   @else
   <div class="text-center">
-    <h3>No questions found under this general question</h3>
-    <i class="fas fa-question fa-10x"></i>
+    <h3 class="mb-5">No questions found under this general question</h3>
+    <i class="fas fa-question fa-10x mb-5"></i>
   </div>
   @endif
 </div>
