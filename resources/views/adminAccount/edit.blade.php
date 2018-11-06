@@ -27,7 +27,7 @@
     {{Form::label('CurrentAdminPassword', 'Current Password')}}
     {{Form::password('CurrentAdminPassword', ['class' => 'form-control awesome', 'placeholder' => 'Current Password Here'])}}
   </div>
-  {{Form::submit('Submit', ['class' => 'btn btn-primary mb-3 float-right'])}}
+  <button class='btn btn-primary mb-3 float-right'>Submit</button>
   {!! Form::close() !!}
   @endforeach
 </div>

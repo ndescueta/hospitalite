@@ -124,6 +124,9 @@ Route::group(['middleware' => 'auth:users'], function() {
     //Hosp Settings
     Route::get('hosp/settings','HospitalSettingsController@index');
     Route::post('hosp/settings/uploadLogo','HospitalSettingsController@uploadLogo')->name('hosp.settings.uploadLogo');
+    Route::post('hosp/settings/editHospital','HospitalSettingsController@editHospital')->name('hosp.settings.editHospital');
+    Route::post('hosp/settings/editDirector','HospitalSettingsController@editDirector')->name('hosp.settings.editDirector');
+    Route::post('hosp/settings/editRepresentative','HospitalSettingsController@editRepresentative')->name('hosp.settings.editRepresentative');
     //
     Route::get('hosp/services','HospitalController@index');
     Route::get('hosp/seminars','HospitalController@seminars');

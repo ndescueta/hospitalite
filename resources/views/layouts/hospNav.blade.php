@@ -172,7 +172,7 @@
                         @endphp" alt="user-img" style="display: block;margin-left: auto;margin-right: auto;width: 100px;" class="img-circle img-fluid"><br><span class="hide-menu">@php
                             $rep = \App\Representative::where('intRepresentativeId',Auth::id())->get();
                             echo $rep[0]->strRepresentativeFirstName . ' '. $rep[0]->strRepresentativeMiddleName . ' ' . $rep[0]->strRepresentativeLastName;
-                        @endphp <b>
+                        @endphp <br> <b>
                         @php
                             $rep = \App\Representative::where('intRepresentativeId',Auth::id())->get();
                             $hospId = $rep[0]->intHospitalId;
